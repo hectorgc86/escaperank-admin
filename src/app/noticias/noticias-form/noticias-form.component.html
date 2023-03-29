@@ -1,1 +1,61 @@
-<p>noticias-form works!</p>
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Nueva Noticia</h4>
+          <p class=“text-muted”>Da de alta noticias relacionadas con tus salas</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <form novalidate>
+    <div class="row">
+      <div class="grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="mb-3">
+              <label for="exampleInputUsername1" class="form-label">Titular</label>
+              <input class="form-control" type="text" placeholder="Titular" ngModel name="titular" #requiredtitular="ngModel" required/>
+              <p class="text-danger mt-1" *ngIf="requiredtitular?.errors?.required">required error</p>
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputUsername1" class="form-label">Fecha</label>
+                <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                        name="dp" ngModel name="fecha" ngbDatepicker #d="ngbDatepicker" #requiredfecha="ngModel" required/>
+                    <button class="input-group-text" type="button" (click)="d.toggle()">
+                      <i class="feather icon-calendar icon-md text-muted"></i>
+                    </button>
+
+                  </div>
+                  <p class="text-danger mt-1" *ngIf="requiredfecha?.errors?.required">required error</p>
+
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Texto Corto</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea2" class="form-label">Texto Largo</label>
+                <textarea class="form-control" id="exampleFormControlTextarea2" rows="5"></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label for="Enlace" class="form-label">Enlace</label>
+                <input class="form-control" type="text" placeholder="Enlace" ngModel name="enlace" />
+              </div>
+
+
+            <div class="mb-6">
+                <label class="form-label">Imagen</label>
+                <div class="dropzone" [dropzone]="config" (error)="onUploadError($event)" (success)="onUploadSuccess($event)"></div>
+                <button class="btn btn-secondary mt-2 d-block ms-auto" (click)="resetDropzoneUploads()">Reset</button>
+            </div>
+         
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </form>
