@@ -53,6 +53,12 @@ export class LoginComponent implements OnInit {
   onLoggedin(e: Event) {
     e.preventDefault();
     localStorage.setItem("isLoggedin", "true");
+    localStorage.setItem("usuarioId", "1");
+    localStorage.setItem(
+      "accessToken",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgwMjE0MTM4LCJleHAiOjE2ODAyMTc3Mzh9.GpwzJDds_GaR9iwsHdZhUhYMkL_4HhDg2EBLoPGEhYE"
+    );
+
     if (localStorage.getItem("isLoggedin")) {
       this.router.navigate([this.returnUrl]);
     }

@@ -12,17 +12,17 @@
                     <div class="auth-form-wrapper px-4 py-5">
                         <a routerLink="." class="nobleui-logo logo-light  d-block mb-2">Escape<span>Rank</span></a>
                         <h5 class="text-muted fw-normal mb-4">El mayor ranking de escaperooms</h5>
-                        <form class="forms-sample">
+                        <form class="forms-sample" (ngSubmit)="login()">
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Dirección de correo
-                                    electrónico</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email"
-                                    value="admin@demo.com">
+                                <label for="exampleInputEmail1" class="form-label">Usuario / email</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" [(ngModel)]="usuario"
+                                    name="usuario" placeholder="Usuario">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Contraseña</label>
                                 <input type="password" class="form-control" id="exampleInputPassword1"
-                                    autocomplete="current-password" placeholder="Password" value="12345678">
+                                    autocomplete="current-password" placeholder="Contraseña" [(ngModel)]="contrasenya"
+                                    name="contrasenya">
                             </div>
                             <div class="form-check mb-3">
                                 <input type="checkbox" class="form-check-input" id="authCheck">
@@ -31,9 +31,9 @@
                                 </label>
                             </div>
                             <div>
-                                <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0"
-                                    (click)="onLoggedin($event)">Entrar</button>
-                                <button type="button" class="btn btn-warning btn-icon-text me-2 mb-2 mb-md-0">
+                                <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0">Entrar</button>
+                                <button type="button" class="btn btn-warning btn-icon-text me-2 mb-2 mb-md-0"
+                                    (click)="onLoggedin($event)">
                                     Entrar (mock)
                                 </button>
                                 <button type="button" class="btn btn-outline-primary btn-icon-text mb-2 mb-md-0">
@@ -42,7 +42,7 @@
                                 </button>
 
                             </div>
-                            <a routerLink="/auth/register" class="d-block mt-3 text-muted">¿No tienes una cuenta?
+                            <a routerLink="/auth/registro" class="d-block mt-3 text-muted">¿No tienes una cuenta?
                                 Regístrate</a>
                         </form>
                     </div>
