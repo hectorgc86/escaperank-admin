@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseUrl: "http://localhost:3002/escaperank/v2",
+  storageUrl: "http://132.145.65.153/escaperankstorage/img",
 };
 
 /*
