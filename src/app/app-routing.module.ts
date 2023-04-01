@@ -3,6 +3,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { BaseComponent } from "./views/layout/base/base.component";
 import { AuthGuard } from "./core/guard/auth.guard";
 import { ErrorPageComponent } from "./views/pages/error-page/error-page.component";
+import { LoginActivateGuard } from "./auth/guards/login-activate.guard";
 
 const routes: Routes = [
   {
@@ -25,6 +26,7 @@ const routes: Routes = [
         path: "noticias",
         loadChildren: () =>
           import("./noticias/noticias.module").then((m) => m.NoticiasModule),
+        canActivate: [LoginActivateGuard],
       },
       {
         path: "salas",

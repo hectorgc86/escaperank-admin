@@ -6,19 +6,52 @@ export const MENU: MenuItem[] = [
     isTitle: true,
   },
   {
+    label: "Autenticación",
+    icon: "unlock",
+    subItems: [
+      {
+        label: "Login",
+        link: "/auth/login",
+      },
+      {
+        label: "Registro",
+        link: "/auth/registro",
+      },
+    ],
+  },
+  {
     label: "Estadísticas",
     icon: "pie-chart",
-    link: "/estadisticas",
+    subItems: [
+      {
+        label: "Dashboard",
+        link: "/estadisticas",
+      },
+    ],
   },
   {
     label: "Noticias",
     icon: "message-square",
-    link: "/noticias",
+    subItems: [
+      {
+        label: "Muro",
+        link: "/noticias",
+      },
+    ],
   },
   {
     label: "Salas",
     icon: "film",
-    link: "/salas",
+    subItems: [
+      {
+        label: "Explorar",
+        link: "/salas/explorar",
+      },
+      {
+        label: "Buscar",
+        link: "/salas",
+      },
+    ],
   },
   {
     label: "Web Apps",
@@ -312,20 +345,6 @@ export const MENU: MenuItem[] = [
       {
         label: "Timeline",
         link: "/general/timeline",
-      },
-    ],
-  },
-  {
-    label: "Authentication",
-    icon: "unlock",
-    subItems: [
-      {
-        label: "Login",
-        link: "/auth/login",
-      },
-      {
-        label: "Register",
-        link: "/auth/registro",
       },
     ],
   },
