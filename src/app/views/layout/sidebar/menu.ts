@@ -54,6 +54,20 @@ export const MENU: MenuItem[] = [
     ],
   },
   {
+    label: "Usuarios",
+    icon: "user",
+    subItems: [
+      {
+        label: "Perfil",
+        link: "/usuarios/:id",
+      },
+      {
+        label: "Amigos",
+        link: "/usuarios/:id/amigos",
+      },
+    ],
+  },
+  {
     label: "Web Apps",
     isTitle: true,
   },

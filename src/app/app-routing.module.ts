@@ -41,6 +41,11 @@ const routes: Routes = [
           ),
       },
       {
+        path: "usuarios",
+        loadChildren: () =>
+          import("./usuarios/usuarios.module").then((m) => m.UsuariosModule),
+      },
+      {
         path: "apps",
         loadChildren: () =>
           import("./views/pages/apps/apps.module").then((m) => m.AppsModule),

@@ -4,9 +4,24 @@ import { CommonModule } from "@angular/common";
 import { UsuariosDetailComponent } from "./usuarios-detail/usuarios-detail.component";
 import { UsuariosFormComponent } from "./usuarios-form/usuarios-form.component";
 import { UsuariosRoutingModule } from "./usuarios-routing.module";
+import {
+  NgbAccordionModule,
+  NgbDropdownModule,
+  NgbTooltipModule,
+} from "@ng-bootstrap/ng-bootstrap";
+import { FeatherIconModule } from "../core/feather-icon/feather-icon.module";
+import { UsuariosListComponent } from './usuarios-list/usuarios-list.component';
+import { UsuariosCardComponent } from './usuarios-card/usuarios-card.component';
 
 @NgModule({
-  declarations: [UsuariosDetailComponent, UsuariosFormComponent],
-  imports: [CommonModule, UsuariosRoutingModule],
+  declarations: [UsuariosDetailComponent, UsuariosFormComponent, UsuariosListComponent, UsuariosCardComponent],
+  imports: [
+    CommonModule,
+    UsuariosRoutingModule,
+    FeatherIconModule,
+    NgbAccordionModule,
+    NgbDropdownModule,
+    NgbTooltipModule,
+  ],
 })
 export class UsuariosModule {}

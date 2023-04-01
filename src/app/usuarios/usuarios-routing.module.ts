@@ -4,18 +4,11 @@ import { LoginActivateGuard } from "../auth/guards/login-activate.guard";
 import { UsuarioResolver } from "./resolvers/usuario.resolver";
 import { UsuariosDetailComponent } from "./usuarios-detail/usuarios-detail.component";
 import { UsuariosFormComponent } from "./usuarios-form/usuarios-form.component";
+import { UsuariosListComponent } from "./usuarios-list/usuarios-list.component";
 
 const routes: Routes = [
   {
-    path: "perfil",
-    component: UsuariosDetailComponent,
-    canActivate: [LoginActivateGuard],
-    resolve: {
-      usuario: UsuarioResolver,
-    },
-  },
-  {
-    path: "edit",
+    path: "editar",
     component: UsuariosFormComponent,
     canActivate: [LoginActivateGuard],
     resolve: {
@@ -25,6 +18,14 @@ const routes: Routes = [
   {
     path: ":id",
     component: UsuariosDetailComponent,
+    canActivate: [LoginActivateGuard],
+    resolve: {
+      usuario: UsuarioResolver,
+    },
+  },
+  {
+    path: ":id/amigos",
+    component: UsuariosListComponent,
     canActivate: [LoginActivateGuard],
     resolve: {
       usuario: UsuarioResolver,
