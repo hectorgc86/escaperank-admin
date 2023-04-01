@@ -1,23 +1,30 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
-import { Perfil } from '../interfaces/perfil.interface';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable, map } from "rxjs";
+import { Perfil } from "../interfaces/perfil.interface";
+import { Usuario } from "../interfaces/usuario.interface";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class UsuariosService {
   private usuariosURL: string;
   private perfilesURL: string;
 
   constructor(private readonly http: HttpClient) {
-    this.usuariosURL = 'usuarios';
-    this.perfilesURL = 'perfiles';
+    this.usuariosURL = "usuarios";
+    this.perfilesURL = "perfiles";
   }
 
   getPerfil(id?: number): Observable<Perfil> {
     return this.http
       .get<Perfil>(`${this.perfilesURL}/${id}`)
+      .pipe(map((response) => response));
+  }
+
+  getAmigosUsuario(id?: number): Observable<Usuario[]> {
+    return this.http
+      .get<Usuario[]>(`${this.usuariosURL}/${id}/amigos`)
       .pipe(map((response) => response));
   }
 
