@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
     localStorage.setItem("usuarioId", "1");
     localStorage.setItem(
       "tokenAcceso",
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgwMzQ2MDk1fQ.mCUIH25oHx4lDSl0MXfuS7i1QbO9bCGyf7LdD__qQgA"
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgwNDI3NTk4fQ.UIJcunw14rFJ-YirLoIQbN7FEm5k1I_4DmLScYjFTU4"
     );
 
     if (localStorage.getItem("isLoggedin")) {
