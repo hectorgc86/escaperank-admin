@@ -4,70 +4,41 @@ import { SalasFormComponent } from "./salas-form/salas-form.component";
 import { SalasCardComponent } from "./salas-card/salas-card.component";
 import { SalasDetailsComponent } from "./salas-details/salas-details.component";
 import { SalasListComponent } from "./salas-list/salas-list.component";
-import { RouterModule, Routes } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CustomFormsModule } from "ngx-custom-validators";
 import { NgbDatepickerModule } from "@ng-bootstrap/ng-bootstrap";
 import { DropzoneModule } from "ngx-dropzone-wrapper";
-import { DROPZONE_CONFIG } from "ngx-dropzone-wrapper";
-import { DropzoneConfigInterface } from "ngx-dropzone-wrapper";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { CategoriaCardComponent } from "./categoria-card/categoria-card.component";
 import { TematicaCardComponent } from "./tematica-card/tematica-card.component";
 import { PublicoCardComponent } from "./publico-card/publico-card.component";
 import { DificultadCardComponent } from "./dificultad-card/dificultad-card.component";
-const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
-  // Change this to your upload POST address:
-  url: "https://httpbin.org/post",
-  maxFilesize: 50,
-  acceptedFiles: "image/*",
-};
-const routes: Routes = [
-  {
-    path: "",
-    component: SalasListComponent,
-  },
-  {
-    path: "nueva",
-    component: SalasFormComponent,
-  },
-  {
-    path: ":id",
-    component: SalasDetailsComponent,
-  },
-  {
-    path: ":id/edit",
-    component: SalasFormComponent,
-  },
-];
+import { SalasRoutingModule } from "./salas-routing.module";
+import { SalasExploreComponent } from "./salas-explore/salas-explore.component";
+import { CarouselModule } from "ngx-owl-carousel-o";
 
 @NgModule({
   declarations: [
     SalasFormComponent,
+    SalasDetailsComponent,
+    SalasListComponent,
     SalasCardComponent,
+    SalasExploreComponent,
     CategoriaCardComponent,
     TematicaCardComponent,
     PublicoCardComponent,
     DificultadCardComponent,
-    SalasDetailsComponent,
-    SalasListComponent,
   ],
   imports: [
-    RouterModule.forChild(routes),
     CommonModule,
+    SalasRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     CustomFormsModule,
     NgbDatepickerModule,
     DropzoneModule,
-    NgSelectModule, // Ng-select
-  ],
-  exports: [RouterModule],
-  providers: [
-    {
-      provide: DROPZONE_CONFIG,
-      useValue: DEFAULT_DROPZONE_CONFIG,
-    }, // Ngx-dropzone-wrapper
+    NgSelectModule,
+    CarouselModule,
   ],
 })
 export class SalasModule {}
