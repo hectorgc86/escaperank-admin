@@ -1,5 +1,4 @@
-import { Request } from 'express';
-import { JwtPayload } from 'jsonwebtoken';
+import { JwtPayload } from "jsonwebtoken";
 
 export interface Login {
   usuarioId?: string | null;
@@ -8,7 +7,7 @@ export interface Login {
   tokenAcceso?: string | null;
 }
 
-export interface LoginRequest extends Request {
+export interface LoginRequest {
   usuario?: string | null | JwtPayload;
   contrasenya?: string | null;
   token?: string | null;
