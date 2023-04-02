@@ -45,11 +45,11 @@ export const MENU: MenuItem[] = [
     subItems: [
       {
         label: "Explorar",
-        link: "/salas/explorar",
+        link: "/salas",
       },
       {
         label: "Buscar",
-        link: "/salas",
+        link: "/salas/buscar",
       },
     ],
   },

@@ -9,20 +9,36 @@ import { PublicoService } from "../services/publico.service";
 import { SalasService } from "../services/salas.service";
 import { TematicasService } from "../services/tematicas.service";
 import { Dificultad } from "../interfaces/dificultad.interface";
+import { OwlOptions } from "ngx-owl-carousel-o";
+import { environment } from "src/environments/environment";
 
 @Component({
   selector: "app-salas-explore",
   templateUrl: "./salas-explore.component.html",
-  styleUrls: ["./salas-explore.component.css"],
+  styleUrls: ["./salas-explore.component.scss"],
 })
 export class SalasExploreComponent implements OnInit {
-  @Output() sala!: Sala;
-
   salas: Sala[];
   categorias: Categoria[];
   tematicas: Tematica[];
   publicos: Publico[];
   dificultades: Dificultad[];
+
+  basicExampleOptions: OwlOptions = {
+    margin: 10,
+    nav: false,
+    responsive: {
+      0: {
+        items: 2,
+      },
+      600: {
+        items: 3,
+      },
+      1000: {
+        items: 4,
+      },
+    },
+  };
 
   constructor(
     private salasService: SalasService,
@@ -54,5 +70,18 @@ export class SalasExploreComponent implements OnInit {
     this.dificultadesService
       .getDificultades()
       .subscribe((dificultades) => (this.dificultades = dificultades));
+  }
+
+  getImagenSala(sala: Sala) {
+    let sufijo = "";
+    let urlSala = `${environment.storageUrl}`;
+
+    if (sala.imagenEstrecha !== null) {
+      sufijo = "/salas/estrechas/";
+      urlSala += sufijo + sala.imagenEstrecha;
+    } else {
+      urlSala += "/default.png";
+    }
+    return urlSala;
   }
 }

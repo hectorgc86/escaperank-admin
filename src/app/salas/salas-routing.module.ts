@@ -21,7 +21,7 @@ const routes: Routes = [
     component: SalasFormComponent,
     canActivate: [LoginActivateGuard],
     resolve: {
-      user: SalaResolver,
+      sala: SalaResolver,
     },
   },
   {
@@ -29,7 +29,7 @@ const routes: Routes = [
     component: SalasDetailsComponent,
     canActivate: [LoginActivateGuard],
     resolve: {
-      user: SalaResolver,
+      sala: SalaResolver,
     },
   },
 ];
