@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import Swal from "sweetalert2";
 import { AuthService } from "../services/auth.service";
+import { LoginRequest } from "../interfaces/login.interface";
 
 @Component({
   selector: "app-login",
@@ -25,7 +26,11 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService.login(this.usuario, this.contrasenya).subscribe({
+    const loginRequest: LoginRequest = {
+      usuario: this.usuario,
+      contrasenya: this.contrasenya,
+    };
+    this.authService.login(loginRequest).subscribe({
       next: () => this.router.navigate(["/noticias"]),
       error: (e) =>
         Swal.fire({
@@ -55,7 +60,7 @@ export class LoginComponent implements OnInit {
     localStorage.setItem("isLoggedin", "true");
     localStorage.setItem("usuarioId", "1");
     localStorage.setItem(
-      "accessToken",
+      "tokenAcceso",
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjgwMzQ2MDk1fQ.mCUIH25oHx4lDSl0MXfuS7i1QbO9bCGyf7LdD__qQgA"
     );
 
