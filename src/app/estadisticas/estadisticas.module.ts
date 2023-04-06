@@ -9,6 +9,7 @@ import { NgbDropdownModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstr
 
 // Ng-ApexCharts
 import { NgApexchartsModule } from "ng-apexcharts";
+import { EstadisticasCardComponent } from './estadisticas-card/estadisticas-card.component';
 
 const routes: Routes = [
   {
@@ -19,7 +20,8 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    EstadisticasMainComponent
+    EstadisticasMainComponent,
+    EstadisticasCardComponent
   ],
   imports: [
     CommonModule,

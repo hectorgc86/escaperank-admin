@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { Estadisticas, NumPartidas, PartidasMes } from '../interfaces/estadisticas.interface';
+import { EstadisticasService } from '../services/estadisticas.service';
 
 @Component({
   selector: 'app-estadisticas-main',
@@ -38,13 +41,26 @@ export class EstadisticasMainComponent implements OnInit {
    * NgbDatepicker
    */
   currentDate: NgbDateStruct;
+  estadisticas: Estadisticas;
+  numPartidas: NumPartidas[];
+  partidasMes:PartidasMes[];
+  constructor(private calendar: NgbCalendar, private router: Router,
+    private estadisticasService: EstadisticasService) {
 
-  constructor(private calendar: NgbCalendar) {}
+    }
   ngOnInit(): void {
+    this.estadisticasService
+    .getEstadisticasCompanyia('Blbk64oO1532318930.6759')
+    .subscribe((estadisticas) => {
+      this.estadisticas = estadisticas; 
+       console.log(this.estadisticas);
+       this.partidasMes = estadisticas.partidasMes;
+      this.numPartidas = actualizarNumPartidas(estadisticas.numPartidas,estadisticas.partidasMes)
+      });
 
+  
     this.currentDate = this.calendar.getToday();
 
-    this.customersChartOptions = getCustomerseChartOptions(this.obj);
     this.ordersChartOptions = getOrdersChartOptions(this.obj);
     this.growthChartOptions = getGrowthChartOptions(this.obj);
     this.revenueChartOptions = getRevenueChartOptions(this.obj);
@@ -107,6 +123,23 @@ function getCustomerseChartOptions(obj: any) {
 };
 
 
+
+
+function actualizarNumPartidas(numPartidas: NumPartidas[], partidasMes: PartidasMes[]): NumPartidas[] {
+  const numPartidasActualizado = [...numPartidas];
+  
+  for (const partidaMes of partidasMes) {
+    const index = numPartidasActualizado.findIndex((numPartida) => numPartida.nombre === partidaMes.nombre_sala);
+    if (index !== -1) {
+      if ( numPartidasActualizado[index].partidasMes==undefined){
+        numPartidasActualizado[index].partidasMes=[];
+      }
+      numPartidasActualizado[index].partidasMes.push(partidaMes);
+    }
+  }
+
+  return numPartidasActualizado;
+}
 
 /**
  * Orders chart options
