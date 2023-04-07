@@ -1,5 +1,5 @@
 {
-  "name": "escaperank",
+  "name": "nobleui-angular",
   "version": "2.1.0",
   "scripts": {
     "ng": "ng",
@@ -9,7 +9,7 @@
     "test": "ng test",
     "rtl": "webpack --config webpack-rtl.config.js",
     "heroku": "git push origin master",
-    "deploy": "git add . && git commit -m 'Despliegue en Heroku' && git push origin master"
+    "deploy": "git add . && git commit -m 'Despliegue en Heroku' && git push heroku master"
   },
   "private": true,
   "dependencies": {
