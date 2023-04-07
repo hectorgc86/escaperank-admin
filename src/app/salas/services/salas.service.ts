@@ -1,16 +1,16 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { Sala } from '../interfaces/sala.interface';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { map, Observable } from "rxjs";
+import { Sala } from "../interfaces/sala.interface";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class SalasService {
   private salasURL: string;
 
   constructor(private readonly http: HttpClient) {
-    this.salasURL = 'salas';
+    this.salasURL = "salas";
   }
 
   getSalas(): Observable<Sala[]> {
@@ -25,7 +25,7 @@ export class SalasService {
       .pipe(map((response) => response));
   }
 
-  getSala(id: number): Observable<Sala> {
+  getSala(id: string): Observable<Sala> {
     return this.http
       .get<Sala>(`${this.salasURL}/${id}`)
       .pipe(map((response) => response));

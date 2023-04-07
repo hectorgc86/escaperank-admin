@@ -8,9 +8,11 @@
         <div class="card-body">
             <owl-carousel-o [options]="basicExampleOptions">
                 <ng-template carouselSlide *ngFor="let sala of salas">
-                    <img [src]="getImagenSala(sala)" [alt]="sala.nombre" [title]="sala.nombre">
-                    <h6 class="mt-2">{{sala.nombre}}</h6>
-                    <p class="mt-1 text-primary">{{sala.companyia?.ciudad?.nombre}}</p>
+                    <a [routerLink]="['/salas', sala.id]">
+                        <img [src]="getImagenSala(sala)" [alt]="sala.nombre" [title]="sala.nombre">
+                        <h6 class="mt-2">{{sala.nombre}}</h6>
+                        <p class="mt-1 text-primary">{{sala.companyia?.ciudad?.nombre}}</p>
+                    </a>
                 </ng-template>
             </owl-carousel-o>
         </div>
