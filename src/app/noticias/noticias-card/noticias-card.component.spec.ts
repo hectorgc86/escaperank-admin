@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
-
-import NoticiasCardComponent from "./noticias-card.component";
+import { NoticiasCardComponent } from "./noticias-card.component";
 
 describe("NoticiasCardComponent", () => {
   let component: NoticiasCardComponent;
