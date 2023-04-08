@@ -1,8 +1,8 @@
 export interface Estadisticas {
   numPartidas: NumPartidas[];
   partidasMes: PartidasMes[];
-  tiempos?: Tiempos[] ;
-  rankings?: Ranking[] ;
+  tiempos: Tiempos[] ;
+  rankings: Ranking[] ;
 }
 export interface Ranking {
   sala: string;

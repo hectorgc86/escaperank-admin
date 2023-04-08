@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
-import { Estadisticas, NumPartidas, PartidasMes } from '../interfaces/estadisticas.interface';
+import { Estadisticas, NumPartidas, PartidasMes, Ranking, Tiempos } from '../interfaces/estadisticas.interface';
 import { EstadisticasService } from '../services/estadisticas.service';
 
 @Component({
@@ -43,6 +43,8 @@ export class EstadisticasMainComponent implements OnInit {
   currentDate: NgbDateStruct;
   estadisticas: Estadisticas;
   numPartidas: NumPartidas[];
+  tiempos: Tiempos[];
+  rankings: Ranking[];
   partidasMes:PartidasMes[];
   constructor(private calendar: NgbCalendar, private router: Router,
     private estadisticasService: EstadisticasService) {
@@ -55,6 +57,8 @@ export class EstadisticasMainComponent implements OnInit {
       this.estadisticas = estadisticas; 
        console.log(this.estadisticas);
        this.partidasMes = estadisticas.partidasMes;
+       this.tiempos = estadisticas.tiempos;
+       this.rankings=estadisticas.rankings;
       this.numPartidas = actualizarNumPartidas(estadisticas.numPartidas,estadisticas.partidasMes)
       });
 
