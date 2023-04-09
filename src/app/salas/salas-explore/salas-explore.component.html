@@ -9,8 +9,9 @@
             <owl-carousel-o [options]="basicExampleOptions">
                 <ng-template carouselSlide *ngFor="let sala of salas">
                     <a [routerLink]="['/salas', sala.id]">
-                        <img [src]="getImagenSala(sala)" [alt]="sala.nombre" [title]="sala.nombre">
-                        <h6 class="mt-2">{{sala.nombre}}</h6>
+                        <img [src]="imageUtils.getImagenSala(sala,'estrechas')" [alt]="sala.nombre"
+                            [title]="sala.nombre">
+                        <h5 class="mt-2">{{sala.nombre}}</h5>
                         <p class="mt-1 text-primary">{{sala.companyia?.ciudad?.nombre}}</p>
                     </a>
                 </ng-template>

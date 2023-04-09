@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output } from "@angular/core";
 import { Sala } from "../interfaces/salas_categorias.interface";
 import { environment } from "src/environments/environment";
+import { ImageUtils } from "src/app/utils/image-utils";
 
 @Component({
   selector: "app-salas-card",
@@ -9,22 +10,9 @@ import { environment } from "src/environments/environment";
 })
 export class SalasCardComponent implements OnInit {
   @Input() sala!: Sala;
-  @Output() urlSala: string;
+  imageUtils = ImageUtils;
 
   constructor() {}
 
   ngOnInit(): void {}
-
-  getImagenSala() {
-    let sufijo = "";
-    let urlSala = `${environment.storageUrl}`;
-
-    if (this.sala.imagenAncha !== null) {
-      sufijo = "/salas/";
-      urlSala += sufijo + this.sala.imagenAncha;
-    } else {
-      urlSala += "/default.png";
-    }
-    this.urlSala = urlSala;
-  }
 }

@@ -11,6 +11,7 @@ import { DropzoneModule } from "ngx-dropzone-wrapper";
 import { DROPZONE_CONFIG } from "ngx-dropzone-wrapper";
 import { DropzoneConfigInterface } from "ngx-dropzone-wrapper";
 import { NoticiasCardComponent } from "./noticias-card/noticias-card.component";
+import { ImagekitioAngularModule } from "imagekitio-angular";
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
   url: "https://httpbin.org/post",

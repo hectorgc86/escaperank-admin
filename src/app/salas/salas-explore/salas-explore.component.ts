@@ -11,6 +11,7 @@ import { TematicasService } from "../services/tematicas.service";
 import { Dificultad } from "../interfaces/dificultad.interface";
 import { OwlOptions } from "ngx-owl-carousel-o";
 import { environment } from "src/environments/environment";
+import { ImageUtils } from "src/app/utils/image-utils";
 
 @Component({
   selector: "app-salas-explore",
@@ -23,6 +24,7 @@ export class SalasExploreComponent implements OnInit {
   tematicas: Tematica[];
   publicos: Publico[];
   dificultades: Dificultad[];
+  imageUtils = ImageUtils;
 
   basicExampleOptions: OwlOptions = {
     margin: 10,
@@ -70,18 +72,5 @@ export class SalasExploreComponent implements OnInit {
     this.dificultadesService
       .getDificultades()
       .subscribe((dificultades) => (this.dificultades = dificultades));
-  }
-
-  getImagenSala(sala: Sala) {
-    let sufijo = "";
-    let urlSala = `${environment.storageUrl}`;
-
-    if (sala.imagenEstrecha !== null) {
-      sufijo = "/salas/estrechas/";
-      urlSala += sufijo + sala.imagenEstrecha;
-    } else {
-      urlSala += "/default.png";
-    }
-    return urlSala;
   }
 }

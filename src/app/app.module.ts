@@ -37,7 +37,7 @@ import { AuthGuard } from "./core/guard/auth.guard";
       multi: true,
     },
     {
-      provide: HIGHLIGHT_OPTIONS, // https://www.npmjs.com/package/ngx-highlightjs
+      provide: HIGHLIGHT_OPTIONS,
       useValue: {
         coreLibraryLoader: () => import("highlight.js/lib/core"),
         languages: {

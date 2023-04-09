@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { Noticia } from "../interfaces/noticia.interface";
-import { environment } from "src/environments/environment";
+import { ImageUtils } from "src/app/utils/image-utils";
 
 @Component({
   selector: "app-noticias-card",
@@ -9,19 +9,7 @@ import { environment } from "src/environments/environment";
 })
 export class NoticiasCardComponent {
   @Input() noticia!: Noticia;
+  imageUtils = ImageUtils;
 
   constructor() {}
-
-  getImagenNoticia(): string {
-    let sufijo = "";
-    let urlNoticia = `${environment.storageUrl}`;
-
-    if (this.noticia.imagen !== null) {
-      sufijo = this.noticia.promocionada ? "/companyias/" : "/partidas/";
-      urlNoticia += sufijo + this.noticia.imagen;
-    } else {
-      urlNoticia += "/default.png";
-    }
-    return urlNoticia;
-  }
 }
