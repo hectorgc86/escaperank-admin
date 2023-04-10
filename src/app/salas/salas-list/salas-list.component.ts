@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Sala } from "../interfaces/salas_categorias.interface";
 import { SalasService } from "../services/salas.service";
+import { ImageUtils } from "../../utils/image-utils";
 
 @Component({
   selector: "app-salas-list",
@@ -16,6 +17,7 @@ export class SalasListComponent implements OnInit {
   tipo: string;
   offset: number;
   limit: number;
+  imageUtils = ImageUtils;
 
   constructor(
     private route: ActivatedRoute,
