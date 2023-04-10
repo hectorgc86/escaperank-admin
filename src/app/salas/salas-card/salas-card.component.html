@@ -1,0 +1,17 @@
+<td>
+    <img [src]="imageUtils.getImagenSala(sala,'estrechas')" [alt]="sala.nombre" [title]="sala.nombre"
+        style="width: 30px;">
+</td>
+<td>{{ sala.nombre }}</td>
+<td>{{ sala.companyia?.nombre }}</td>
+<td>{{ sala.companyia?.ciudad }}</td>
+<td>
+    <div class="d-flex flex-row  mb-3">
+        <div><button type="button" class="btn">
+                <i class="material-icons text-warning">Editar</i>
+            </button></div>
+        <div><button type="button" class="btn">
+                <i class="material-icons text-danger">Borrar</i>
+            </button></div>
+    </div>
+</td>

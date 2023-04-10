@@ -9,10 +9,6 @@ import { CustomFormsModule } from "ngx-custom-validators";
 import { NgbDatepickerModule } from "@ng-bootstrap/ng-bootstrap";
 import { DropzoneModule } from "ngx-dropzone-wrapper";
 import { NgSelectModule } from "@ng-select/ng-select";
-import { CategoriaCardComponent } from "./categoria-card/categoria-card.component";
-import { TematicaCardComponent } from "./tematica-card/tematica-card.component";
-import { PublicoCardComponent } from "./publico-card/publico-card.component";
-import { DificultadCardComponent } from "./dificultad-card/dificultad-card.component";
 import { SalasRoutingModule } from "./salas-routing.module";
 import { SalasExploreComponent } from "./salas-explore/salas-explore.component";
 import { CarouselModule } from "ngx-owl-carousel-o";
@@ -24,10 +20,6 @@ import { CarouselModule } from "ngx-owl-carousel-o";
     SalasListComponent,
     SalasCardComponent,
     SalasExploreComponent,
-    CategoriaCardComponent,
-    TematicaCardComponent,
-    PublicoCardComponent,
-    DificultadCardComponent,
   ],
   imports: [
     CommonModule,

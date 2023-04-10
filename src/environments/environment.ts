@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: "https://escaperankapi.herokuapp.com/escaperank/v2",
+  baseUrl: "http://localhost:3002/escaperank/v2",
   storageUrl: "https://ik.imagekit.io/escaperankstorage/img",
 };
 

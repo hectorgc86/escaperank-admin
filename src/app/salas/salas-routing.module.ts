@@ -27,7 +27,6 @@ const routes: Routes = [
   {
     path: ":id",
     component: SalasDetailsComponent,
-    canActivate: [LoginActivateGuard],
     resolve: {
       sala: SalaResolver,
     },
