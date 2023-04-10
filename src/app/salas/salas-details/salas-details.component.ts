@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { SalasService } from "../services/salas.service";
 import { Sala } from "../interfaces/salas_categorias.interface";
+import { ImageUtils } from "src/app/utils/image-utils";
 
 @Component({
   selector: "app-salas-details",
@@ -10,14 +10,11 @@ import { Sala } from "../interfaces/salas_categorias.interface";
 })
 export class SalasDetailsComponent implements OnInit {
   sala: Sala;
+  imageUtils = ImageUtils;
 
-  constructor(
-    private route: ActivatedRoute,
-    private salasService: SalasService
-  ) {}
+  constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    const salaId = this.route.snapshot.paramMap.get("id") as string;
-    this.salasService.getSala(salaId).subscribe((sala) => (this.sala = sala));
+    this.sala = this.route.snapshot.data["sala"];
   }
 }

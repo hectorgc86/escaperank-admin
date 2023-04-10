@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, Output } from "@angular/core";
 import { Sala } from "../interfaces/salas_categorias.interface";
-import { environment } from "src/environments/environment";
 import { ImageUtils } from "src/app/utils/image-utils";
 
 @Component({

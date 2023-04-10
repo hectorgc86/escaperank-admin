@@ -10,7 +10,6 @@ import { SalasService } from "../services/salas.service";
 import { TematicasService } from "../services/tematicas.service";
 import { Dificultad } from "../interfaces/dificultad.interface";
 import { OwlOptions } from "ngx-owl-carousel-o";
-import { environment } from "src/environments/environment";
 import { ImageUtils } from "src/app/utils/image-utils";
 
 @Component({

@@ -12,6 +12,7 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { SalasRoutingModule } from "./salas-routing.module";
 import { SalasExploreComponent } from "./salas-explore/salas-explore.component";
 import { CarouselModule } from "ngx-owl-carousel-o";
+import { ScrollTrackerDirective } from "./directives/scroll-tracker.directive";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { CarouselModule } from "ngx-owl-carousel-o";
     SalasListComponent,
     SalasCardComponent,
     SalasExploreComponent,
+    ScrollTrackerDirective,
   ],
   imports: [
     CommonModule,

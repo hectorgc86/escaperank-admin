@@ -1,10 +1,13 @@
-import { Partida } from 'src/app/partidas/interfaces/partida.interface';
-import { Companyia } from './companyia.interface';
-import { Dificultad } from './dificultad.interface';
-import { SalasCategorias } from './salas_categorias.interface';
-import { SalasPublico } from './salas_publico.interface';
-import { SalasTematicas } from './salas_tematicas.interface';
-import { Valoracion } from './valoracion.interface';
+import { Partida } from "src/app/partidas/interfaces/partida.interface";
+import { Companyia } from "./companyia.interface";
+import { Dificultad } from "./dificultad.interface";
+import { SalasCategorias } from "./salas_categorias.interface";
+import { SalasPublico } from "./salas_publico.interface";
+import { SalasTematicas } from "./salas_tematicas.interface";
+import { Valoracion } from "./valoracion.interface";
+import { Categoria } from "./categoria.interface";
+import { Publico } from "./publico.interface";
+import { Tematica } from "./tematica.interface";
 
 export interface Sala {
   id?: string | null;
@@ -46,8 +49,8 @@ export interface Sala {
   companyia?: Companyia;
   dificultad?: Dificultad;
   partidas?: Partida[] | null;
-  salasCategorias?: SalasCategorias[] | null;
-  salasPublico?: SalasPublico[] | null;
-  salasTematicas?: SalasTematicas[] | null;
+  categorias?: Categoria[] | null;
+  publico?: Publico[] | null;
+  tematicas?: Tematica[] | null;
   valoraciones?: Valoracion[] | null;
 }

@@ -13,15 +13,22 @@ export class SalasService {
     this.salasURL = "salas";
   }
 
-  getSalas(): Observable<Sala[]> {
+  getSalas(
+    grupo: string,
+    tipo: string,
+    offset: number,
+    limit: number
+  ): Observable<Sala[]> {
     return this.http
-      .get<Sala[]>(this.salasURL)
+      .get<Sala[]>(
+        `${this.salasURL}?grupo=${grupo}&tipo=${tipo}&offset=${offset}&limit=${limit}`
+      )
       .pipe(map((response) => response));
   }
 
   getSalasPromocionadas(): Observable<Sala[]> {
     return this.http
-      .get<Sala[]>(`${this.salasURL}/promocionadas`)
+      .get<Sala[]>(`${this.salasURL}?grupo=Promocionada`)
       .pipe(map((response) => response));
   }
 
