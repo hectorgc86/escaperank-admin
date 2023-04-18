@@ -13,6 +13,7 @@ import { SalasRoutingModule } from "./salas-routing.module";
 import { SalasExploreComponent } from "./salas-explore/salas-explore.component";
 import { CarouselModule } from "ngx-owl-carousel-o";
 import { ScrollTrackerDirective } from "./directives/scroll-tracker.directive";
+import { NgxMapboxGLModule } from "ngx-mapbox-gl";
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ScrollTrackerDirective } from "./directives/scroll-tracker.directive";
     DropzoneModule,
     NgSelectModule,
     CarouselModule,
+    NgxMapboxGLModule,
   ],
 })
 export class SalasModule {}

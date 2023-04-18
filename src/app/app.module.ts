@@ -14,6 +14,7 @@ import { BaseUrlInterceptor } from "./interceptors/base-url.interceptor";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { TokenInterceptor } from "./interceptors/token.interceptor";
 import { AuthGuard } from "./core/guard/auth.guard";
+import { NgxMapboxGLModule } from "ngx-mapbox-gl";
 
 @NgModule({
   declarations: [AppComponent, ErrorPageComponent],
@@ -23,6 +24,10 @@ import { AuthGuard } from "./core/guard/auth.guard";
     BrowserAnimationsModule,
     HttpClientModule,
     LayoutModule,
+    NgxMapboxGLModule.withConfig({
+      accessToken:
+        "pk.eyJ1IjoiaGVjdG9yZ2M4NmRhdyIsImEiOiJjbGdtYnlndzIwNGhjM2VxbWw1ZXpucXR0In0.50cJvgiaIPdbVmRIlwBvfw",
+    }),
   ],
   providers: [
     AuthGuard,

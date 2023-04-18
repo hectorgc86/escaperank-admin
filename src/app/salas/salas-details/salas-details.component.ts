@@ -10,11 +10,19 @@ import { ImageUtils } from "src/app/utils/image-utils";
 })
 export class SalasDetailsComponent implements OnInit {
   sala: Sala;
+  zoom: number;
+  latitud: number;
+  longitud: number;
+
   imageUtils = ImageUtils;
 
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.zoom = 17;
     this.sala = this.route.snapshot.data["sala"];
+
+    this.longitud = parseFloat(this.sala.companyia?.longitud || "0");
+    this.latitud = parseFloat(this.sala.companyia?.latitud || "0");
   }
 }

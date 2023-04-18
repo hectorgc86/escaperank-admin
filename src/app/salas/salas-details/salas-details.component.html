@@ -1,8 +1,13 @@
 <div class="container my-5">
     <div class="row justify-content-center">
         <div class="col-lg-12">
-            <img [src]="imageUtils.getImagenSala(sala,'estrechas')" [alt]="sala.nombre" [title]="sala.nombre"
-                class="imagen-sala rounded">
+
+            <div class="position-relative">
+                <i class="icono-seguir mdi mdi-36px mdi-star text-warning"></i>
+                <i class="icono-seguir mdi mdi-36px mdi-star text-muted"></i>
+                <img [src]="imageUtils.getImagenSala(sala,'estrechas')" [alt]="sala.nombre" [title]="sala.nombre"
+                    class="imagen-sala rounded">
+            </div>
 
             <div class=" w-100 text-center">
                 <h3 class="mt-4">{{ sala.nombre }}</h3>
@@ -88,10 +93,25 @@
                     </div>
                 </div>
                 <hr>
+                <div class="card-body">
+                    <mgl-map [style]="'mapbox://styles/mapbox/streets-v11'" [zoom]="[zoom]"
+                        [center]="[longitud, latitud]">
+                        <mgl-marker #marcador [lngLat]="[longitud, latitud]"></mgl-marker>
+                        <mgl-popup [marker]="marcador">
+                            <b>{{sala.companyia?.nombre}}</b>
+                            <br>
+                            {{sala.companyia?.direccion}} <br>
+                            {{sala.companyia?.codigoPostal}}, {{sala.companyia?.ciudad?.nombre}}
+                            <br>
+                            {{sala.companyia?.telefono}} </mgl-popup>
+                    </mgl-map>
+                </div>
+                <hr>
                 <div class="row justify-content-center">
-                    <h4 class="text-center">Reservas</h4>
                     <div class="mt-2 text-center">
-                        <a [href]="sala.urlReserva">{{ sala.urlReserva }}</a>
+                        <div>
+                            <a class="btn-reservar btn btn-primary btn-lg" [href]="sala.urlReserva">Reservar</a>
+                        </div>
                     </div>
                 </div>
             </div>

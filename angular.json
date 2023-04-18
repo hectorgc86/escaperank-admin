@@ -55,6 +55,8 @@
               "./node_modules/@fullcalendar/daygrid/main.css",
               "./node_modules/@fullcalendar/timegrid/main.css",
               "./node_modules/@fullcalendar/list/main.css",
+              "./node_modules/mapbox-gl/dist/mapbox-gl.css",
+              "./node_modules/@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css",
               "src/styles.scss"
             ],
             "scripts": [
