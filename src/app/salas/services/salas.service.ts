@@ -17,11 +17,18 @@ export class SalasService {
     grupo: string,
     tipo: string,
     offset: number,
-    limit: number
+    limit: number,
+    termino: string | null
   ): Observable<Sala[]> {
+    if (termino != null) {
+      termino = `&busqueda=${termino}`;
+    } else {
+      termino = "";
+    }
+
     return this.http
       .get<Sala[]>(
-        `${this.salasURL}?grupo=${grupo}&tipo=${tipo}&offset=${offset}&limit=${limit}`
+        `${this.salasURL}?grupo=${grupo}&tipo=${tipo}${termino}&offset=${offset}&limit=${limit}`
       )
       .pipe(map((response) => response));
   }
