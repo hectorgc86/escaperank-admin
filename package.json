@@ -42,6 +42,7 @@
     "@zxing/ngx-scanner": "3.6.2",
     "angular-archwizard": "^7.0.0",
     "angular-cropperjs": "^1.0.2",
+    "angularx-qrcode": "^14.0.0",
     "animate.css": "^4.1.1",
     "apexcharts": "^3.36.3",
     "bootstrap": "^5.2.3",
