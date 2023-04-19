@@ -34,6 +34,11 @@ const routes: Routes = [
           import("./salas/salas.module").then((m) => m.SalasModule),
       },
       {
+        path: "partidas",
+        loadChildren: () =>
+          import("./partidas/partidas.module").then((m) => m.PartidasModule),
+      },
+      {
         path: "dashboard",
         loadChildren: () =>
           import("./views/pages/dashboard/dashboard.module").then(
