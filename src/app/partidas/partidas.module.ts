@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { PartidasRoutingModule } from './partidas-routing.module';
 import { PartidasListComponent } from './partidas-list/partidas-list.component';
@@ -18,7 +18,8 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     CommonModule,
     PartidasRoutingModule,
     ZXingScannerModule,
-    NgbDropdownModule
+    NgbDropdownModule,
+
   ]
 })
 export class PartidasModule { }

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { BarcodeFormat } from '@zxing/library';
 import { BehaviorSubject } from 'rxjs';
 import Swal from 'sweetalert2';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-partidas-new',
@@ -10,6 +11,7 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
   styleUrls: ['./partidas-new.component.scss']
 })
 export class PartidasNewComponent {
+  @ViewChild('myModal') myModal: any;
 
   availableDevices: MediaDeviceInfo[];
   deviceCurrent: MediaDeviceInfo;
@@ -25,10 +27,11 @@ export class PartidasNewComponent {
 
   torchEnabled = false;
   torchAvailable$ = new BehaviorSubject<boolean>(false);
-  tryHarder = false;
+  tryHarder = true;
+  modalRef: NgbModalRef;
   private _dialog: any;
 
-  constructor() {
+  constructor(private modalService: NgbModal) { 
     this.deviceSelected = null;
 
    }
@@ -43,6 +46,7 @@ export class PartidasNewComponent {
 
   onCodeResult(resultString: string) {
     this.qrResultString = resultString;
+    this.closeModal();
   }
 
   onDeviceSelectChange(event: Event) {
@@ -65,44 +69,7 @@ export class PartidasNewComponent {
   }
 
 
-  openFormatsDialog() {
-    const checkboxTemplate = (name: string, label: string, checked: boolean) =>
-    `<label class="swal2-checkbox">
-       <input type="checkbox" ${checked ? 'checked' : ''} name="${name}">
-       <span>${label}</span>
-     </label>`;
-  
-    const formatsEnabled = this.formatsEnabled;
-    const checkboxes = [
-      checkboxTemplate('CODE_128', 'CODE_128', formatsEnabled.includes(BarcodeFormat.CODE_128)),
-      checkboxTemplate('DATA_MATRIX', 'DATA_MATRIX', formatsEnabled.includes(BarcodeFormat.DATA_MATRIX)),
-      checkboxTemplate('EAN_13', 'EAN_13', formatsEnabled.includes(BarcodeFormat.EAN_13)),
-      checkboxTemplate('QR_CODE', 'QR_CODE', formatsEnabled.includes(BarcodeFormat.QR_CODE)),
-    ].join('');
-    Swal.fire({
-      title: 'Formatos disponibles',
-      html: `<p>Selecciona los formatos que deseas habilitar:</p>
-             <div class="swal2-content">
-               <div class="swal2-checkbox-wrapper">${checkboxes}</div>
-             </div>`,
-      showCancelButton: true,
-      confirmButtonText: 'Guardar',
-      cancelButtonText: 'Cancelar',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        const selectedFormats: BarcodeFormat[] = [];
-  
-        checkboxes.forEach((checkbox) => {
-          if ((checkbox as HTMLInputElement).checked) {
-            selectedFormats.push((checkbox as HTMLInputElement).name as unknown as BarcodeFormat);
-          }
-        });
-  
-        this.formatsEnabled = selectedFormats;
-      }
-    });
-  }
+
   
 
   onHasPermission(has: boolean) {
@@ -131,6 +98,27 @@ export class PartidasNewComponent {
     this.tryHarder = !this.tryHarder;
     }
     ngOnInit(): void {
+    }
+  
+    openModal() {
+      this.modalRef = this.modalService.open(this.myModal);
+
+    }
+  
+    private getDismissReason(reason: any): string {
+      if (reason === ModalDismissReasons.ESC) {
+        return 'by pressing ESC';
+      } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+        return 'by clicking on a backdrop';
+      } else {
+        return  `with: ${reason}`;
+      }
+    }
+  
+    closeModal() {
+      if (this.modalRef) {
+        this.modalRef.close();
+      }
     }
 
 }

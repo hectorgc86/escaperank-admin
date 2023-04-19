@@ -1,83 +1,74 @@
-<div class="scanner-shell" [hidden]="!hasDevices">
+<button class="btn btn-primary" (click)="openModal()">Leer QR</button>
 
-  <div ngbDropdown class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="appMenu" ngbDropdownToggle>
-      Menu
+<ng-template #myModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Leer QR</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
     </button>
-    <div class="dropdown-menu" aria-labelledby="appMenu" ngbDropdownMenu>
-      <div class="dropdown-item">
-        <input class="form-check-input" type="checkbox" value="" id="tryHarder" (click)="toggleTryHarder()" [checked]="tryHarder">
-        <label class="form-check-label" for="tryHarder">
-          Enable Try-harder
-        </label>
+  </div>
+  <div class="modal-body">
+    <div class="scanner-shell" [hidden]="!hasDevices">
+      <div ngbDropdown class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="appMenu" ngbDropdownToggle>
+          Opciones
+        </button>
+        <div class="dropdown-menu" aria-labelledby="appMenu" ngbDropdownMenu>
+          <div class="dropdown-item">
+            <input class="form-check-input" type="checkbox" value="" id="torch" (click)="toggleTorch()" [checked]="torchEnabled" *ngIf="torchAvailable$ | async">
+            <label class="form-check-label" for="torch">
+              Linterna
+            </label>
+          </div>
+          <button class="dropdown-item" type="button" (click)="openInfoDialog()" ngbDropdownItem>Info</button>
+        </div>
       </div>
-      <div class="dropdown-item">
-        <input class="form-check-input" type="checkbox" value="" id="torch" (click)="toggleTorch()" [checked]="torchEnabled" *ngIf="torchAvailable$ | async">
-        <label class="form-check-label" for="torch">
-          Enable Torch
-        </label>
-      </div>
-      <button class="dropdown-item" type="button" (click)="openFormatsDialog()" ngbDropdownItem>Barcode formats</button>
-      <button class="dropdown-item" type="button" (click)="openInfoDialog()" ngbDropdownItem>App info</button>
+      <header>
+        <div class="mb-3">
+          <select class="form-select" [value]="deviceSelected" (change)="onDeviceSelectChange($event)">
+            <option value="">No Device Selected</option>
+            <option *ngFor="let device of availableDevices" [value]="device.deviceId">{{device.label}}</option>
+          </select>
+        </div>
+      </header>
+      <zxing-scanner [torch]="torchEnabled" [device]="deviceCurrent" (deviceChange)="onDeviceChange($event)" (scanSuccess)="onCodeResult($event)"
+        [formats]="formatsEnabled" [tryHarder]="tryHarder" (permissionResponse)="onHasPermission($event)"
+        (camerasFound)="onCamerasFound($event)" (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
     </div>
+    <ng-container *ngIf="hasPermission === undefined">
+      <h2>Esperando a los permisos.</h2>
+    </ng-container>
+    <ng-container *ngIf="hasPermission === false">
+      <h2>Has denegado los permisos de acceso a la cámara. No podemos escanear el QR 😪</h2>
+    </ng-container>
+    <ng-container *ngIf="hasDevices === undefined">
+      <h2>No se ha encontrado ninguna cámara.</h2> 
+      <blockquote>
+        Puede ser debido a la falta de permisos.
+      </blockquote>
+      </ng-container> 
+      <ng-container *ngIf="hasDevices === false">
+
+<h2>No se ha encontrado ninguna Cámara</h2>
+
+</ng-container>
   </div>
-  
-    <header>
-      <div class="mb-3">
-        <select class="form-select" [value]="deviceSelected" (change)="onDeviceSelectChange($event)">
-          <option value="">No Device Selected</option>
-          <option *ngFor="let device of availableDevices" [value]="device.deviceId">{{device.label}}</option>
-        </select>
-      </div>
-    </header>
-  
-    <zxing-scanner [torch]="torchEnabled" [device]="deviceCurrent" (deviceChange)="onDeviceChange($event)" (scanSuccess)="onCodeResult($event)"
-      [formats]="formatsEnabled" [tryHarder]="tryHarder" (permissionResponse)="onHasPermission($event)"
-      (camerasFound)="onCamerasFound($event)" (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
-  
-    <section class="results" *ngIf="qrResultString">
-      <div>
-        <small>Result</small>
-        <strong>{{ qrResultString }}</strong>
-      </div>
-      <button class="btn-close" type="button" (click)="clearResult()"></button>
-    </section>
-  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Cerrar</button>
   </div>
+</ng-template>
+<div class="row">
+<div class="results">
+  <div>
+    <small>Result</small>
+    <strong >{{ qrResultString }}</strong>
+  </div>
+</div>
+</div>
+
+
+    
   
-  <ng-container *ngIf="hasPermission === undefined">
   
-    <h2>Waiting for permissions.</h2>
   
-    <blockquote>
-      If your device does not has cameras, no permissions will be asked.
-    </blockquote>
-  
-  </ng-container>
-  
-  <ng-container *ngIf="hasPermission === false">
-  
-    <h2>You denied the camera permission, we can't scan anything without it. 😪</h2>
-  
-  </ng-container>
-  
-  <ng-container *ngIf="hasDevices === undefined">
-  
-    <h2>Couldn't check for devices.</h2>
-  
-    <blockquote>
-      This may be caused by some security error.
-    </blockquote>
-  
-  </ng-container>
-  
-  <ng-container *ngIf="hasDevices === false">
-  
-    <h2>No devices were found.</h2>
-  
-    <blockquote>
-      I believe your device has no media devices attached to.
-    </blockquote>
-  
-  </ng-container>
   
