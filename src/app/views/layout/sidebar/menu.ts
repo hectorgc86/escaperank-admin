@@ -54,6 +54,20 @@ export const MENU: MenuItem[] = [
     ],
   },
   {
+    label: "Partidas",
+    icon: "upload",
+    subItems: [
+      {
+        label: "Listado",
+        link: "/partidas/",
+      },
+      {
+        label: "Nueva",
+        link: "/partidas/nueva",
+      },
+    ],
+  },
+  {
     label: "Usuarios",
     icon: "user",
     subItems: [
