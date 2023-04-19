@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Sala } from "../interfaces/salas_categorias.interface";
 import { ImageUtils } from "src/app/utils/image-utils";
+import { Ranking } from "src/app/estadisticas/interfaces/estadisticas.interface";
 
 @Component({
   selector: "app-salas-details",
@@ -10,10 +11,10 @@ import { ImageUtils } from "src/app/utils/image-utils";
 })
 export class SalasDetailsComponent implements OnInit {
   sala: Sala;
+  ranking: Ranking;
   zoom: number;
   latitud: number;
   longitud: number;
-
   imageUtils = ImageUtils;
 
   constructor(private route: ActivatedRoute) {}
@@ -21,6 +22,7 @@ export class SalasDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.zoom = 17;
     this.sala = this.route.snapshot.data["sala"];
+    this.ranking = this.route.snapshot.data["ranking"];
 
     this.longitud = parseFloat(this.sala.companyia?.longitud || "0");
     this.latitud = parseFloat(this.sala.companyia?.latitud || "0");
