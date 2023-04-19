@@ -9,20 +9,6 @@
   </div>
   <div class="modal-body">
     <div class="scanner-shell" [hidden]="!hasDevices">
-      <div ngbDropdown class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="appMenu" ngbDropdownToggle>
-          Opciones
-        </button>
-        <div class="dropdown-menu" aria-labelledby="appMenu" ngbDropdownMenu>
-          <div class="dropdown-item">
-            <input class="form-check-input" type="checkbox" value="" id="torch" (click)="toggleTorch()" [checked]="torchEnabled" *ngIf="torchAvailable$ | async">
-            <label class="form-check-label" for="torch">
-              Linterna
-            </label>
-          </div>
-          <button class="dropdown-item" type="button" (click)="openInfoDialog()" ngbDropdownItem>Info</button>
-        </div>
-      </div>
       <header>
         <div class="mb-3">
           <select class="form-select" [value]="deviceSelected" (change)="onDeviceSelectChange($event)">
