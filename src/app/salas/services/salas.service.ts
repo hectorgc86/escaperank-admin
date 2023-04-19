@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { Sala } from "../interfaces/sala.interface";
+import { Ranking } from "src/app/administracion/interfaces/estadisticas.interface";
 
 @Injectable({
   providedIn: "root",
@@ -42,6 +43,12 @@ export class SalasService {
   getSala(id: string): Observable<Sala> {
     return this.http
       .get<Sala>(`${this.salasURL}/${id}`)
+      .pipe(map((response) => response));
+  }
+
+  getRankingSala(id: string): Observable<Ranking> {
+    return this.http
+      .get<Ranking>(`${this.salasURL}/${id}/ranking`)
       .pipe(map((response) => response));
   }
 

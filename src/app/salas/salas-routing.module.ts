@@ -7,6 +7,7 @@ import { SalasDetailsComponent } from "./salas-details/salas-details.component";
 import { SalasExploreComponent } from "./salas-explore/salas-explore.component";
 import { SalasFormComponent } from "./salas-form/salas-form.component";
 import { SalasListComponent } from "./salas-list/salas-list.component";
+import { SalaRankingResolver } from "./resolvers/sala-ranking.resolver";
 
 const routes: Routes = [
   {
@@ -34,6 +35,7 @@ const routes: Routes = [
     component: SalasDetailsComponent,
     resolve: {
       sala: SalaResolver,
+      ranking: SalaRankingResolver,
     },
   },
 ];

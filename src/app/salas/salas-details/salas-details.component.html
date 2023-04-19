@@ -1,120 +1,163 @@
-<div class="container my-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-12">
+<ul ngbNav #fillJustifyNav="ngbNav" class="nav-tabs nav-fill">
+    <li [ngbNavItem]="1">
+        <a ngbNavLink>Info</a>
+        <ng-template ngbNavContent>
+            <div class="container my-5">
 
-            <div class="position-relative">
-                <i class="icono-seguir mdi mdi-36px mdi-star text-warning"></i>
-                <i class="icono-seguir mdi mdi-36px mdi-star text-muted"></i>
-                <img [src]="imageUtils.getImagenSala(sala,'estrechas')" [alt]="sala.nombre" [title]="sala.nombre"
-                    class="imagen-sala rounded">
-            </div>
-
-            <div class=" w-100 text-center">
-                <h3 class="mt-4">{{ sala.nombre }}</h3>
-                <h4 class="mt-4">{{ sala.companyia?.nombre }}</h4>
-                <h5 class="mt-4 text-primary">{{ sala.companyia?.ciudad?.nombre }}</h5>
-            </div>
-            <hr>
-
-            <div class="my-4">
                 <div class="row justify-content-center">
-                    <div class="col-md-3">
-                        <h5 class="text-center mb-2">Categoría</h5>
-                        <ul class="list-unstyled">
-                            <li class="text-center" *ngFor="let categoria of sala.categorias">{{ categoria?.tipo }}</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <h5 class="text-center mb-2">Temática</h5>
-                        <ul class="list-unstyled">
-                            <li class="text-center" *ngFor="let tematica of sala.tematicas">{{ tematica?.tipo }}</li>
-                        </ul>
-                    </div>
-                    <div class="col-md-3">
-                        <h5 class="text-center mb-2">Público</h5>
-                        <ul class="list-unstyled">
-                            <li class="text-center" *ngFor="let publico of sala.publico">{{ publico?.tipo }}</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <hr>
-            <div class="my-4">
-                <p [innerHTML]="sala.descripcion"></p>
-            </div>
-            <hr>
-            <div class="my-4">
-                <div class="row mb-2">
-                    <div class="col">
-                        <h5 class="text-center">Duración</h5>
-                    </div>
-                    <div class="col text-center">
-                        {{ sala.duracion }} minutos
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col">
-                        <h5 class="text-center">Jugadores</h5>
-                    </div>
-                    <div class="col text-center">
-                        {{ sala.minimoJugadores }} - {{ sala.maximoJugadores}}
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col">
-                        <h5 class="text-center">Precio</h5>
-                    </div>
-                    <div class="col text-center">
-                        {{ sala.precioMinimo === '' ? sala.precioMinimo : 'No' }} - {{ sala.precioMaximo }}
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col">
-                        <h5 class="text-center">Dificultad</h5>
-                    </div>
-                    <div class="col text-center">
-                        {{ sala.dificultad?.tipo}}
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col">
-                        <h5 class="text-center">Jugador adicional</h5>
-                    </div>
-                    <div class="col text-center">
-                        {{ sala.precioJugadorAdicional === '' ? sala.precioJugadorAdicional : 'No' }}
-                    </div>
-                </div>
-                <div class="row mb-2">
-                    <div class="col">
-                        <h5 class="text-center">Edad público</h5>
-                    </div>
-                    <div class="col text-center">
-                        {{ sala.edadPublico }} años
-                    </div>
-                </div>
-                <hr>
-                <div class="card-body">
-                    <mgl-map [style]="'mapbox://styles/mapbox/streets-v11'" [zoom]="[zoom]"
-                        [center]="[longitud, latitud]">
-                        <mgl-marker #marcador [lngLat]="[longitud, latitud]"></mgl-marker>
-                        <mgl-popup [marker]="marcador">
-                            <b>{{sala.companyia?.nombre}}</b>
-                            <br>
-                            {{sala.companyia?.direccion}} <br>
-                            {{sala.companyia?.codigoPostal}}, {{sala.companyia?.ciudad?.nombre}}
-                            <br>
-                            {{sala.companyia?.telefono}} </mgl-popup>
-                    </mgl-map>
-                </div>
-                <hr>
-                <div class="row justify-content-center">
-                    <div class="mt-2 text-center">
-                        <div>
-                            <a class="btn-reservar btn btn-primary btn-lg" [href]="sala.urlReserva">Reservar</a>
+                    <div class="col-lg-12">
+
+                        <div class="position-relative">
+                            <i class="icono-seguir mdi mdi-36px mdi-star text-warning"></i>
+                            <i class="icono-seguir mdi mdi-36px mdi-star text-muted"></i>
+                            <img [src]="imageUtils.getImagenSala(sala,'estrechas')" [alt]="sala.nombre"
+                                [title]="sala.nombre" class="imagen-sala rounded">
+                        </div>
+
+                        <div class=" w-100 text-center">
+                            <h3 class="mt-4">{{ sala.nombre }}</h3>
+                            <h4 class="mt-4">{{ sala.companyia?.nombre }}</h4>
+                            <h5 class="mt-4 text-primary">{{ sala.companyia?.ciudad?.nombre }}</h5>
+                        </div>
+                        <hr>
+
+                        <div class="my-4">
+                            <div class="row justify-content-center">
+                                <div class="col-md-3">
+                                    <h5 class="text-center mb-2">Categoría</h5>
+                                    <ul class="list-unstyled">
+                                        <li class="text-center" *ngFor="let categoria of sala.categorias">{{
+                                            categoria?.tipo
+                                            }}</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <h5 class="text-center mb-2">Temática</h5>
+                                    <ul class="list-unstyled">
+                                        <li class="text-center" *ngFor="let tematica of sala.tematicas">{{
+                                            tematica?.tipo }}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-3">
+                                    <h5 class="text-center mb-2">Público</h5>
+                                    <ul class="list-unstyled">
+                                        <li class="text-center" *ngFor="let publico of sala.publico">{{ publico?.tipo }}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="my-4">
+                            <p [innerHTML]="sala.descripcion"></p>
+                        </div>
+                        <hr>
+                        <div class="my-4">
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <h5 class="text-center">Duración</h5>
+                                </div>
+                                <div class="col text-center">
+                                    {{ sala.duracion }} minutos
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <h5 class="text-center">Jugadores</h5>
+                                </div>
+                                <div class="col text-center">
+                                    {{ sala.minimoJugadores }} - {{ sala.maximoJugadores}}
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <h5 class="text-center">Precio</h5>
+                                </div>
+                                <div class="col text-center">
+                                    {{ sala.precioMinimo === '' ? sala.precioMinimo : 'No' }} - {{ sala.precioMaximo }}
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <h5 class="text-center">Dificultad</h5>
+                                </div>
+                                <div class="col text-center">
+                                    {{ sala.dificultad?.tipo}}
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <h5 class="text-center">Jugador adicional</h5>
+                                </div>
+                                <div class="col text-center">
+                                    {{ sala.precioJugadorAdicional === '' ? sala.precioJugadorAdicional : 'No' }}
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col">
+                                    <h5 class="text-center">Edad público</h5>
+                                </div>
+                                <div class="col text-center">
+                                    {{ sala.edadPublico }} años
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="card-body">
+                                <mgl-map [style]="'mapbox://styles/mapbox/streets-v11'" [zoom]="[zoom]"
+                                    [center]="[longitud, latitud]">
+                                    <mgl-marker #marcador [lngLat]="[longitud, latitud]"></mgl-marker>
+                                    <mgl-popup [marker]="marcador">
+                                        <b>{{sala.companyia?.nombre}}</b>
+                                        <br>
+                                        {{sala.companyia?.direccion}} <br>
+                                        {{sala.companyia?.codigoPostal}}, {{sala.companyia?.ciudad?.nombre}}
+                                        <br>
+                                        {{sala.companyia?.telefono}} </mgl-popup>
+                                </mgl-map>
+                            </div>
+                            <hr>
+                            <div class="row justify-content-center">
+                                <div class="mt-2 text-center">
+                                    <div>
+                                        <a class="btn-reservar btn btn-primary btn-lg"
+                                            [href]="sala.urlReserva">Reservar</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+        </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+        <a ngbNavLink>Ranking</a>
+        <ng-template ngbNavContent>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <ng-container
+                                *ngIf="ranking && ranking.tiempos && ranking.tiempos.length > 0; else noTiempos">
+                                <div id="content" *ngFor="let tiempo of ranking.tiempos">
+                                    <ul class="timeline">
+                                        <li class="event" [attr.data-date]="tiempo.tiempo">
+                                            <h3 class="title">{{tiempo.equipo}}</h3>
+                                            <p>{{tiempo.fecha}}</p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </ng-container>
+                            <ng-template #noTiempos>
+                                <p>No hay partidas registradas todavía.</p>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </li>
+</ul>
+
+<div [ngbNavOutlet]="fillJustifyNav" class="border border-top-0 p-3"></div>

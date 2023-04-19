@@ -6,7 +6,7 @@ import { SalasDetailsComponent } from "./salas-details/salas-details.component";
 import { SalasListComponent } from "./salas-list/salas-list.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CustomFormsModule } from "ngx-custom-validators";
-import { NgbDatepickerModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbDatepickerModule, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { DropzoneModule } from "ngx-dropzone-wrapper";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { SalasRoutingModule } from "./salas-routing.module";
@@ -37,7 +37,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     NgSelectModule,
     CarouselModule,
     NgxMapboxGLModule,
-    QRCodeModule
+    QRCodeModule,
+    NgbModule,
   ],
 })
 export class SalasModule {}
