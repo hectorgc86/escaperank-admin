@@ -6,6 +6,8 @@ export const environment = {
   production: false,
   baseUrl: "http://localhost:3002/escaperank/v2",
   storageUrl: "https://ik.imagekit.io/escaperankstorage/img",
+  mapBoxToken:
+    "pk.eyJ1IjoiaGVjdG9yZ2M4NmRhdyIsImEiOiJjbGdtYnlndzIwNGhjM2VxbWw1ZXpucXR0In0.50cJvgiaIPdbVmRIlwBvfw",
 };
 
 /*

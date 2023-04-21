@@ -1,11 +1,28 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import {
+  AbstractControl,
   UntypedFormBuilder,
   UntypedFormGroup,
   Validators,
 } from "@angular/forms";
-import { Router } from "@angular/router";
 import { WizardComponent as BaseWizardComponent } from "angular-archwizard";
+import { MapComponent } from "ngx-mapbox-gl";
+import { MapboxService } from "../services/mapbox.service";
+import { AuthService } from "src/app/auth/services/auth.service";
+import {
+  Observable,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  of,
+  switchMap,
+} from "rxjs";
+import Swal from "sweetalert2";
+import { Perfil } from "src/app/usuarios/interfaces/perfil.interface";
+import { CompanyiaRequest } from "src/app/salas/interfaces/companyia.interface";
+import { RegistroRequest } from "../interfaces/registro.interface";
+import { UsuarioRequest } from "../../usuarios/interfaces/usuario.interface";
+import { Feature } from "../interfaces/mapbox.interface";
 
 @Component({
   selector: "app-registro",
@@ -19,57 +36,65 @@ export class RegistroComponent implements OnInit {
   isForm1Submitted: Boolean;
   isForm2Submitted: Boolean;
 
-  @ViewChild("wizardForm") wizardForm: BaseWizardComponent;
+  companyiaRegistro: CompanyiaRequest;
+  usuarioRegistro: UsuarioRequest;
+  perfilRegistro: Perfil;
 
-  constructor(public formBuilder: UntypedFormBuilder, private router: Router) {}
+  esCompanyia: Boolean;
+
+  direccion: Feature;
+
+  @ViewChild("wizardForm") wizardForm: BaseWizardComponent;
+  @ViewChild("map") map: MapComponent;
+
+  constructor(
+    public formBuilder: UntypedFormBuilder,
+    private authService: AuthService,
+    private mapboxService: MapboxService
+  ) {}
 
   ngOnInit(): void {
-    /**
-     * form1 value validation
-     */
     this.validationForm1 = this.formBuilder.group({
-      firstName: ["", Validators.required],
-      lastName: ["", Validators.required],
-      userName: ["", Validators.required],
+      nombre: ["", Validators.required],
+      apellidos: ["", Validators.required],
+      nick: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
+      telefono: ["", [Validators.required, Validators.max]],
+      contrasenya: ["", Validators.required],
+      checkCompanyia: [false],
     });
 
-    /**
-     * formw value validation
-     */
     this.validationForm2 = this.formBuilder.group({
-      email: ["", [Validators.required, Validators.email]],
-      mobileNumber: ["", Validators.required],
-      password: ["", Validators.required],
+      companyia: ["", [Validators.required]],
+      cif: ["", Validators.required],
+      emailCompanyia: ["", [Validators.required, Validators.email]],
+      telefonoCompanyia: ["", [Validators.required, Validators.max]],
+      web: ["", Validators.required],
+      direccion: ["", [this.featureValidator]],
     });
 
     this.isForm1Submitted = false;
     this.isForm2Submitted = false;
+
+    this.esCompanyia = false;
   }
 
-  /**
-   * Wizard finish function
-   */
-  finishFunction() {
-    alert("Successfully Completed");
+  featureValidator(control: AbstractControl): { [key: string]: any } | null {
+    const feature = control.value as Feature;
+    if (!feature || typeof feature !== "object" || !feature.place_name) {
+      return { invalidFeature: true };
+    }
+    return null;
   }
 
-  /**
-   * Returns form
-   */
   get form1() {
     return this.validationForm1.controls;
   }
 
-  /**
-   * Returns form
-   */
   get form2() {
     return this.validationForm2.controls;
   }
 
-  /**
-   * Go to next step while form value is valid
-   */
   form1Submit() {
     if (this.validationForm1.valid) {
       this.wizardForm.goToNextStep();
@@ -77,21 +102,100 @@ export class RegistroComponent implements OnInit {
     this.isForm1Submitted = true;
   }
 
-  /**
-   * Go to next step while form value is valid
-   */
   form2Submit() {
     if (this.validationForm2.valid) {
-      this.wizardForm.goToNextStep();
+      this.registrar();
     }
     this.isForm2Submitted = true;
   }
 
-  onRegister(e: Event) {
-    e.preventDefault();
-    localStorage.setItem("isLoggedin", "true");
-    if (localStorage.getItem("isLoggedin")) {
-      this.router.navigate(["/"]);
+  formularioCompleto() {
+    alert("Successfully Completed");
+  }
+
+  registrar() {
+    this.perfilRegistro = {
+      nombre:
+        this.validationForm1.value.nombre +
+        " " +
+        this.validationForm1.value.apellidos,
+      telefono: this.validationForm1.value.telefono,
+      numeroPartidas: 0,
+      partidasGanadas: 0,
+      partidasPerdidas: 0,
+      avatar: "default.png",
+      nacido: this.validationForm1.value.nacido,
+    };
+
+    this.usuarioRegistro = {
+      nick: this.validationForm1.value.nick,
+      contrasenya: this.validationForm1.value.contrasenya,
+      email: this.validationForm1.value.email,
+      perfil: this.perfilRegistro,
+    };
+
+    if (this.esCompanyia) {
+      this.companyiaRegistro = {
+        nombre: this.validationForm2.value.companyia,
+        direccion: this.direccion.place_name,
+        email: this.validationForm2.value.emailCompanyia,
+        telefono: this.validationForm2.value.telefonoCompanyia,
+        web: this.validationForm2.value.web,
+        tripAdvisor: "",
+        facebook: "",
+        latitud: this.direccion.center[0],
+        longitud: this.direccion.center[1],
+        numeroLocal: this.direccion.address,
+        googleMaps: null,
+        numeroOpiniones: "0",
+        codigoPostal: this.direccion.context[0].text,
+        instagram: "",
+        puntuacion: "0",
+        rango: "",
+      };
+    }
+
+    const registroRequest: RegistroRequest = {
+      usuario: this.usuarioRegistro,
+      companyia: this.companyiaRegistro,
+      ciudad: this.direccion.context[2].text,
+      provincia: this.direccion.context[3].text,
+    };
+
+    this.authService.registrar(registroRequest).subscribe({
+      next: () => this.wizardForm.goToNextStep(),
+      error: () =>
+        Swal.fire({
+          icon: "error",
+          title: "Error creando registro",
+          text: "Existen campos no admitidos en formulario",
+        }),
+    });
+  }
+
+  validarEsCompanyia(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target !== null) {
+      this.esCompanyia = target.checked;
     }
   }
+
+  buscar = (texto$: Observable<string>) => {
+    return texto$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      switchMap((term) => {
+        if (term.length < 2) {
+          return of([]);
+        } else {
+          return this.mapboxService
+            .buscar(term)
+            .pipe(map((features: Feature[]) => features));
+        }
+      }),
+      map((results) => results.map((result) => result))
+    );
+  };
+
+  formatter = (d: { place_name: string }) => d.place_name;
 }

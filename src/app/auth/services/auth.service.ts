@@ -1,9 +1,9 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
 import { catchError, map, Observable, of } from "rxjs";
-import { Usuario } from "../../usuarios/interfaces/usuario.interface";
 import { MD5 } from "crypto-js";
 import { Login, LoginRequest } from "../interfaces/login.interface";
+import { RegistroRequest } from "../interfaces/registro.interface";
 
 @Injectable({
   providedIn: "root",
@@ -80,8 +80,12 @@ export class AuthService {
     this.setLogged(false);
   }
 
-  registrar(usuario: Usuario): Observable<void> {
-    return this.http.post<void>(`${this.authURL}/registrar`, usuario);
+  registrar(registroRequest: RegistroRequest): Observable<void> {
+    registroRequest.usuario!.contrasenya = this.calcularMD5(
+      registroRequest.usuario!.contrasenya!
+    );
+
+    return this.http.post<void>(`${this.authURL}/registrar`, registroRequest);
   }
 
   private calcularMD5(contrasenya: string): string {

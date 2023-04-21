@@ -15,43 +15,101 @@
                             <aw-wizard #wizardForm>
                                 <aw-wizard-step stepTitle="Paso 1">
                                     <form (ngSubmit)="form1Submit()" [formGroup]="validationForm1">
+
+                                        <div class="row mt-1 mb-3 text-center">
+                                            <b>Datos de usuario</b>
+                                        </div>
+
                                         <div class="row mb-3">
-                                            <label for="firstName" class="col-sm-3 col-form-label">Nombre</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="firstName"
-                                                    formControlName="firstName"
-                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.firstName.errors}"
-                                                    placeholder="Nombre">
-                                                <div *ngIf="isForm1Submitted && form1.firstName.errors?.required"
+                                            <label for="nombre" class="col-sm-3 col-form-label">Nombre</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="nombre"
+                                                    formControlName="nombre"
+                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.nombre.errors}"
+                                                    placeholder="Introduzca nombre">
+                                                <div *ngIf="isForm1Submitted && form1.nombre.errors?.required"
                                                     class="invalid-feedback">
                                                     Requerido
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="lastName" class="col-sm-3 col-form-label">Apellidos</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="lastName"
-                                                    formControlName="lastName"
-                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.lastName.errors}"
-                                                    placeholder="Apellidos">
-                                                <div *ngIf="isForm1Submitted && form1.lastName.errors?.required"
+                                            <label for="apellidos" class="col-sm-3 col-form-label">Apellidos</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="apellidos"
+                                                    formControlName="apellidos"
+                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.apellidos.errors}"
+                                                    placeholder="Introduzca apellidos">
+                                                <div *ngIf="isForm1Submitted && form1.apellidos.errors?.required"
                                                     class="invalid-feedback">
                                                     Requerido
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <label for="userName" class="col-sm-3 col-form-label">Nick</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="userName"
-                                                    formControlName="userName"
-                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.userName.errors}"
-                                                    placeholder="Nick">
-                                                <div *ngIf="isForm1Submitted && form1.userName.errors?.required"
+                                            <label for="nick" class="col-sm-3 col-form-label">Nick</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" id="nick" formControlName="nick"
+                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.nick.errors}"
+                                                    placeholder="Introduzca nombre de usuario">
+                                                <div *ngIf="isForm1Submitted && form1.nick.errors?.required"
                                                     class="invalid-feedback">
                                                     Requerido
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="email" class="col-sm-3 col-form-label">Email</label>
+                                            <div class="col-sm-7">
+                                                <input type="email" class="form-control" id="email"
+                                                    formControlName="email"
+                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.email.errors}"
+                                                    placeholder="Introduzca correo electrónico">
+                                                <div *ngIf="isForm1Submitted && form1.email.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Requerido
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="telefono" class="col-sm-3 col-form-label">Teléfono</label>
+                                            <div class="col-sm-7">
+                                                <input type="number" min="0" max="999999999" class="form-control"
+                                                    id="telefono" formControlName="telefono"
+                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.telefono.errors}"
+                                                    placeholder="Introduzca número de telefono">
+                                                <div *ngIf="isForm1Submitted && form1.telefono.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Requerido
+                                                </div>
+                                                <div *ngIf="isForm1Submitted && form1.telefono.errors?.max"
+                                                    class="invalid-feedback">
+                                                    Valor máximo superado
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <label for="contrasenya" class="col-sm-3 col-form-label">Contraseña</label>
+                                            <div class="col-sm-7">
+                                                <input type="password" class="form-control" id="contrasenya"
+                                                    formControlName="contrasenya"
+                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.contrasenya.errors}"
+                                                    placeholder="Introduzca contraseña">
+                                                <div *ngIf="isForm1Submitted && form1.contrasenya.errors?.required"
+                                                    class="invalid-feedback">
+                                                    Requerido
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-sm-3">
+                                                <input type="checkbox" class="form-check-input col-form-label"
+                                                    (click)="validarEsCompanyia($event)" id="checkCompanyia"
+                                                    formControlName="checkCompanyia">
+                                            </div>
+                                            <div class="col-sm-8">
+                                                <label for="checkCompanyia" class="form-check-label">
+                                                    ¿Tienes una o más salas de escape room?</label>
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-center mt-2">
@@ -60,42 +118,116 @@
                                     </form>
                                 </aw-wizard-step>
 
-                                <aw-wizard-step stepTitle="Paso 2">
-                                    <form (ngSubmit)="form2Submit()" [formGroup]="validationForm2">
-                                        <div class="row mb-3">
-                                            <label for="email" class="col-sm-3 col-form-label">Email</label>
-                                            <div class="col-sm-9">
-                                                <input type="email" class="form-control" id="email"
-                                                    formControlName="email"
-                                                    [ngClass]="{'is-invalid': isForm2Submitted && form2.email.errors}"
-                                                    placeholder="Email">
+                                <ng-container *ngIf="esCompanyia; then esCompanyiaTemplate"></ng-container>
+
+                                <ng-template #esCompanyiaTemplate>
+
+                                    <aw-wizard-step stepTitle="Paso 2">
+                                        <form (ngSubmit)="form2Submit()" [formGroup]="validationForm2">
+
+                                            <div class="row mt-1 mb-3 text-center">
+                                                <b>Datos de compañía</b>
                                             </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <label for="mobileNumber" class="col-sm-3 col-form-label">Teléfono</label>
-                                            <div class="col-sm-9">
-                                                <input type="number" class="form-control" id="mobileNumber"
-                                                    formControlName="mobileNumber"
-                                                    [ngClass]="{'is-invalid': isForm2Submitted && form2.mobileNumber.errors}"
-                                                    placeholder="Teléfono">
+
+                                            <div class="row mb-3">
+                                                <label for="companyia" class="col-sm-3 col-form-label">Nombre</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="companyia"
+                                                        formControlName="companyia"
+                                                        [ngClass]="{'is-invalid': isForm2Submitted && form2.companyia.errors}"
+                                                        placeholder="Introduzca nombre de compañía">
+                                                    <div *ngIf="isForm2Submitted && form2.companyia.errors?.required"
+                                                        class="invalid-feedback">
+                                                        Requerido
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="row mb-3">
-                                            <label for="password" class="col-sm-3 col-form-label">Contraseña</label>
-                                            <div class="col-sm-9">
-                                                <input type="password" class="form-control" id="password"
-                                                    formControlName="password"
-                                                    [ngClass]="{'is-invalid': isForm2Submitted && form2.password.errors}"
-                                                    placeholder="Contraseña">
+                                            <div class="row mb-3">
+                                                <label for="cif" class="col-sm-3 col-form-label">Cif</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="cif"
+                                                        formControlName="cif"
+                                                        [ngClass]="{'is-invalid': isForm2Submitted && form2.cif.errors}"
+                                                        placeholder="Introduzca CIF">
+                                                    <div *ngIf="isForm2Submitted && form2.cif.errors?.required"
+                                                        class="invalid-feedback">
+                                                        Requerido
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="d-flex justify-content-center mt-2">
-                                            <button class="btn btn-secondary me-2" type="button"
-                                                awPreviousStep>Volver</button>
-                                            <button class="btn btn-primary" type="submit">Continuar</button>
-                                        </div>
-                                    </form>
-                                </aw-wizard-step>
+                                            <div class="row mb-3">
+                                                <label for="emailCompanyia"
+                                                    class="col-sm-3 col-form-label">Email</label>
+                                                <div class="col-sm-7">
+                                                    <input type="email" class="form-control" id="emailCompanyia"
+                                                        formControlName="emailCompanyia"
+                                                        [ngClass]="{'is-invalid': isForm2Submitted && form2.emailCompanyia.errors}"
+                                                        placeholder="Introduzca correo electrónico compañia">
+                                                    <div *ngIf="isForm2Submitted && form2.emailCompanyia.errors?.required"
+                                                        class="invalid-feedback">
+                                                        Requerido
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="telefonoCompanyia"
+                                                    class="col-sm-3 col-form-label">Teléfono</label>
+                                                <div class="col-sm-7">
+                                                    <input type="number" min="0" max="999999999" class="form-control"
+                                                        id="telefonoCompanyia" formControlName="telefonoCompanyia"
+                                                        [ngClass]="{'is-invalid': isForm2Submitted && form2.telefonoCompanyia.errors}"
+                                                        placeholder="Introduzca número de telefono compañia">
+                                                    <div *ngIf="isForm2Submitted && form2.telefonoCompanyia.errors?.required"
+                                                        class="invalid-feedback">
+                                                        Requerido
+                                                    </div>
+                                                    <div *ngIf="isForm2Submitted && form2.telefonoCompanyia.errors?.max"
+                                                        class="invalid-feedback">
+                                                        Valor máximo superado
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="web" class="col-sm-3 col-form-label">Sitio web</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" id="web"
+                                                        formControlName="web"
+                                                        [ngClass]="{'is-invalid': isForm2Submitted && form2.web.errors}"
+                                                        placeholder="Introduzca sitio web">
+                                                    <div *ngIf="isForm2Submitted && form2.web.errors?.required"
+                                                        class="invalid-feedback">
+                                                        Requerido
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3">
+                                                <label for="direccion" class="col-sm-3 col-form-label">Dirección</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" class="form-control" formControlName="direccion"
+                                                        [inputFormatter]="formatter"
+                                                        [ngClass]="{'is-invalid': isForm2Submitted && form2.direccion.errors}"
+                                                        [(ngModel)]="direccion" placeholder="Introduzca dirección"
+                                                        [ngbTypeahead]="buscar" [resultTemplate]="rt">
+
+                                                    <ng-template #rt let-r="result" let-t="term">
+                                                        <ngb-highlight [result]="r.place_name"
+                                                            [term]="t"></ngb-highlight>
+                                                    </ng-template>
+
+                                                    <div *ngIf="isForm2Submitted && form2.direccion.errors?.invalidFeature"
+                                                        class="invalid-feedback">
+                                                        Dirección no válida
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-center mt-2">
+                                                <button class="btn btn-secondary me-2" type="button"
+                                                    awPreviousStep>Volver</button>
+                                                <button class="btn btn-primary" type="submit">Continuar</button>
+                                            </div>
+                                        </form>
+                                    </aw-wizard-step>
+                                </ng-template>
 
                                 <aw-wizard-step stepTitle="Fin">
                                     <div class="text-center">
@@ -110,7 +242,7 @@
                                         <button class="btn btn-secondary me-2" type="button"
                                             awPreviousStep>Volver</button>
                                         <button class="btn btn-success" type="button"
-                                            (click)="finishFunction()">Terminar</button>
+                                            (click)="formularioCompleto()">Terminar</button>
                                     </div>
                                 </aw-wizard-step>
 

@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
 import { SweetAlert2Module } from "@sweetalert2/ngx-sweetalert2";
 import { ArchwizardModule } from "angular-archwizard";
+import { NgbModule, NgbTypeaheadModule } from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [LoginComponent, RegistroComponent],
@@ -18,7 +19,9 @@ import { ArchwizardModule } from "angular-archwizard";
     AuthRoutingModule,
     SweetAlert2Module,
     ArchwizardModule,
+    NgbModule,
     ReactiveFormsModule,
+    NgbTypeaheadModule,
   ],
 })
 export class AuthModule {}

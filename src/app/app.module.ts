@@ -15,6 +15,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { TokenInterceptor } from "./interceptors/token.interceptor";
 import { AuthGuard } from "./core/guard/auth.guard";
 import { NgxMapboxGLModule } from "ngx-mapbox-gl";
+import { environment } from "src/environments/environment";
 
 @NgModule({
   declarations: [AppComponent, ErrorPageComponent],
@@ -25,8 +26,7 @@ import { NgxMapboxGLModule } from "ngx-mapbox-gl";
     HttpClientModule,
     LayoutModule,
     NgxMapboxGLModule.withConfig({
-      accessToken:
-        "pk.eyJ1IjoiaGVjdG9yZ2M4NmRhdyIsImEiOiJjbGdtYnlndzIwNGhjM2VxbWw1ZXpucXR0In0.50cJvgiaIPdbVmRIlwBvfw",
+      accessToken: environment.mapBoxToken,
     }),
   ],
   providers: [
