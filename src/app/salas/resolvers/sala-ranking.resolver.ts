@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Router, Resolve, ActivatedRouteSnapshot } from "@angular/router";
 import { catchError, EMPTY, Observable, of } from "rxjs";
 import { SalasService } from "../services/salas.service";
-import { Ranking } from "src/app/estadisticas/interfaces/estadisticas.interface";
+import { Ranking } from "src/app/administracion/interfaces/estadisticas.interface";
 
 @Injectable({
   providedIn: "root",

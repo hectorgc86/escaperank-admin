@@ -14,7 +14,8 @@ import { SalasExploreComponent } from "./salas-explore/salas-explore.component";
 import { CarouselModule } from "ngx-owl-carousel-o";
 import { ScrollTrackerDirective } from "./directives/scroll-tracker.directive";
 import { NgxMapboxGLModule } from "ngx-mapbox-gl";
-
+import { QrListComponent } from './qr-list/qr-list.component';
+import { QRCodeModule } from 'angularx-qrcode';
 @NgModule({
   declarations: [
     SalasFormComponent,
@@ -23,6 +24,7 @@ import { NgxMapboxGLModule } from "ngx-mapbox-gl";
     SalasCardComponent,
     SalasExploreComponent,
     ScrollTrackerDirective,
+    QrListComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,7 @@ import { NgxMapboxGLModule } from "ngx-mapbox-gl";
     NgSelectModule,
     CarouselModule,
     NgxMapboxGLModule,
+    QRCodeModule,
     NgbModule,
   ],
 })

@@ -20,12 +20,20 @@ export const MENU: MenuItem[] = [
     ],
   },
   {
-    label: "Estadísticas",
+    label: "Administración",
     icon: "pie-chart",
     subItems: [
       {
-        label: "Dashboard",
-        link: "/estadisticas",
+        label: "Estadísticas",
+        link: "/administracion/estadisticas",
+      },
+      {
+        label: "Salas",
+        link: "/administracion/salas",
+      },
+      {
+        label: "Noticias",
+        link: "/administracion/noticias",
       },
     ],
   },

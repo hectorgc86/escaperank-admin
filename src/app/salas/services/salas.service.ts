@@ -2,7 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { map, Observable } from "rxjs";
 import { Sala } from "../interfaces/sala.interface";
-import { Ranking } from "src/app/estadisticas/interfaces/estadisticas.interface";
+import { Ranking } from "src/app/administracion/interfaces/estadisticas.interface";
 
 @Injectable({
   providedIn: "root",

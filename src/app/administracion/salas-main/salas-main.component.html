@@ -1,0 +1,86 @@
+<div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mb-3">
+          <h4 class="card-title">Salas</h4>
+          <button type="button" class="btn btn-primary btn-icon-text" (click)="nuevaSala()">
+            <i class="feather icon-plus btn-icon-prepend"></i>
+            Nueva Sala
+          </button>
+          
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Imagen</th>
+                  <th>Nombre</th>
+                  <th>Precio</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let sala of salas">
+                  <td class="py-1">
+                    <img [src]="imageUtils.getImagenSala(sala,'estrechas')" alt="image">
+                  </td>
+                  <td>{{ sala.nombre }}</td>
+                  <td>{{ sala.precioMinimo }}-{{ sala.precioMaximo }}</td>
+                  <td><button class="btn btn-primary" (click)="openModal(sala)">QR Sala</button>
+                  </td>
+                  <td></td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+        <ng-template #noSalas>
+          <p class="mt-3">No se han encontrado salas que coincidan con el texto introducido.</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+
+
+  <ng-template #myModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">QR Sala</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" >
+        <div class="qrcodeImage" >
+            <p id="nombreSala"> {{selectedSalaNombre}}</p>
+            <qrcode #parent
+              [qrdata]="selectedSalaId"
+              [allowEmptyString]="true"
+              [colorDark]="'#000000ff'"
+              [colorLight]="'#ffffffff'"
+              [elementType]="'canvas'"
+              [errorCorrectionLevel]="'M'"
+              [imageSrc]="'./assets/icons/logo.png'"
+              [imageHeight]="75"
+              [imageWidth]="89"
+              [margin]="4"
+              [scale]="1"
+              [width]="300"
+              [title]="selectedSalaNombre"
+            ></qrcode>
+          </div>
+          <div class="downloadButton">
+            <button
+              class="btn btn-primary"
+              
+              (click)="saveAsImage(parent)"
+            >
+              Descargar QR
+            </button>
+          </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Cerrar</button>
+    </div>
+  </ng-template>

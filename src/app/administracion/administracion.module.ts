@@ -10,18 +10,42 @@ import { NgbDropdownModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstr
 // Ng-ApexCharts
 import { NgApexchartsModule } from "ng-apexcharts";
 import { EstadisticasCardComponent } from './estadisticas-card/estadisticas-card.component';
+import { SalasMainComponent } from './salas-main/salas-main.component';
+import { NoticiasMainComponent } from './noticias-main/noticias-main.component';
+import { NoticiasNewComponent } from './noticias-new/noticias-new.component';
+import { SalasNewComponent } from './salas-new/salas-new.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'estadisticas',
     component: EstadisticasMainComponent
+  },
+  {
+    path: 'salas',
+    component: SalasMainComponent
+  },
+  {
+    path: 'salas/nueva',
+    component: SalasNewComponent
+  },
+  {
+    path: 'noticias',
+    component: NoticiasMainComponent
+  },
+  {
+    path: 'noticias/nueva',
+    component: NoticiasNewComponent
   }
 ]
-
 @NgModule({
   declarations: [
     EstadisticasMainComponent,
-    EstadisticasCardComponent
+    EstadisticasCardComponent,
+    SalasMainComponent,
+    NoticiasMainComponent,
+    NoticiasNewComponent,
+    SalasNewComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +54,8 @@ const routes: Routes = [
     FeatherIconModule,
     NgbDropdownModule,
     NgbDatepickerModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    QRCodeModule
   ]
 })
-export class EstadisticasModule { }
+export class AdministracionModule { }

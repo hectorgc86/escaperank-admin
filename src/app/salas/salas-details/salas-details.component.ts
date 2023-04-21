@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Sala } from "../interfaces/salas_categorias.interface";
 import { ImageUtils } from "src/app/utils/image-utils";
-import { Ranking } from "src/app/estadisticas/interfaces/estadisticas.interface";
+import { Ranking } from "src/app/administracion/interfaces/estadisticas.interface";
 
 @Component({
   selector: "app-salas-details",
