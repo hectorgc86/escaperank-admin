@@ -24,12 +24,14 @@
 
     <ul class="sidebar-nav metismenu" id="sidebar-menu" #sidebarMenu>
 
-      <div *ngIf="!foldedMenu" class="d-flex flex-column align-items-center border-bottom px-5 py-3">
-        <div class="mb-3"><img _ngcontent-jpx-c87="" src="https://via.placeholder.com/80x80" alt=""
-            class="wd-80 ht-80 rounded-circle"></div>
+      <div *ngIf="!foldedMenu" class="d-flex flex-column align-items-center border-bottom px-5 pb-3">
+        <div class="mb-3">
+          <img [src]="imageUtils.getImagenUsuario(perfil)" [alt]="perfil.nombre" [title]="perfil.nombre"
+            class="wd-60 ht-60 rounded-circle">
+        </div>
         <div class="text-center">
-          <p class="tx-16 fw-bolder">Amiah Burton</p>
-          <p class="tx-12 text-muted">amiahburton@gmail.com</p>
+          <p class="tx-16 fw-bolder">{{ perfil.nombre }}</p>
+          <p class="tx-12 text-muted">{{ perfil.usuario?.email }}</p>
         </div>
       </div>
 

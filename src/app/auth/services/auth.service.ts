@@ -4,6 +4,7 @@ import { catchError, map, Observable, of } from "rxjs";
 import { MD5 } from "crypto-js";
 import { Login, LoginRequest } from "../interfaces/login.interface";
 import { RegistroRequest } from "../interfaces/registro.interface";
+import { UsuariosService } from "src/app/usuarios/services/usuarios.service";
 
 @Injectable({
   providedIn: "root",
@@ -14,7 +15,10 @@ export class AuthService {
 
   loginChange$ = new EventEmitter<boolean>();
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private usuariosService: UsuariosService
+  ) {
     this.authURL = "auth";
   }
 
@@ -58,6 +62,12 @@ export class AuthService {
         localStorage.setItem("tokenAcceso", resp.tokenAcceso!);
 
         this.setLogged(true);
+
+        this.usuariosService
+          .getPerfil(resp.usuarioId as unknown as number)
+          .subscribe((perfil) =>
+            localStorage.setItem("perfil", JSON.stringify(perfil))
+          );
       })
     );
   }
@@ -84,5 +94,6 @@ export class AuthService {
     localStorage.removeItem("companyiaId");
     localStorage.removeItem("rol");
     localStorage.removeItem("tokenAcceso");
+    localStorage.removeItem("perfil");
   }
 }

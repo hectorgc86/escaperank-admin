@@ -4,7 +4,6 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
-  Renderer2,
   Inject,
 } from "@angular/core";
 import { DOCUMENT } from "@angular/common";
@@ -14,6 +13,9 @@ import MetisMenu from "metismenujs";
 import { MENU } from "./menu";
 import { MenuItem } from "./menu.model";
 import { Router, NavigationEnd } from "@angular/router";
+import { UsuariosService } from "../../../usuarios/services/usuarios.service";
+import { Perfil } from "src/app/usuarios/interfaces/perfil.interface";
+import { ImageUtils } from "src/app/utils/image-utils";
 
 @Component({
   selector: "app-sidebar",
@@ -26,7 +28,9 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   menuItems: MenuItem[] = [];
   @ViewChild("sidebarMenu") sidebarMenu: ElementRef;
 
+  perfil: Perfil;
   foldedMenu: boolean;
+  imageUtils = ImageUtils;
 
   constructor(@Inject(DOCUMENT) private document: Document, router: Router) {
     router.events.forEach((event) => {
@@ -48,6 +52,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.menuItems = MENU;
     this.foldedMenu = false;
+
+    this.perfil = JSON.parse(localStorage.getItem("perfil")!);
 
     /**
      * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)

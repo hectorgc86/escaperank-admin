@@ -1,6 +1,7 @@
 import { environment } from "src/environments/environment";
 import { Noticia } from "../noticias/interfaces/noticia.interface";
 import { Sala } from "../salas/interfaces/salas_categorias.interface";
+import { Perfil } from "../usuarios/interfaces/perfil.interface";
 
 export class ImageUtils {
   private static defaultImage = "/default.png";
@@ -14,6 +15,18 @@ export class ImageUtils {
       urlNoticia += sufijo + noticia.imagen;
     } else {
       urlNoticia += this.defaultImage;
+    }
+    return urlNoticia;
+  }
+
+  static getImagenUsuario(perfil: Perfil): string {
+    let sufijo = "/usuarios/";
+    let urlNoticia = `${environment.storageUrl}`;
+
+    if (perfil.avatar !== null) {
+      urlNoticia += sufijo + perfil.avatar;
+    } else {
+      urlNoticia += sufijo + this.defaultImage;
     }
     return urlNoticia;
   }

@@ -1,61 +1,35 @@
-<div _ngcontent-hga-c264="" class="col-md-12 grid-margin">
-    <div _ngcontent-hga-c264="" class="card rounded">
-        <div _ngcontent-hga-c264="" class="card-header">
-            <div _ngcontent-hga-c264="" class="d-flex align-items-center justify-content-between">
-                <div _ngcontent-hga-c264="" class="d-flex align-items-center"><img _ngcontent-hga-c264="" alt=""
-                        class="img-xs rounded-circle">
-                    <div _ngcontent-hga-c264="" class="ms-2">
-                        <p _ngcontent-hga-c264=""> {{noticia.titular}}
+<div class="col-md-12 grid-margin">
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center"><img alt="" class="img-xs rounded-circle">
+                    <div class="ms-2">
+                        <p> {{noticia.titular}}
                         </p>
-                        <p _ngcontent-hga-c264="" class="tx-11 text-muted">{{noticia.fecha |
+                        <p class="tx-11 text-muted">{{noticia.fecha |
                             date:'d/M/yyyy,
                             hh:mm:ss'}}</p>
                     </div>
                 </div>
-                <div _ngcontent-hga-c264="" ngbdropdown="" class="dropdown"><button _ngcontent-hga-c264="" type="button"
-                        id="dropdownMenuButton2" ngbdropdowntoggle=""
-                        class="dropdown-toggle btn p-0 no-dropdown-toggle-icon" aria-expanded="false"><i
-                            _ngcontent-hga-c264="" class="feather icon-more-horizontal icon-lg pb-3px"></i></button>
-                    <div _ngcontent-hga-c264="" ngbdropdownmenu="" aria-labelledby="dropdownMenuButton2"
-                        class="dropdown-menu"><a _ngcontent-hga-c264="" ngbdropdownitem="" href=""
-                            class="dropdown-item d-flex align-items-center" tabindex="0"><i _ngcontent-hga-c264=""
-                                class="feather icon-meh icon-sm me-2"></i><span
-                                _ngcontent-hga-c264="">Unfollow</span></a><a _ngcontent-hga-c264="" ngbdropdownitem=""
-                            href="" class="dropdown-item d-flex align-items-center" tabindex="0"><i
-                                _ngcontent-hga-c264="" class="feather icon-corner-right-up icon-sm me-2"></i><span
-                                _ngcontent-hga-c264="">Go to
-                                post</span></a><a _ngcontent-hga-c264="" ngbdropdownitem="" href=""
-                            class="dropdown-item d-flex align-items-center" tabindex="0"><i _ngcontent-hga-c264=""
-                                class="feather icon-share-2 icon-sm me-2"></i><span
-                                _ngcontent-hga-c264="">Share</span></a><a _ngcontent-hga-c264="" ngbdropdownitem=""
-                            href="" class="dropdown-item d-flex align-items-center" tabindex="0"><i
-                                _ngcontent-hga-c264="" class="feather icon-copy icon-sm me-2"></i><span
-                                _ngcontent-hga-c264="">Copy link</span></a>
-                    </div>
-                </div>
-            </div>
-            <div _ngcontent-hga-c264="" class="card-body">
-                <div>
-                    <img _ngcontent-hga-c264="" [src]="imageUtils.getImagenNoticia(noticia)" alt=""
-                        class="img-fluid rounded">
-                </div>
-                <div>
-                    <p _ngcontent-hga-c264="" class="noticia-texto tx-14"><b>{{noticia.textoCorto}}</b></p>
-                    <p _ngcontent-hga-c264="" class="noticia-texto tx-14">{{noticia.textoLargo}}</p>
-                </div>
-            </div>
-            <div _ngcontent-hga-c264="" class="card-footer">
-                <div _ngcontent-hga-c264="" class="d-flex post-actions"><a _ngcontent-hga-c264="" href=""
-                        class="d-flex align-items-center text-muted me-4"><i _ngcontent-hga-c264=""
-                            class="feather icon-heart icon-md"></i>
-                        <p _ngcontent-hga-c264="" class="d-none d-md-block ms-2">Me gusta</p>
-                    </a><a _ngcontent-hga-c264="" href="" class="d-flex align-items-center text-muted me-4"><i
-                            _ngcontent-hga-c264="" class="feather icon-message-square icon-md"></i>
-                        <p _ngcontent-hga-c264="" class="d-none d-md-block ms-2">Comentar</p>
-                    </a><a _ngcontent-hga-c264="" href="" class="d-flex align-items-center text-muted"><i
-                            _ngcontent-hga-c264="" class="feather icon-share icon-md"></i>
-                        <p _ngcontent-hga-c264="" class="d-none d-md-block ms-2">Compartir</p>
-                    </a></div>
             </div>
         </div>
+        <img [src]="imageUtils.getImagenNoticia(noticia)" alt="" class="card-img-top">
+        <div class="card-body">
+            <div>
+                <p class=" noticia-texto tx-14"><b>{{noticia.textoCorto}}</b></p>
+                <p class="noticia-texto tx-14">{{noticia.textoLargo}}</p>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="d-flex post-actions"><a href="" class="d-flex align-items-center text-muted me-4"><i
+                        class="feather icon-heart icon-md"></i>
+                    <p class="d-none d-md-block ms-2">Me gusta</p>
+                </a><a href="" class="d-flex align-items-center text-muted me-4"><i
+                        class="feather icon-message-square icon-md"></i>
+                    <p class="d-none d-md-block ms-2">Comentar</p>
+                </a><a href="" class="d-flex align-items-center text-muted"><i class="feather icon-share icon-md"></i>
+                    <p class="d-none d-md-block ms-2">Compartir</p>
+                </a></div>
+        </div>
     </div>
+</div>
