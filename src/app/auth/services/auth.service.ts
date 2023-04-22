@@ -37,8 +37,7 @@ export class AuthService {
           return true;
         }),
         catchError((error: HttpErrorResponse) => {
-          localStorage.removeItem("usuarioId");
-          localStorage.removeItem("tokenAcceso");
+          this.resetearLocalStorage();
           return of(false);
         })
       );
@@ -51,32 +50,20 @@ export class AuthService {
     return this.http.post<Login>(`${this.authURL}/login`, loginRequest).pipe(
       map((resp) => {
         localStorage.setItem("usuarioId", resp.usuarioId!);
+        localStorage.setItem("rol", resp.rol!);
+
+        if (resp.companyiaId != null) {
+          localStorage.setItem("companyiaId", resp.companyiaId!);
+        }
         localStorage.setItem("tokenAcceso", resp.tokenAcceso!);
-        this.setLogged(true);
-      })
-    );
-  }
 
-  loginFacebook(token: string): Observable<void> {
-    return this.http.post<Login>(`${this.authURL}/facebook`, { token }).pipe(
-      map((resp) => {
-        localStorage.setItem("token", resp.tokenAcceso!);
-        this.setLogged(true);
-      })
-    );
-  }
-
-  loginGoogle(token: string): Observable<void> {
-    return this.http.post<Login>(`${this.authURL}/google`, { token }).pipe(
-      map((resp) => {
-        localStorage.setItem("token", resp.tokenAcceso!);
         this.setLogged(true);
       })
     );
   }
 
   logout(): void {
-    localStorage.removeItem("tokenAcceso");
+    this.resetearLocalStorage();
     this.setLogged(false);
   }
 
@@ -84,12 +71,18 @@ export class AuthService {
     registroRequest.usuario!.contrasenya = this.calcularMD5(
       registroRequest.usuario!.contrasenya!
     );
-
     return this.http.post<void>(`${this.authURL}/registrar`, registroRequest);
   }
 
   private calcularMD5(contrasenya: string): string {
     const result = MD5(contrasenya);
     return result.toString();
+  }
+
+  private resetearLocalStorage() {
+    localStorage.removeItem("usuarioId");
+    localStorage.removeItem("companyiaId");
+    localStorage.removeItem("rol");
+    localStorage.removeItem("tokenAcceso");
   }
 }
