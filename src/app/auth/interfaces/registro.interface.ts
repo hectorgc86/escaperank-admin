@@ -9,6 +9,4 @@ export interface Registro {
 export interface RegistroRequest {
   usuario?: UsuarioRequest;
   companyia?: CompanyiaRequest;
-  ciudad: string;
-  provincia: string;
 }

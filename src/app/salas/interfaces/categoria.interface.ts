@@ -1,4 +1,4 @@
-import { Sala, SalasCategorias } from "./salas_categorias.interface";
+import { SalasCategorias } from "./salas_categorias.interface";
 
 export interface Categoria {
   id?: string | null;

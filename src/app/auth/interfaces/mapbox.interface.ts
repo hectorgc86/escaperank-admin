@@ -7,5 +7,6 @@ export interface Feature {
 }
 
 export interface Context {
+  id: string;
   text: string;
 }

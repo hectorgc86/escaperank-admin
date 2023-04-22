@@ -20,7 +20,9 @@ export interface UsuarioRequest {
   nick?: string | null;
   contrasenya?: string | null;
   email?: string | null;
-  perfil?: PerfilRequest;
+  nombre?: string | null;
+  telefono?: string | null;
+  nacido?: string | null;
 }
 
 export interface Amigo extends Usuario {

@@ -18,7 +18,6 @@ import {
   switchMap,
 } from "rxjs";
 import Swal from "sweetalert2";
-import { Perfil } from "src/app/usuarios/interfaces/perfil.interface";
 import { CompanyiaRequest } from "src/app/salas/interfaces/companyia.interface";
 import { RegistroRequest } from "../interfaces/registro.interface";
 import { UsuarioRequest } from "../../usuarios/interfaces/usuario.interface";
@@ -38,7 +37,6 @@ export class RegistroComponent implements OnInit {
 
   companyiaRegistro: CompanyiaRequest;
   usuarioRegistro: UsuarioRequest;
-  perfilRegistro: Perfil;
 
   esCompanyia: Boolean;
 
@@ -114,52 +112,48 @@ export class RegistroComponent implements OnInit {
   }
 
   registrar() {
-    this.perfilRegistro = {
+    this.usuarioRegistro = {
+      nick: this.validationForm1.value.nick,
+      contrasenya: this.validationForm1.value.contrasenya,
+      email: this.validationForm1.value.email,
       nombre:
         this.validationForm1.value.nombre +
         " " +
         this.validationForm1.value.apellidos,
       telefono: this.validationForm1.value.telefono,
-      numeroPartidas: 0,
-      partidasGanadas: 0,
-      partidasPerdidas: 0,
-      avatar: "default.png",
       nacido: this.validationForm1.value.nacido,
     };
 
-    this.usuarioRegistro = {
-      nick: this.validationForm1.value.nick,
-      contrasenya: this.validationForm1.value.contrasenya,
-      email: this.validationForm1.value.email,
-      perfil: this.perfilRegistro,
-    };
-
     if (this.esCompanyia) {
+      let provincia = (
+        this.direccion.context.find((item) => item.id.startsWith("region."))
+          ?.text ?? ""
+      )
+        .replace("provincia de ", "")
+        .replace("Región de ", "");
+
       this.companyiaRegistro = {
         nombre: this.validationForm2.value.companyia,
-        direccion: this.direccion.place_name,
+        direccion: this.direccion.text,
         email: this.validationForm2.value.emailCompanyia,
         telefono: this.validationForm2.value.telefonoCompanyia,
         web: this.validationForm2.value.web,
-        tripAdvisor: "",
-        facebook: "",
         latitud: this.direccion.center[0],
         longitud: this.direccion.center[1],
         numeroLocal: this.direccion.address,
-        googleMaps: null,
-        numeroOpiniones: "0",
-        codigoPostal: this.direccion.context[0].text,
-        instagram: "",
-        puntuacion: "0",
-        rango: "",
+        codigoPostal: this.direccion.context.find((item) =>
+          item.id.startsWith("postcode.")
+        )?.text,
+        ciudad: this.direccion.context.find((item) =>
+          item.id.startsWith("place.")
+        )?.text,
+        provincia: provincia,
       };
     }
 
     const registroRequest: RegistroRequest = {
       usuario: this.usuarioRegistro,
       companyia: this.companyiaRegistro,
-      ciudad: this.direccion.context[2].text,
-      provincia: this.direccion.context[3].text,
     };
 
     this.authService.registrar(registroRequest).subscribe({

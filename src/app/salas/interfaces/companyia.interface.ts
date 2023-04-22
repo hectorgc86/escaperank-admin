@@ -32,15 +32,10 @@ export interface CompanyiaRequest {
   email?: string | null;
   telefono?: string | null;
   web?: string | null;
-  tripAdvisor?: string | null;
-  facebook?: string | null;
   latitud?: string | null;
   longitud?: string | null;
   numeroLocal?: string | null;
-  googleMaps?: string | null;
-  numeroOpiniones?: string | null;
   codigoPostal?: string | null;
-  instagram?: string | null;
-  puntuacion?: string | null;
-  rango?: string | null;
+  ciudad?: string | null;
+  provincia?: string | null;
 }
