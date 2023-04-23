@@ -32,7 +32,6 @@ export class SalasMainComponent implements OnInit {
     .getSalasCompanyia('Blbk64oO1532318930.6759')
     .subscribe((salas) => {
       this.salas = salas; 
-       console.log(this.salas);      
       });
   }
  nuevaSala() {
@@ -106,9 +105,6 @@ export class SalasMainComponent implements OnInit {
       }
     }
   }
-
-  
-
 
   private convertBase64ToBlob(Base64Image: string) {
     // split into two parts

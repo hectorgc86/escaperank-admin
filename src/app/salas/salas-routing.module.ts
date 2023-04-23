@@ -5,7 +5,7 @@ import { QrListComponent } from "./qr-list/qr-list.component";
 import { SalaResolver } from "./resolvers/sala.resolver";
 import { SalasDetailsComponent } from "./salas-details/salas-details.component";
 import { SalasExploreComponent } from "./salas-explore/salas-explore.component";
-import { SalasFormComponent } from "./salas-form/salas-form.component";
+import { SalasFormComponent } from "../administracion/salas-form/salas-form.component";
 import { SalasListComponent } from "./salas-list/salas-list.component";
 import { SalaRankingResolver } from "./resolvers/sala-ranking.resolver";
 

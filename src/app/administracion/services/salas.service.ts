@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Sala } from 'src/app/salas/interfaces/sala.interface';
-import { Estadisticas } from '../interfaces/estadisticas.interface';
+import { Sala, SalaResponse } from 'src/app/salas/interfaces/sala.interface';
 import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SalasService {
+ 
+ 
   private salasURL: string;
   constructor(private readonly http: HttpClient) {
     this.salasURL = "salas";
@@ -18,5 +19,14 @@ export class SalasService {
 
   }
 
+  addSala(salaCreada: Sala):Observable<Sala> {
+    return this.http.post<SalaResponse>(`${this.salasURL}/new`,salaCreada)
+    .pipe(map((response:SalaResponse) => response.sala));;
+  }
 
+  updateSala(sala: Sala): Observable<Sala> {
+    return this.http
+    .put<SalaResponse>(`${this.salasURL}/${sala.id}`, sala)
+    .pipe(map((response: SalaResponse) => response.sala));
+  }
 }
