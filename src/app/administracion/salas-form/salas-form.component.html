@@ -1,0 +1,154 @@
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Nueva Sala</h4>
+        <p class=“text-muted”>Da de alta una nueva sala</p>
+      </div>
+    </div>
+  </div>
+  <form [formGroup]="salaForm" (ngSubmit)="addSala()"novalidate>
+    <div class="row">
+      <div class="grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <div class="form-check mb-2">
+                <input type="checkbox" class="form-check-input" id="promocionada" formControlName="promocionada">
+                <label class="form-check-label" for="promocionada">
+                  Promocionada
+                </label>
+              </div>
+            <div class="mb-3">
+              <label for="inputNombre" class="form-label">Nombre</label>
+              <input class="form-control" type="text" placeholder="Titular" ngModel name="nombre" formControlName="nombre" required/>
+              <p class="text-danger mt-1" *ngIf="salaForm.get('nombre')?.errors?.required">required error</p>
+            </div>
+           
+           
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea2" class="form-label">Descripción</label>
+                <textarea class="form-control" id="exampleFormControlTextarea2" ngModel name="descripcion"  rows="5" formControlName="descripcion" required></textarea>
+                <p class="text-danger mt-1" *ngIf="salaForm.get('descripcion')?.errors?.required">required error</p>
+
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputUsername1" class="form-label">Duracion (minutos)</label>
+                <input class="form-control" type="text" placeholder="Duracion" ngModel name="duracion" formControlName="duracion" required digits/>
+                <p class="text-danger mt-1" *ngIf="salaForm.get('duracion')?.errors?.digits">Solo admite números</p>
+                <p class="text-danger mt-1" *ngIf="salaForm.get('duracion')?.errors?.required">required error</p>
+
+              </div>
+              <div class="mb-3">
+                <label for="inputEdad" class="form-label">Edad Mínima Recomendada</label>
+                <input class="form-control" type="text" placeholder="Edad Recomendada" ngModel name="edadPublico"  formControlName="edadPublico" required digits/>
+                <p class="text-danger mt-1" *ngIf="salaForm.get('edadPublico')?.errors?.required">required error</p>
+                <p class="text-danger mt-1" *ngIf="salaForm.get('edadPublico')?.errors?.digits">Solo admite números</p>
+              </div>
+              <div class="mb-3">
+                <label for="inputNumMinJugadores" class="form-label">Nº Mínimo Jugadores</label>
+                <input class="form-control" type="text" placeholder="Nº Mínimo Jugadores" ngModel name="minimoJugadores"  formControlName="minimoJugadores" required digits/>
+                <p class="text-danger mt-1" *ngIf="salaForm.get('minimoJugadores')?.errors?.required">required error</p>
+                <p class="text-danger mt-1" *ngIf="salaForm.get('minimoJugadores')?.errors?.digits">Solo admite números</p>
+              </div>
+              <div class="mb-3">
+                <label for="inputNumMaxJugadores" class="form-label">Nº Máximo Jugadores</label>
+                <input class="form-control" type="text" placeholder="Nº Máximo Jugadores" ngModel name="numMaxJugadores"  formControlName="maximoJugadores" required digits/>
+                <p class="text-danger mt-1" *ngIf="salaForm.get('maximoJugadores')?.errors?.required">required error</p>
+                <p class="text-danger mt-1" *ngIf="salaForm.get('maximoJugadores')?.errors?.digits">Solo admite números</p>
+              </div>
+              <div class="mb-3">
+                <label for="inputPrecioMinimo" class="form-label">Precio Mínimo</label>
+                <input class="form-control" type="text" placeholder="Precio Mínimo" ngModel name="precioMinimo" formControlName="precioMinimo" required number/>
+                <p class="text-danger mt-1" *ngIf="salaForm.get('precioMinimo')?.errors?.required">required error</p>
+                <p class="text-danger mt-1" *ngIf="salaForm.get('precioMinimo')?.errors?.number">Solo admite números</p>
+              </div>
+              <div class="mb-3">
+                <label for="inputPrecioMaximo" class="form-label">Precio Máximo</label>
+                <input class="form-control" type="text" placeholder="Precio Máximo" ngModel name="precioMaximo"  formControlName="precioMaximo" required number/>
+                <p class="text-danger mt-1" *ngIf="salaForm.get('precioMaximo')?.errors?.required">required error</p>
+                <p class="text-danger mt-1" *ngIf="salaForm.get('precioMaximo')?.errors?.number">Solo admite números</p>
+              </div>
+
+              <div class="mb-3">
+
+              <label class="form-label">Dificultad</label>
+              <ng-select [items]="dificultades"
+              bindLabel="tipo"
+              bindValue="id"
+              [searchable]="false"
+              formControlName="dificultad"
+              >
+            </ng-select>
+
+            <div class="mb-3">
+                <label class="form-label">Tipos Público</label>
+                <ng-select
+                [items]="publicos"
+                [multiple]=true
+                [closeOnSelect]="false"
+                [searchable]="false"
+                bindLabel="tipo"
+                placeholder="Seleccione Públicos"
+                formControlName="publico">
+              </ng-select>
+             
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Temáticas</label>
+                <ng-select
+                [items]="tematicas"
+                [multiple]=true
+                [closeOnSelect]="false"
+                [searchable]="false"
+                bindLabel="tipo"
+                placeholder="Seleccione Temáticas"
+                formControlName="tematicas">
+              </ng-select>
+             
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Categorías</label>
+                <ng-select
+                [items]="categorias"
+                [multiple]=true
+                [closeOnSelect]="false"
+                [searchable]="false"
+                bindLabel="tipo"
+                placeholder="Seleccione Categorías"
+               
+                formControlName="categorias">
+              </ng-select>
+             
+            </div>
+
+              <div class="mb-3">
+                <label for="Enlace" class="form-label">Link Reserva</label>
+                <input class="form-control" type="text" placeholder="Enlace" ngModel name="urlReserva" formControlName="urlReserva"/>
+              </div>
+
+            <div class="mb-3">
+                <label class="form-label">Imagen Estrecha</label>
+                <dropzone
+                [config]="config"
+                [message]="'Click or drag images here to upload'"
+                (drop)="onFileDropped($event)"
+                (sending)="onSending($event)"
+                (addedFile)="onAddedFile($event)"
+                (error)="onUploadError($event)"
+                (success)="onUploadSuccess($event)"
+                (removeFile)="onRemoveFile($event)"
+                #dz></dropzone>
+               <button class="btn btn-secondary mt-2 d-block ms-auto" type="button" (click)="resetDropzone1Uploads()">Reset</button>
+            </div>
+    
+        </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <button type="submit" class="btn btn-primary me-2">Enviar</button>
+  <button class="btn btn-secondary">Cancelar</button>
+</form>

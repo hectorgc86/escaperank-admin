@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ReactiveFormsModule } from "@angular/forms";
 
 import { AppRoutingModule } from "./app-routing.module";
 
@@ -17,6 +18,7 @@ import { AuthGuard } from "./core/guard/auth.guard";
 import { NgxMapboxGLModule } from "ngx-mapbox-gl";
 import { environment } from "src/environments/environment";
 import { LoadingInterceptor } from "./interceptors/loading.interceptor";
+import { UtilsModule } from "./utils/utils.module";
 
 @NgModule({
   declarations: [AppComponent, ErrorPageComponent],
@@ -26,6 +28,8 @@ import { LoadingInterceptor } from "./interceptors/loading.interceptor";
     BrowserAnimationsModule,
     HttpClientModule,
     LayoutModule,
+    ReactiveFormsModule,
+    UtilsModule,
     NgxMapboxGLModule.withConfig({
       accessToken: environment.mapBoxToken,
     }),

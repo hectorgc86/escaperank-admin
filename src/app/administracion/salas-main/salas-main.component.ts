@@ -30,7 +30,6 @@ export class SalasMainComponent implements OnInit {
       .getSalasCompanyia(localStorage.getItem("companyiaId")!)
       .subscribe((salas) => {
         this.salas = salas;
-        console.log(this.salas);
       });
   }
   nuevaSala() {

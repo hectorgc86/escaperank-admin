@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EstadisticasMainComponent } from './estadisticas-main/estadisticas-main.component';
 import { Routes, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { FeatherIconModule } from 'src/app/core/feather-icon/feather-icon.module';
 import { NgbDropdownModule, NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
@@ -13,9 +13,19 @@ import { EstadisticasCardComponent } from './estadisticas-card/estadisticas-card
 import { SalasMainComponent } from './salas-main/salas-main.component';
 import { NoticiasMainComponent } from './noticias-main/noticias-main.component';
 import { NoticiasNewComponent } from './noticias-new/noticias-new.component';
-import { SalasNewComponent } from './salas-new/salas-new.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { SalasFormComponent } from './salas-form/salas-form.component';
+import { CustomFormsModule } from 'ngx-custom-validators';
+import { DropzoneConfigInterface, DropzoneModule, DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
+import { NgSelectModule } from '@ng-select/ng-select';
 
+const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
+  // Change this to your upload POST address:
+  url: "https://httpbin.org/post",
+  maxFilesize: 1,
+  acceptedFiles: "image/*",
+  autoProcessQueue:false
+};
 const routes: Routes = [
   {
     path: 'estadisticas',
@@ -27,7 +37,7 @@ const routes: Routes = [
   },
   {
     path: 'salas/nueva',
-    component: SalasNewComponent
+    component: SalasFormComponent
   },
   {
     path: 'noticias',
@@ -45,17 +55,27 @@ const routes: Routes = [
     SalasMainComponent,
     NoticiasMainComponent,
     NoticiasNewComponent,
-    SalasNewComponent
+    SalasFormComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    FormsModule,
     FeatherIconModule,
     NgbDropdownModule,
     NgbDatepickerModule,
     NgApexchartsModule,
-    QRCodeModule
-  ]
+    QRCodeModule, 
+   
+    ReactiveFormsModule,
+    CustomFormsModule,
+    NgbDatepickerModule,
+    DropzoneModule,
+    NgSelectModule,
+  ], providers: [
+    {
+      provide: DROPZONE_CONFIG,
+      useValue: DEFAULT_DROPZONE_CONFIG,
+    }, // Ngx-dropzone-wrapper
+  ],
 })
 export class AdministracionModule { }

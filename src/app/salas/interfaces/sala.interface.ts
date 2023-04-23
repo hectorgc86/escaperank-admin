@@ -54,3 +54,8 @@ export interface Sala {
   tematicas?: Tematica[] | null;
   valoraciones?: Valoracion[] | null;
 }
+
+
+export interface SalaResponse {
+  sala: Sala;
+}
