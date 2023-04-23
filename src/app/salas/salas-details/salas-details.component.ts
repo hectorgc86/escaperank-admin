@@ -20,7 +20,7 @@ export class SalasDetailsComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.zoom = 100;
+    this.zoom = 17;
     this.sala = this.route.snapshot.data["sala"];
     this.ranking = this.route.snapshot.data["ranking"];
 

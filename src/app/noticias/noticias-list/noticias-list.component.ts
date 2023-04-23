@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
 import { Noticia } from "../interfaces/noticia.interface";
 import { NoticiasService } from "../services/noticia.service";
+import { Sala } from "src/app/salas/interfaces/sala.interface";
+import { SalasService } from "src/app/salas/services/salas.service";
+import { ImageUtils } from "src/app/utils/image-utils";
 
 @Component({
   selector: "app-noticias-list",
@@ -11,10 +13,12 @@ import { NoticiasService } from "../services/noticia.service";
 export class NoticiasListComponent implements OnInit {
   noticias: Noticia[];
   idUsuario: number;
+  salas: Sala[];
+  imageUtils = ImageUtils;
 
   constructor(
-    private router: Router,
-    private noticiasService: NoticiasService
+    private noticiasService: NoticiasService,
+    private salasService: SalasService
   ) {
     this.noticias = [];
     this.idUsuario = localStorage.getItem("usuarioId") as unknown as number;
@@ -24,9 +28,8 @@ export class NoticiasListComponent implements OnInit {
     this.noticiasService
       .getNoticiasUsuario(this.idUsuario)
       .subscribe((noticias) => (this.noticias = noticias));
-  }
-
-  nuevaNoticia() {
-    this.router.navigate(["/noticias/nueva"]);
+    this.salasService
+      .getSalasPromocionadas()
+      .subscribe((salas) => (this.salas = salas));
   }
 }

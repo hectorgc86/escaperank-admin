@@ -2,94 +2,109 @@
   <div>
     <h4 class="mb-3 mb-md-0">Bienvenido a EscapeRank</h4>
   </div>
-  <div class="d-flex align-items-center flex-wrap text-nowrap">
-    <button type="button" class="btn btn-primary btn-icon-text mb-2 mb-md-0">
-      <i class="btn-icon-prepend" data-feather="download-cloud" appFeatherIcon></i>
-      Download Report
-    </button>
-  </div>
 </div>
 
 <div class="row">
   <div class="col-12 col-xl-12 stretch-card">
     <div class="row flex-grow-1">
       <div>
-        <h4 class="mb-3 mb-md-0 text-center">Partidas</h4>
+        <h5 class="mb-3 mb-md-0">Partidas</h5>
         <br>
       </div>
-      <app-estadisticas-card class="col" [numPartida]="numPartida"
-        *ngFor="let numPartida of numPartidas"></app-estadisticas-card>
+
+      <ng-container *ngIf="numPartidas && numPartidas.length > 0; else noPartidas">
+        <app-estadisticas-card class="col" [numPartida]="numPartida"
+          *ngFor="let numPartida of numPartidas"></app-estadisticas-card>
+      </ng-container>
+
+      <ng-template #noPartidas>
+        <p class="mb-3">Actualmente no hay partidas registradas en ninguna de tus salas.</p>
+      </ng-template>
     </div>
   </div>
 </div>
 
 <div class=row>
   <div>
-    <h4 class="mb-3 mb-md-0 text-center">Tiempos</h4>
+    <h5 class="mb-3 mb-md-0">Tiempos</h5>
     <br>
   </div>
-  <div class="col-12 col-xl-12 grid-margin stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-baseline mb-2">
-        </div>
-        <div class="table-responsive">
-          <table class="table table-hover mb-0">
-            <thead>
-              <tr>
-                <th class="pt-0">Sala</th>
-                <th class="pt-0">Partida Más Corta</th>
-                <th class="pt-0">Partida Más Larga</th>
-                <th class="pt-0">Tiempo Promedio</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let tiempo of tiempos">
-                <td>{{ tiempo.nombre }}</td>
-                <td>{{ tiempo.partida_mas_corta }}</td>
-                <td>{{ tiempo.partida_mas_larga }}</td>
-                <td>{{ tiempo.tiempo_promedio }}</td>
-              </tr>
-            </tbody>
-          </table>
+
+  <ng-container *ngIf="tiempos && tiempos.length > 0; else noTiempos">
+
+    <div class="col-12 col-xl-12 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-baseline mb-2">
+          </div>
+
+          <div class="table-responsive">
+            <table class="table table-hover mb-0">
+              <thead>
+                <tr>
+                  <th class="pt-0">Sala</th>
+                  <th class="pt-0">Partida Más Corta</th>
+                  <th class="pt-0">Partida Más Larga</th>
+                  <th class="pt-0">Tiempo Promedio</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let tiempo of tiempos">
+                  <td>{{ tiempo.nombre }}</td>
+                  <td>{{ tiempo.partida_mas_corta }}</td>
+                  <td>{{ tiempo.partida_mas_larga }}</td>
+                  <td>{{ tiempo.tiempo_promedio }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+
+  <ng-template #noTiempos>
+    <p class="mb-3">Actualmente no hay partidas registradas en ninguna de tus salas.</p>
+  </ng-template>
 </div> <!-- row -->
 
 
 <div class="row">
   <div>
-    <h4 class="mb-3 mb-md-0 text-center">Rankings</h4>
+    <h5 class="mb-3 mb-md-0">Rankings</h5>
     <br>
   </div>
-  <div *ngFor="let ranking of rankings" class="col-lg-5 col-xl-4 grid-margin grid-margin-xl-0 stretch-card">
-    <div class="card">
-      <div class="card-body">
-        <div class="d-flex justify-content-between align-items-baseline mb-2">
-          <h6 class="card-title mb-0">{{ranking.sala}}</h6>
-        </div>
-        <div class="d-flex flex-column">
-          <a href="" (click)="false" *ngFor="let tiempo of ranking.tiempos"
-            class="d-flex align-items-center border-bottom pb-3">
-            <div class="me-3">
-              <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
-            </div>
-            <div class="w-100">
-              <div class="d-flex justify-content-between">
-                <h6 class="text-body mb-2">{{tiempo.equipo}}</h6>
-                <p class="text-muted tx-12">{{tiempo.fecha}}</p>
-                <p class="text-muted tx-12">{{tiempo.tiempo}}</p>
+
+  <ng-container *ngIf="rankings && rankings.length > 0; else noRanking">
+
+    <div *ngFor="let ranking of rankings" class="col-lg-5 col-xl-4 grid-margin grid-margin-xl-0 stretch-card">
+      <div class="card">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-baseline mb-2">
+            <h6 class="card-title mb-0">{{ranking.sala}}</h6>
+          </div>
+          <div class="d-flex flex-column">
+            <a href="" (click)="false" *ngFor="let tiempo of ranking.tiempos"
+              class="d-flex align-items-center border-bottom pb-3">
+              <div class="me-3">
+                <img src="https://via.placeholder.com/35x35" class="rounded-circle wd-35" alt="user">
               </div>
-            </div>
-          </a>
-
-
-
+              <div class="w-100">
+                <div class="d-flex justify-content-between">
+                  <h6 class="text-body mb-2">{{tiempo.equipo}}</h6>
+                  <p class="text-muted tx-12">{{tiempo.fecha}}</p>
+                  <p class="text-muted tx-12">{{tiempo.tiempo}}</p>
+                </div>
+              </div>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </ng-container>
+
+  <ng-template #noRanking>
+    <p class="mb-3">Actualmente no hay partidas registradas para mostrar un ranking.</p>
+  </ng-template>
 
 </div> <!-- row -->

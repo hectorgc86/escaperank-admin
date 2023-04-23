@@ -18,11 +18,23 @@
     </div>
 
   </div>
-  <div class="sidebar-body" (mouseenter)="operSidebarFolded()" (mouseleave)="closeSidebarFolded()" [perfectScrollbar]>
+  <div class="sidebar-body" [perfectScrollbar]>
 
     <!--- Sidemenu start -->
 
     <ul class="sidebar-nav metismenu" id="sidebar-menu" #sidebarMenu>
+
+      <div *ngIf="!foldedMenu" class="d-flex flex-column align-items-center border-bottom px-5 pb-3">
+        <div class="mb-3">
+          <img [src]="imageUtils.getImagenUsuario(perfil)" [alt]="perfil.nombre" [title]="perfil.nombre"
+            class="wd-60 ht-60 rounded-circle">
+        </div>
+        <div class="text-center">
+          <p class="tx-16 fw-bolder">{{ perfil.nombre }}</p>
+          <p class="tx-12 text-muted">{{ perfil.usuario?.email }}</p>
+        </div>
+      </div>
+
       <ng-container *ngFor="let item of menuItems">
         <li class="nav-item nav-category" *ngIf="item.isTitle">{{ item.label }}</li>
 
@@ -80,22 +92,5 @@
 
     <!--- Sidemenu end -->
 
-  </div>
-</nav>
-<nav class="settings-sidebar">
-  <div class="sidebar-body">
-    <a href="" class="settings-sidebar-toggler" (click)="toggleSettingsSidebar($event)">
-      <i class="icon feather icon-settings"></i>
-    </a>
-    <div class="theme-wrapper">
-      <h6 class="text-muted mb-2">Light Theme:</h6>
-      <a class="theme-item" href="https://www.nobleui.com/angular/template/demo1/">
-        <img src="assets/images/screenshots/light.jpg" alt="light theme">
-      </a>
-      <h6 class="text-muted mb-2">Dark Theme:</h6>
-      <a class="theme-item active" href="https://www.nobleui.com/angular/template/demo2/">
-        <img src="assets/images/screenshots/dark.jpg" alt="dark theme">
-      </a>
-    </div>
   </div>
 </nav>

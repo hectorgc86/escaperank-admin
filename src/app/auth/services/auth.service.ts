@@ -4,6 +4,7 @@ import { catchError, map, Observable, of } from "rxjs";
 import { MD5 } from "crypto-js";
 import { Login, LoginRequest } from "../interfaces/login.interface";
 import { RegistroRequest } from "../interfaces/registro.interface";
+import { UsuariosService } from "src/app/usuarios/services/usuarios.service";
 
 @Injectable({
   providedIn: "root",
@@ -14,7 +15,10 @@ export class AuthService {
 
   loginChange$ = new EventEmitter<boolean>();
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private usuariosService: UsuariosService
+  ) {
     this.authURL = "auth";
   }
 
@@ -37,8 +41,7 @@ export class AuthService {
           return true;
         }),
         catchError((error: HttpErrorResponse) => {
-          localStorage.removeItem("usuarioId");
-          localStorage.removeItem("tokenAcceso");
+          this.resetearLocalStorage();
           return of(false);
         })
       );
@@ -51,32 +54,26 @@ export class AuthService {
     return this.http.post<Login>(`${this.authURL}/login`, loginRequest).pipe(
       map((resp) => {
         localStorage.setItem("usuarioId", resp.usuarioId!);
+        localStorage.setItem("rol", resp.rol!);
+
+        if (resp.companyiaId != null) {
+          localStorage.setItem("companyiaId", resp.companyiaId!);
+        }
         localStorage.setItem("tokenAcceso", resp.tokenAcceso!);
-        this.setLogged(true);
-      })
-    );
-  }
 
-  loginFacebook(token: string): Observable<void> {
-    return this.http.post<Login>(`${this.authURL}/facebook`, { token }).pipe(
-      map((resp) => {
-        localStorage.setItem("token", resp.tokenAcceso!);
         this.setLogged(true);
-      })
-    );
-  }
 
-  loginGoogle(token: string): Observable<void> {
-    return this.http.post<Login>(`${this.authURL}/google`, { token }).pipe(
-      map((resp) => {
-        localStorage.setItem("token", resp.tokenAcceso!);
-        this.setLogged(true);
+        this.usuariosService
+          .getPerfil(resp.usuarioId as unknown as number)
+          .subscribe((perfil) =>
+            localStorage.setItem("perfil", JSON.stringify(perfil))
+          );
       })
     );
   }
 
   logout(): void {
-    localStorage.removeItem("tokenAcceso");
+    this.resetearLocalStorage();
     this.setLogged(false);
   }
 
@@ -84,12 +81,19 @@ export class AuthService {
     registroRequest.usuario!.contrasenya = this.calcularMD5(
       registroRequest.usuario!.contrasenya!
     );
-
     return this.http.post<void>(`${this.authURL}/registrar`, registroRequest);
   }
 
   private calcularMD5(contrasenya: string): string {
     const result = MD5(contrasenya);
     return result.toString();
+  }
+
+  private resetearLocalStorage() {
+    localStorage.removeItem("usuarioId");
+    localStorage.removeItem("companyiaId");
+    localStorage.removeItem("rol");
+    localStorage.removeItem("tokenAcceso");
+    localStorage.removeItem("perfil");
   }
 }
