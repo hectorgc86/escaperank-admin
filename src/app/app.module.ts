@@ -18,7 +18,6 @@ import { AuthGuard } from "./core/guard/auth.guard";
 import { NgxMapboxGLModule } from "ngx-mapbox-gl";
 import { environment } from "src/environments/environment";
 import { LoadingInterceptor } from "./interceptors/loading.interceptor";
-import { UtilsModule } from "./utils/utils.module";
 
 @NgModule({
   declarations: [AppComponent, ErrorPageComponent],
@@ -29,7 +28,6 @@ import { UtilsModule } from "./utils/utils.module";
     HttpClientModule,
     LayoutModule,
     ReactiveFormsModule,
-    UtilsModule,
     NgxMapboxGLModule.withConfig({
       accessToken: environment.mapBoxToken,
     }),
