@@ -64,9 +64,9 @@ export class AuthService {
         this.setLogged(true);
 
         this.usuariosService
-          .getPerfil(resp.usuarioId as unknown as number)
-          .subscribe((perfil) =>
-            localStorage.setItem("perfil", JSON.stringify(perfil))
+          .getUsuario(parseInt(resp.usuarioId!))
+          .subscribe((usuario) =>
+            localStorage.setItem("usuario", JSON.stringify(usuario))
           );
       })
     );

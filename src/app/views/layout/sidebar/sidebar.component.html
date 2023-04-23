@@ -1,16 +1,10 @@
 <nav class="sidebar">
   <div class="sidebar-header">
 
-    <!--- Logo -->
     <a routerLink="/" class="sidebar-brand nobleui-logo logo-light">
       Escape<span>Rank</span>
     </a>
 
-    <!-- <a routerLink="/" class="sidebar-brand nobleui-logo logo-light">
-      <img src="assets/images/logo.png" alt="logo">
-    </a> -->
-
-    <!--- Toggler -->
     <div class="sidebar-toggler not-active" #sidebarToggler (click)="toggleSidebar($event)">
       <span></span>
       <span></span>
@@ -24,14 +18,14 @@
 
     <ul class="sidebar-nav metismenu" id="sidebar-menu" #sidebarMenu>
 
-      <div *ngIf="!foldedMenu" class="d-flex flex-column align-items-center border-bottom px-5 pb-3">
+      <div *ngIf="!foldedMenu" class="d-flex flex-column align-items-center border-bottom pb-3">
         <div class="mb-3">
-          <img [src]="imageUtils.getImagenUsuario(perfil)" [alt]="perfil.nombre" [title]="perfil.nombre"
-            class="wd-60 ht-60 rounded-circle">
+          <img [src]="imageUtils.getImagenUsuario(usuario.perfil!)" [alt]="usuario.perfil!.nombre"
+            [title]="usuario.perfil!.nombre" class="wd-60 ht-60 rounded-circle">
         </div>
         <div class="text-center">
-          <p class="tx-16 fw-bolder">{{ perfil.nombre }}</p>
-          <p class="tx-12 text-muted">{{ perfil.usuario?.email }}</p>
+          <p class="tx-16 fw-bolder">{{ usuario.perfil!.nombre }}</p>
+          <p class="tx-12 text-muted">{{ usuario!.email }}</p>
         </div>
       </div>
 

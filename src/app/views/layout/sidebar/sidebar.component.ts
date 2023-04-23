@@ -13,9 +13,8 @@ import MetisMenu from "metismenujs";
 import { MENU } from "./menu";
 import { MenuItem } from "./menu.model";
 import { Router, NavigationEnd } from "@angular/router";
-import { UsuariosService } from "../../../usuarios/services/usuarios.service";
-import { Perfil } from "src/app/usuarios/interfaces/perfil.interface";
 import { ImageUtils } from "src/app/utils/image-utils";
+import { Usuario } from "src/app/usuarios/interfaces/usuario.interface";
 
 @Component({
   selector: "app-sidebar",
@@ -28,7 +27,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   menuItems: MenuItem[] = [];
   @ViewChild("sidebarMenu") sidebarMenu: ElementRef;
 
-  perfil: Perfil;
+  usuario: Usuario;
   foldedMenu: boolean;
   imageUtils = ImageUtils;
 
@@ -53,7 +52,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.menuItems = MENU;
     this.foldedMenu = false;
 
-    this.perfil = JSON.parse(localStorage.getItem("perfil")!);
+    this.usuario = JSON.parse(localStorage.getItem("usuario")!);
 
     /**
      * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)

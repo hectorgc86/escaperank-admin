@@ -1,6 +1,6 @@
 <div class="card mb-3">
     <div class="row no-gutters">
-        <img src="../../../assets/images/screenshots/dark.jpg" class="card-img" alt="...">
+        <img [src]="imageUtils.getImagenUsuario(usuario.perfil!)" class="card-img" alt="...">
         <div class="card-body">
             <h5 class="card-title">{{usuario.nick}}</h5>
             <p class="card-text">{{usuario.perfil?.nombre}}</p>

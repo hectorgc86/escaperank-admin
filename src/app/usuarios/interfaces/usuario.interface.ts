@@ -1,5 +1,5 @@
 import { Estado } from "./estado.interface";
-import { Perfil, PerfilRequest } from "./perfil.interface";
+import { Perfil } from "./perfil.interface";
 import { UsuariosAmigos } from "./usuarios_amigos.interface";
 import { Noticia } from "src/app/noticias/interfaces/noticia.interface";
 import { Login } from "src/app/auth/interfaces/login.interface";
