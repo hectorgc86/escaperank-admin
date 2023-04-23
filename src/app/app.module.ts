@@ -17,7 +17,6 @@ import { TokenInterceptor } from "./interceptors/token.interceptor";
 import { AuthGuard } from "./core/guard/auth.guard";
 import { NgxMapboxGLModule } from "ngx-mapbox-gl";
 import { environment } from "src/environments/environment";
-import { LoadingInterceptor } from "./interceptors/loading.interceptor";
 
 @NgModule({
   declarations: [AppComponent, ErrorPageComponent],
@@ -37,11 +36,6 @@ import { LoadingInterceptor } from "./interceptors/loading.interceptor";
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BaseUrlInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoadingInterceptor,
       multi: true,
     },
     {
