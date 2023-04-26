@@ -19,4 +19,9 @@ export interface Noticia {
   companyia?: Companyia;
   usuario?: Usuario;
   equipo?: Equipo;
+  imagenBase64?:string |null;
+}
+
+export interface NoticiaResponse {
+  noticia: Noticia;
 }

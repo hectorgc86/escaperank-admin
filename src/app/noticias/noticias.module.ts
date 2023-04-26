@@ -1,6 +1,5 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { NoticiasFormComponent } from "./noticias-form/noticias-form.component";
 import { NoticiasListComponent } from "./noticias-list/noticias-list.component";
 import { NoticiasDetailsComponent } from "./noticias-details/noticias-details.component";
 import { RouterModule, Routes } from "@angular/router";
@@ -24,22 +23,13 @@ const routes: Routes = [
     component: NoticiasListComponent,
   },
   {
-    path: "nueva",
-    component: NoticiasFormComponent,
-  },
-  {
     path: ":id",
     component: NoticiasDetailsComponent,
-  },
-  {
-    path: ":id/edit",
-    component: NoticiasFormComponent,
-  },
+  }
 ];
 
 @NgModule({
   declarations: [
-    NoticiasFormComponent,
     NoticiasListComponent,
     NoticiasCardComponent,
     NoticiasDetailsComponent,

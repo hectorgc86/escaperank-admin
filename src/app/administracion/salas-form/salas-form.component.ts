@@ -43,13 +43,7 @@ export class SalasFormComponent implements OnInit {
     errorReset: null,
     cancelReset: null
   };
-  public config2: DropzoneConfigInterface = {
-    clickable: true,
-    maxFiles: 1,
-    autoReset: null,
-    errorReset: null,
-    cancelReset: null
-  };
+
   isUpdating: any;
   constructor(
     private route: ActivatedRoute,

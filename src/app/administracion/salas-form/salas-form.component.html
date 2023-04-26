@@ -20,7 +20,7 @@
               </div>
             <div class="mb-3">
               <label for="inputNombre" class="form-label">Nombre</label>
-              <input class="form-control" type="text" placeholder="Titular" ngModel name="nombre" formControlName="nombre" required/>
+              <input class="form-control" type="text" placeholder="Nombre Sala" ngModel name="nombre" formControlName="nombre" required/>
               <p class="text-danger mt-1" *ngIf="salaForm.get('nombre')?.errors?.required">required error</p>
             </div>
            
@@ -150,5 +150,4 @@
 
   </div>
   <button type="submit" class="btn btn-primary me-2">Enviar</button>
-  <button class="btn btn-secondary">Cancelar</button>
 </form>
