@@ -60,7 +60,7 @@ export class AuthService {
           localStorage.setItem("companyiaId", resp.companyiaId!);
         }
         localStorage.setItem("tokenAcceso", resp.tokenAcceso!);
-
+        localStorage.setItem("isLoggedin", "true");
         this.setLogged(true);
 
         this.usuariosService
@@ -95,5 +95,6 @@ export class AuthService {
     localStorage.removeItem("rol");
     localStorage.removeItem("tokenAcceso");
     localStorage.removeItem("perfil");
+    localStorage.removeItem("isLoggedin");
   }
 }
