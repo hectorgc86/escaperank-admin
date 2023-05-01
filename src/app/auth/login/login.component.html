@@ -14,19 +14,20 @@
                         <h5 class="text-muted fw-normal mb-4">El mayor ranking de escaperooms</h5>
                         <form class="forms-sample" (ngSubmit)="login()">
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Usuario / email</label>
-                                <input type="text" class="form-control" id="exampleInputEmail1" [(ngModel)]="usuario"
-                                    name="usuario" placeholder="Usuario">
+                                <label for="textoUsuario" class="form-label">Usuario / email</label>
+                                <input type="text" class="form-control" id="textoUsuario" [(ngModel)]="textoUsuario"
+                                    name="textoUsuario" placeholder="Usuario">
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Contraseña</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1"
-                                    autocomplete="current-password" placeholder="Contraseña" [(ngModel)]="contrasenya"
-                                    name="contrasenya">
+                                <label for="textoContrasenya" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="textoContrasenya"
+                                    autocomplete="current-password" placeholder="Contraseña"
+                                    [(ngModel)]="textoContrasenya" name="textoContrasenya">
                             </div>
                             <div class="form-check mb-3">
-                                <input type="checkbox" class="form-check-input" id="authCheck">
-                                <label class="form-check-label" for="authCheck">
+                                <input type="checkbox" class="form-check-input" id="checkRecordar"
+                                    [(ngModel)]="checkRecordar" name="checkRecordar">
+                                <label class="form-check-label" for="checkRecordar">
                                     Recuerdame
                                 </label>
                             </div>

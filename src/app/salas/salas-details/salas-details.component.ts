@@ -15,9 +15,18 @@ export class SalasDetailsComponent implements OnInit {
   zoom: number;
   latitud: number;
   longitud: number;
+  tamanyosTrofeo: string[];
   imageUtils = ImageUtils;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) {
+    this.tamanyosTrofeo = [
+      "mdi-48px",
+      "mdi-36px",
+      "mdi-24px",
+      "mdi-18px",
+      "mdi-18px",
+    ];
+  }
 
   ngOnInit(): void {
     this.zoom = 17;

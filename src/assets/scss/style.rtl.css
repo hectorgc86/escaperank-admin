@@ -21406,7 +21406,7 @@ ngb-rating:focus {
 }
 @media (max-width: 767px) {
   .timeline .event {
-    padding-top: 30px;
+    padding-top: 0px;
   }
 }
 .timeline .event .title {

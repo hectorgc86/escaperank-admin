@@ -2,6 +2,9 @@ import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ImageUtils } from "src/app/utils/image-utils";
 import { Usuario } from "../interfaces/usuario.interface";
+import { Noticia } from "src/app/noticias/interfaces/noticia.interface";
+import { NoticiasService } from "../../noticias/services/noticia.service";
+import { UsuariosService } from "../services/usuarios.service";
 
 @Component({
   selector: "app-usuarios-detail",
@@ -11,14 +14,21 @@ import { Usuario } from "../interfaces/usuario.interface";
 export class UsuariosDetailComponent implements OnInit {
   imageUtils = ImageUtils;
   @Input() usuario: Usuario;
+  noticias: Noticia[];
 
   edad: string;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private usuariosService: UsuariosService
+  ) {}
 
   ngOnInit(): void {
     this.usuario = this.route.snapshot.data["usuario"];
     this.calcularEdad(this.usuario.perfil!.nacido);
+    this.usuariosService
+      .getPublicacionesUsuario(this.usuario.id)
+      .subscribe((noticias) => (this.noticias = noticias));
   }
 
   calcularEdad(fechaNacimiento: string | null | undefined) {

@@ -140,11 +140,19 @@
                         <div class="card-body">
                             <ng-container
                                 *ngIf="ranking && ranking.tiempos && ranking.tiempos.length > 0; else noTiempos">
-                                <div id="content" *ngFor="let tiempo of ranking.tiempos">
+                                <div id="content" *ngFor="let tiempo of ranking.tiempos; let i = index">
                                     <ul class="timeline">
                                         <li class="event" [attr.data-date]="tiempo.tiempo">
-                                            <h3 class="title">{{tiempo.equipo}}</h3>
-                                            <p>{{tiempo.fecha}}</p>
+                                            <div class="row">
+                                                <div class="col-3 m-auto">
+                                                    <i class="mdi mdi-trophy text-warning align-items-center"
+                                                        [ngClass]="tamanyosTrofeo[i]"></i>
+                                                </div>
+                                                <div class="col m-auto">
+                                                    <h3 class="title">{{tiempo.equipo}}</h3>
+                                                    <p>{{tiempo.fecha}}</p>
+                                                </div>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>

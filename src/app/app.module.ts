@@ -14,7 +14,6 @@ import { HIGHLIGHT_OPTIONS } from "ngx-highlightjs";
 import { BaseUrlInterceptor } from "./interceptors/base-url.interceptor";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { TokenInterceptor } from "./interceptors/token.interceptor";
-import { AuthGuard } from "./core/guard/auth.guard";
 import { NgxMapboxGLModule } from "ngx-mapbox-gl";
 import { environment } from "src/environments/environment";
 
@@ -32,7 +31,6 @@ import { environment } from "src/environments/environment";
     }),
   ],
   providers: [
-    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: BaseUrlInterceptor,

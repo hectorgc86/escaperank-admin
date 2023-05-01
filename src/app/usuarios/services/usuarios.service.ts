@@ -2,6 +2,8 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
 import { Usuario } from "../interfaces/usuario.interface";
+import { Noticia } from "src/app/noticias/interfaces/noticia.interface";
+import { Equipo } from "src/app/equipos/interfaces/equipo.interface";
 
 @Injectable({
   providedIn: "root",
@@ -22,6 +24,18 @@ export class UsuariosService {
   getAmigosUsuario(id?: number): Observable<Usuario[]> {
     return this.http
       .get<Usuario[]>(`${this.usuariosURL}/${id}/amigos`)
+      .pipe(map((response) => response));
+  }
+
+  getEquiposUsuario(id?: number): Observable<Equipo[]> {
+    return this.http
+      .get<Equipo[]>(`${this.usuariosURL}/${id}/equipos`)
+      .pipe(map((response) => response));
+  }
+
+  getPublicacionesUsuario(id?: number): Observable<Noticia[]> {
+    return this.http
+      .get<Noticia[]>(`${this.usuariosURL}/${id}/publicaciones`)
       .pipe(map((response) => response));
   }
 

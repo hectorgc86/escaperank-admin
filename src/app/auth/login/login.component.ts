@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from "@angular/router";
 import Swal from "sweetalert2";
 import { AuthService } from "../services/auth.service";
 import { LoginRequest } from "../interfaces/login.interface";
-import { UsuariosService } from "src/app/usuarios/services/usuarios.service";
 
 @Component({
   selector: "app-login",
@@ -11,8 +10,10 @@ import { UsuariosService } from "src/app/usuarios/services/usuarios.service";
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
-  usuario = "";
-  contrasenya = "";
+  textoUsuario = "";
+  textoContrasenya = "";
+  checkRecordar: boolean = false;
+
   error = "";
   returnUrl: any;
 
@@ -24,15 +25,43 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams["returnUrl"] || "/";
+
+    const textoUsuario = localStorage.getItem("textoUsuario");
+    const textoContrasenya = localStorage.getItem("textoContrasenya");
+    const checkRecordar = !!localStorage.getItem("checkRecordar");
+
+    if (textoUsuario && textoContrasenya && checkRecordar) {
+      this.textoUsuario = textoUsuario;
+      this.textoContrasenya = textoContrasenya;
+      this.checkRecordar = checkRecordar;
+    }
   }
 
   login() {
     const loginRequest: LoginRequest = {
-      usuario: this.usuario,
-      contrasenya: this.contrasenya,
+      usuario: this.textoUsuario,
+      contrasenya: this.textoContrasenya,
     };
+
+    if (this.checkRecordar) {
+      localStorage.setItem("textoUsuario", this.textoUsuario);
+      localStorage.setItem("textoContrasenya", this.textoContrasenya);
+      localStorage.setItem("checkRecordar", JSON.stringify(this.checkRecordar));
+    } else {
+      localStorage.removeItem("textoUsuario");
+      localStorage.removeItem("textoContrasenya");
+      localStorage.removeItem("checkRecordar");
+    }
+
     this.authService.login(loginRequest).subscribe({
-      next: () => this.router.navigate(["/noticias"]),
+      next: () => {
+        let rol = localStorage.getItem("rol");
+        if (rol === "GAMEMASTER") {
+          this.router.navigate(["/administracion/estadisticas"]);
+        } else {
+          this.router.navigate(["/noticias"]);
+        }
+      },
       error: (e) =>
         Swal.fire({
           icon: "error",

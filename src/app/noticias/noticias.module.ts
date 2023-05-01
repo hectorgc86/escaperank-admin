@@ -25,7 +25,7 @@ const routes: Routes = [
   {
     path: ":id",
     component: NoticiasDetailsComponent,
-  }
+  },
 ];
 
 @NgModule({
@@ -43,7 +43,7 @@ const routes: Routes = [
     NgbDatepickerModule,
     DropzoneModule,
   ],
-  exports: [RouterModule],
+  exports: [RouterModule, NoticiasCardComponent],
   providers: [
     {
       provide: DROPZONE_CONFIG,

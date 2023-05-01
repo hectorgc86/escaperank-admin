@@ -18,16 +18,18 @@
 
     <ul class="sidebar-nav metismenu" id="sidebar-menu" #sidebarMenu>
 
-      <div *ngIf="!foldedMenu" class="d-flex flex-column align-items-center border-bottom pb-3">
-        <div class="mb-3">
-          <img [src]="imageUtils.getImagenUsuario(usuario.perfil!)" [alt]="usuario.perfil!.nombre"
-            [title]="usuario.perfil!.nombre" class="wd-60 ht-60 rounded-circle">
+      <ng-container *ngIf="(usuario$ | async) as usuario">
+        <div *ngIf="!foldedMenu" class="d-flex flex-column align-items-center border-bottom pb-3">
+          <div class="mb-3">
+            <img [src]="imageUtils.getImagenUsuario(usuario.perfil!)" [alt]="usuario.perfil!.nombre"
+              [title]="usuario.perfil!.nombre" class="wd-60 ht-60 rounded-circle">
+          </div>
+          <div class="text-center">
+            <p class="tx-16 fw-bolder">{{ usuario.perfil!.nombre }}</p>
+            <p class="tx-12 text-muted">{{ usuario!.email }}</p>
+          </div>
         </div>
-        <div class="text-center">
-          <p class="tx-16 fw-bolder">{{ usuario.perfil!.nombre }}</p>
-          <p class="tx-12 text-muted">{{ usuario!.email }}</p>
-        </div>
-      </div>
+      </ng-container>
 
       <ng-container *ngFor="let item of menuItems">
         <li class="nav-item nav-category" *ngIf="item.isTitle">{{ item.label }}</li>
@@ -74,6 +76,10 @@
             </li>
           </ul>
         </li>
+      </ng-container>
+
+      <ng-container *ngIf="!foldedMenu">
+        <button class="btn btn-primary w-100 mt-2" (click)="logout()">Cerrar sesión</button>
       </ng-container>
     </ul>
 

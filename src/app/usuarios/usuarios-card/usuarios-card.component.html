@@ -1,10 +1,17 @@
 <div class="card mb-3">
     <div class="row no-gutters">
-        <img [src]="imageUtils.getImagenUsuario(usuario.perfil!)" class="card-img" alt="...">
+        <img [src]="imageUtils.getImagenUsuario(usuario.perfil!)" class="d-none d-md-block img-fluid" alt="...">
         <div class="card-body">
-            <h5 class="card-title">{{usuario.nick}}</h5>
-            <p class="card-text">{{usuario.perfil?.nombre}}</p>
-            <p class="card-text"><small class="text-muted">{{usuario.email}}</small></p>
+            <div class="row">
+                <div class="col-3 d-inline d-md-none">
+                    <img [src]="imageUtils.getImagenUsuario(usuario.perfil!)" class="img-md" alt="...">
+                </div>
+                <div class="col-9">
+                    <h5 class="card-title">{{usuario.nick}}</h5>
+                    <p class="card-text">{{usuario.perfil?.nombre}}</p>
+                    <p class="card-text"><small class="text-muted">{{usuario.email}}</small></p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

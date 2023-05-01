@@ -59,7 +59,6 @@ export class EstadisticasMainComponent implements OnInit {
       .getEstadisticasCompanyia(localStorage.getItem("companyiaId")!)
       .subscribe((estadisticas) => {
         this.estadisticas = estadisticas;
-        console.log(this.estadisticas);
         this.partidasMes = estadisticas.partidasMes;
         this.tiempos = estadisticas.tiempos;
         this.rankings = estadisticas.rankings;

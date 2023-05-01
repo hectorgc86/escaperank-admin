@@ -1,19 +1,19 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { BaseComponent } from "./views/layout/base/base.component";
-import { AuthGuard } from "./core/guard/auth.guard";
 import { ErrorPageComponent } from "./views/pages/error-page/error-page.component";
 import { LoginActivateGuard } from "./auth/guards/login-activate.guard";
+import { LogoutActivateGuard } from "./auth/guards/logout-activate.guard";
 
 const routes: Routes = [
   {
     path: "auth",
     loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule),
+    canActivate: [LogoutActivateGuard],
   },
   {
     path: "",
     component: BaseComponent,
-    canActivate: [AuthGuard],
     children: [
       {
         path: "administracion",
@@ -21,6 +21,7 @@ const routes: Routes = [
           import("./administracion/administracion.module").then(
             (m) => m.AdministracionModule
           ),
+        canActivate: [LoginActivateGuard],
       },
       {
         path: "noticias",
@@ -37,6 +38,7 @@ const routes: Routes = [
         path: "partidas",
         loadChildren: () =>
           import("./partidas/partidas.module").then((m) => m.PartidasModule),
+        canActivate: [LoginActivateGuard],
       },
       {
         path: "dashboard",
@@ -49,6 +51,13 @@ const routes: Routes = [
         path: "usuarios",
         loadChildren: () =>
           import("./usuarios/usuarios.module").then((m) => m.UsuariosModule),
+        canActivate: [LoginActivateGuard],
+      },
+      {
+        path: "equipos",
+        loadChildren: () =>
+          import("./equipos/equipos.module").then((m) => m.EquiposModule),
+        canActivate: [LoginActivateGuard],
       },
       {
         path: "apps",

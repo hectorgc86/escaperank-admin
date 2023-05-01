@@ -17,6 +17,7 @@ export class UsuarioResolver implements Resolve<Usuario> {
     let usuarioId = isNaN(route.params["id"])
       ? localStorage.getItem("usuarioId")
       : route.params["id"];
+
     return this.usuariosService.getUsuario(usuarioId).pipe(
       catchError(() => {
         this.router.navigate(["/salas"]);

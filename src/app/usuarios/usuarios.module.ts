@@ -13,7 +13,8 @@ import { FeatherIconModule } from "../core/feather-icon/feather-icon.module";
 import { UsuariosListComponent } from "./usuarios-list/usuarios-list.component";
 import { UsuariosCardComponent } from "./usuarios-card/usuarios-card.component";
 import { RouterModule } from "@angular/router";
-import { UsuariosNavbarComponent } from './usuarios-navbar/usuarios-navbar.component';
+import { UsuariosNavbarComponent } from "./usuarios-navbar/usuarios-navbar.component";
+import { NoticiasModule } from "../noticias/noticias.module";
 
 @NgModule({
   declarations: [
@@ -30,7 +31,9 @@ import { UsuariosNavbarComponent } from './usuarios-navbar/usuarios-navbar.compo
     NgbAccordionModule,
     NgbDropdownModule,
     NgbTooltipModule,
+    NoticiasModule,
     RouterModule,
   ],
+  exports: [UsuariosNavbarComponent],
 })
 export class UsuariosModule {}

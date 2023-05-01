@@ -2,22 +2,8 @@ import { MenuItem } from "./menu.model";
 
 export const MENU: MenuItem[] = [
   {
-    label: "EscapeRank",
+    label: "Menu",
     isTitle: true,
-  },
-  {
-    label: "Autenticación",
-    icon: "unlock",
-    subItems: [
-      {
-        label: "Login",
-        link: "/auth/login",
-      },
-      {
-        label: "Registro",
-        link: "/auth/registro",
-      },
-    ],
   },
   {
     label: "Administración",
@@ -83,10 +69,6 @@ export const MENU: MenuItem[] = [
         label: "Perfil",
         link: "/usuarios/:id",
       },
-      {
-        label: "Amigos",
-        link: "/usuarios/:id/amigos",
-      },
     ],
-  }
+  },
 ];
