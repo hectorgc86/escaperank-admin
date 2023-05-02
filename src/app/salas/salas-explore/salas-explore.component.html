@@ -11,7 +11,7 @@
                     <a [routerLink]="['/salas', sala.id]">
                         <img [src]="imageUtils.getImagenSala(sala,'estrechas')" [alt]="sala.nombre"
                             [title]="sala.nombre" class="rounded">
-                        <h5 class="mt-2">{{sala.nombre}}</h5>
+                        <h5 class="mt-2 text-dark font-weight-bold">{{sala.nombre}}</h5>
                         <p class="mt-1 text-primary">{{sala.companyia?.ciudad?.nombre}}</p>
                     </a>
                 </ng-template>

@@ -1,8 +1,13 @@
 <div class="card mb-3">
-    <div class="row no-gutters">
-        <div class="card-body">
+    <div class="row card-body">
+        <div class="col-5">
             <h5 class="card-title">{{equipo.nombre}}</h5>
-            <p class="card-text">{{equipo.equiposUsuarios}}</p>
+        </div>
+        <div class="col-7 text-end">
+            <ng-container *ngFor="let usuario of equipo.usuarios">
+                <img class="img-sm rounded-circle" style="margin-right: 4px; margin-top: 3px;"
+                    [src]="imageUtils.getImagenUsuario(usuario.perfil!)" alt="Avatar" [title]="usuario.perfil?.nombre">
+            </ng-container>
         </div>
     </div>
 </div>
