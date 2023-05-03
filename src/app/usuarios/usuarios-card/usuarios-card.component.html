@@ -6,10 +6,33 @@
                 <div class="col-3 d-inline d-md-none">
                     <img [src]="imageUtils.getImagenUsuario(usuario.perfil!)" class="img-md" alt="...">
                 </div>
-                <div class="col-9">
+                <div class="col-9 col-md-12">
                     <h5 class="card-title">{{usuario.nick}}</h5>
                     <p class="card-text">{{usuario.perfil?.nombre}}</p>
-                    <p class="card-text"><small class="text-muted">{{usuario.email}}</small></p>
+                    <p class="card-text"><small class="text-muted">{{usuario.email}}</small>
+                    </p>
+                    <div class="row mt-3 ps-2 pe-2" *ngIf="checkEliminar">
+                        <button class="btn btn-outline-danger animated-button" (click)="openBasicModal(basicModal)">
+                            <span class="mdi mdi-delete"></span>
+                            Eliminar
+                        </button>
+                    </div>
+                    <!-- Modal -->
+                    <ng-template #basicModal let-modal>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Eliminar amistad</h5>
+                            <button type="button" class="btn-close" (click)="modal.close()"
+                                aria-label="Cerrar"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Desea eliminar amistad con {{usuario.perfil?.nombre}}?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="modal.close('')">Volver</button>
+                            <button type="button" class="btn btn-primary"
+                                (click)="modal.close('eliminar')">Eliminar</button>
+                        </div>
+                    </ng-template>
                 </div>
             </div>
         </div>

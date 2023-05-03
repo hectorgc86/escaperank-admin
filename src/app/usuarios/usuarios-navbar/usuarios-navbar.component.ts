@@ -9,6 +9,8 @@ import { Usuario } from "../interfaces/usuario.interface";
 })
 export class UsuariosNavbarComponent implements OnInit {
   @Input() usuario: Usuario;
+  @Input() modo: string;
+
   imageUtils = ImageUtils;
 
   constructor() {}

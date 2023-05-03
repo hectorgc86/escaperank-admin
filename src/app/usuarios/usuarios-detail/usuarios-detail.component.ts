@@ -3,7 +3,6 @@ import { ActivatedRoute } from "@angular/router";
 import { ImageUtils } from "src/app/utils/image-utils";
 import { Usuario } from "../interfaces/usuario.interface";
 import { Noticia } from "src/app/noticias/interfaces/noticia.interface";
-import { NoticiasService } from "../../noticias/services/noticia.service";
 import { UsuariosService } from "../services/usuarios.service";
 
 @Component({
