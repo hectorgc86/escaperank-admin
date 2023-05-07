@@ -16,7 +16,6 @@ import { Router, NavigationEnd } from "@angular/router";
 import { ImageUtils } from "src/app/utils/image-utils";
 import { Usuario } from "src/app/usuarios/interfaces/usuario.interface";
 import { AuthService } from "src/app/auth/services/auth.service";
-import { Observable, of } from "rxjs";
 
 @Component({
   selector: "app-sidebar",
@@ -29,7 +28,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   menuItems: MenuItem[] = [];
   @ViewChild("sidebarMenu") sidebarMenu: ElementRef;
 
-  usuario$: Observable<Usuario>;
+  usuario: Usuario;
   foldedMenu: boolean;
   imageUtils = ImageUtils;
   refreshed: boolean;
@@ -37,7 +36,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     router: Router,
-    public authService: AuthService
+    public authService: AuthService,
   ) {
     this.refreshed = false;
     router.events.forEach((event) => {
@@ -60,7 +59,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.menuItems = MENU;
     this.foldedMenu = false;
 
-    this.usuario$ = of(JSON.parse(localStorage.getItem("usuario")!));
+    this.usuario = JSON.parse(localStorage.getItem("usuario")!);
 
     /**
      * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)

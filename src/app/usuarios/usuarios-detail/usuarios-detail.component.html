@@ -52,127 +52,54 @@
         <div class="row">
             <div class="col-md-12 grid-margin">
                 <div class="card rounded">
-                    <div class="card-body">
-                        <h6 class="card-title">solicitudes pendientes</h6>
-                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-                            <div class="d-flex align-items-center hover-pointer">
-                                <img class="img-xs rounded-circle" src="https://via.placeholder.com/37x37" alt="">
-                                <div class="ms-2">
-                                    <p>Mike Popescu</p>
-                                    <p class="tx-11 text-muted">12 Mutual Friends</p>
+                    <div *ngIf="amigosPendientes.length > 0; else noAmigosPendientesTemplate">
+                        <ng-container *ngTemplateOutlet="amigosPendientesTemplate"></ng-container>
+                      </div>
+                    <ng-template #amigosPendientesTemplate>
+                        <div class="card-body" *ngFor="let solicitud of amigosPendientes;">
+                            <h6 class="card-title">Solicitudes pendientes</h6>
+                            <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
+                                <div class="d-flex align-items-center">
+                                    <img class="img-xs rounded-circle"
+                                        [src]="imageUtils.getImagenUsuario(solicitud.perfil!)" alt="Avatar"
+                                        [title]="solicitud.perfil?.nombre">
+                                    <div class="ms-2">
+                                        <p>{{solicitud.perfil?.nombre}}</p>
+                                        <p class="tx-11 text-muted">X amigos en común</p>
+                                    </div>
+                                </div>
+                                <button class="btn btn-icon" (click)="aceptarSolicitudAmistad(solicitud.id!)"><i
+                                        class="feather icon-user-plus" ngbTooltip="Aceptar"></i></button>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template #noAmigosPendientesTemplate>
+                        <div class="card-body">
+                            <h6 class="card-title">Solicitudes pendientes</h6>
+                            <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
+                                <div class="d-flex align-items-center hover-pointer">
+                                    <div class="ms-2">
+                                        <p>No hay solicitudes pendientes</p>
+                                    </div>
                                 </div>
                             </div>
-                            <button class="btn btn-icon"><i class="feather icon-user-plus"
-                                    ngbTooltip="Connect"></i></button>
                         </div>
-                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-                            <div class="d-flex align-items-center hover-pointer">
-                                <img class="img-xs rounded-circle" src="https://via.placeholder.com/37x37" alt="">
-                                <div class="ms-2">
-                                    <p>Mike Popescu</p>
-                                    <p class="tx-11 text-muted">12 Mutual Friends</p>
-                                </div>
-                            </div>
-                            <button class="btn btn-icon"><i class="feather icon-user-plus"
-                                    ngbTooltip="Connect"></i></button>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-                            <div class="d-flex align-items-center hover-pointer">
-                                <img class="img-xs rounded-circle" src="https://via.placeholder.com/37x37" alt="">
-                                <div class="ms-2">
-                                    <p>Mike Popescu</p>
-                                    <p class="tx-11 text-muted">12 Mutual Friends</p>
-                                </div>
-                            </div>
-                            <button class="btn btn-icon"><i class="feather icon-user-plus"
-                                    ngbTooltip="Connect"></i></button>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-                            <div class="d-flex align-items-center hover-pointer">
-                                <img class="img-xs rounded-circle" src="https://via.placeholder.com/37x37" alt="">
-                                <div class="ms-2">
-                                    <p>Mike Popescu</p>
-                                    <p class="tx-11 text-muted">12 Mutual Friends</p>
-                                </div>
-                            </div>
-                            <button class="btn btn-icon"><i class="feather icon-user-plus"
-                                    ngbTooltip="Connect"></i></button>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2 pb-2 border-bottom">
-                            <div class="d-flex align-items-center hover-pointer">
-                                <img class="img-xs rounded-circle" src="https://via.placeholder.com/37x37" alt="">
-                                <div class="ms-2">
-                                    <p>Mike Popescu</p>
-                                    <p class="tx-11 text-muted">12 Mutual Friends</p>
-                                </div>
-                            </div>
-                            <button class="btn btn-icon"><i class="feather icon-user-plus"
-                                    ngbTooltip="Connect"></i></button>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div class="d-flex align-items-center hover-pointer">
-                                <img class="img-xs rounded-circle" src="https://via.placeholder.com/37x37" alt="">
-                                <div class="ms-2">
-                                    <p>Mike Popescu</p>
-                                    <p class="tx-11 text-muted">12 Mutual Friends</p>
-                                </div>
-                            </div>
-                            <button class="btn btn-icon"><i class="feather icon-user-plus"
-                                    ngbTooltip="Connect"></i></button>
-                        </div>
-                    </div>
+                    </ng-template>
                 </div>
             </div>
             <div class="col-md-12 grid-margin">
                 <div class="card rounded">
                     <div class="card-body">
-                        <h6 class="card-title">latest photos</h6>
+                        <h6 class="card-title">Amigos</h6>
                         <div class="row ms-0 me-0">
-                            <a href="" (click)="false" class="col-md-4 ps-1 pe-1">
-                                <figure class="mb-2">
-                                    <img class="img-fluid rounded" src="https://via.placeholder.com/67x67" alt="">
-                                </figure>
-                            </a>
-                            <a href="" (click)="false" class="col-md-4 ps-1 pe-1">
-                                <figure class="mb-2">
-                                    <img class="img-fluid rounded" src="https://via.placeholder.com/67x67" alt="">
-                                </figure>
-                            </a>
-                            <a href="" (click)="false" class="col-md-4 ps-1 pe-1">
-                                <figure class="mb-2">
-                                    <img class="img-fluid rounded" src="https://via.placeholder.com/67x67" alt="">
-                                </figure>
-                            </a>
-                            <a href="" (click)="false" class="col-md-4 ps-1 pe-1">
-                                <figure class="mb-2">
-                                    <img class="img-fluid rounded" src="https://via.placeholder.com/67x67" alt="">
-                                </figure>
-                            </a>
-                            <a href="" (click)="false" class="col-md-4 ps-1 pe-1">
-                                <figure class="mb-2">
-                                    <img class="img-fluid rounded" src="https://via.placeholder.com/67x67" alt="">
-                                </figure>
-                            </a>
-                            <a href="" (click)="false" class="col-md-4 ps-1 pe-1">
-                                <figure class="mb-2">
-                                    <img class="img-fluid rounded" src="https://via.placeholder.com/67x67" alt="">
-                                </figure>
-                            </a>
-                            <a href="" (click)="false" class="col-md-4 ps-1 pe-1">
-                                <figure class="mb-0">
-                                    <img class="img-fluid rounded" src="https://via.placeholder.com/67x67" alt="">
-                                </figure>
-                            </a>
-                            <a href="" (click)="false" class="col-md-4 ps-1 pe-1">
-                                <figure class="mb-0">
-                                    <img class="img-fluid rounded" src="https://via.placeholder.com/67x67" alt="">
-                                </figure>
-                            </a>
-                            <a href="" (click)="false" class="col-md-4 ps-1 pe-1">
-                                <figure class="mb-0">
-                                    <img class="img-fluid rounded" src="https://via.placeholder.com/67x67" alt="">
-                                </figure>
-                            </a>
+                            <ng-container *ngFor="let amigo of amigos;">
+                                <a class="col-md-4 ps-1 pe-1">
+                                    <figure class="mb-2">
+                                        <img class="img-fluid rounded"
+                                            [src]="imageUtils.getImagenUsuario(amigo.perfil!)" alt="Avatar">
+                                    </figure>
+                                </a>
+                            </ng-container>
                         </div>
                     </div>
                 </div>

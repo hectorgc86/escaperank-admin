@@ -39,6 +39,24 @@ export class UsuariosService {
       .pipe(map((response) => response));
   }
 
+  postAmistad(id?: number, emailAmigo?: string): Observable<Usuario> {
+    return this.http
+      .post<Usuario>(
+        `${this.usuariosURL}/${id}/amigos`,
+        { emailAmigo }
+      )
+      .pipe(map((response) => response));
+  }
+
+  putAmistad(id?: number, idAmigoPendiente?: number): Observable<Usuario> {
+    return this.http
+      .put<Usuario>(
+        `${this.usuariosURL}/${id}/amigos/${idAmigoPendiente}`,
+        null
+      )
+      .pipe(map((response) => response));
+  }
+
   deleteAmistad(id?: number, idAmigo?: number): Observable<void> {
     return this.http.delete<void>(
       `${this.usuariosURL}/${id}/amigos/${idAmigo}`

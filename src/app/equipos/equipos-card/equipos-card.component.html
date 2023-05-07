@@ -9,5 +9,27 @@
                     [src]="imageUtils.getImagenUsuario(usuario.perfil!)" alt="Avatar" [title]="usuario.perfil?.nombre">
             </ng-container>
         </div>
+        <div class="row mt-3 ps-2 pe-2" *ngIf="checkEliminar">
+            <button class="btn btn-outline-danger animated-button" (click)="openBasicModal(basicModal)">
+                <span class="mdi mdi-delete"></span>
+                Eliminar
+            </button>
+        </div>
     </div>
+     <!-- Modal -->
+     <ng-template #basicModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Eliminar amistad</h5>
+            <button type="button" class="btn-close" (click)="modal.close()"
+                aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+            <p>¿Desea eliminar el equipo {{equipo.nombre}}?</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.close('')">Volver</button>
+            <button type="button" class="btn btn-primary"
+                (click)="modal.close('eliminar')">Eliminar</button>
+        </div>
+    </ng-template>
 </div>

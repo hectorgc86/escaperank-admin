@@ -2,9 +2,47 @@
     <app-usuarios-navbar [usuario]="usuario" [modo]="'equipos'"></app-usuarios-navbar>
 </div>
 <div class="m-auto">
+    <div class="mb-4 text-end">
+        <button class="btn btn-primary btn-icon-text me-2" (click)="openBasicModal(peticionModal)">
+            <i class="feather icon-user btn-icon-prepend"></i> Agregar
+        </button>
+        <button class="btn btn-danger btn-icon-text" (click)="modoEliminar()">
+            <i class="mdi mdi-delete"></i>
+        </button>
+    </div>
     <div class="row">
         <div class="col-md-6" *ngFor="let equipo of equipos;">
-            <app-equipos-card class="card-item" [equipo]="equipo"></app-equipos-card>
+            <app-equipos-card class="card-item" [equipo]="equipo" [checkEliminar]="checkEliminar"></app-equipos-card>
         </div>
     </div>
+
+     <!-- Modal -->
+     <ng-template [formGroup]="equipoFormGroup" #peticionModal let-modal>
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Crear equipo</h5>
+            <button type="button" class="btn-close" (click)="modal.close()"
+                aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+            <p>Nombre</p>
+            <input type="text" class="form-control mt-2" id="nombreEquipo"
+            placeholder="Nombre de equipo"
+            formControlName="nombre" name="nombreEquipo">
+            <label class="form-label mt-2">Integrantes</label>
+                <ng-select
+                [items]="amigos"
+                [multiple]=true
+                [closeOnSelect]="false"
+                [searchable]="false"
+                bindLabel="perfil.nombre"
+                placeholder="Seleccione resto de integrantes del equipo del que formará parte"
+                formControlName="amigos">
+            </ng-select>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="modal.close('')">Volver</button>
+            <button type="button" class="btn btn-primary"
+                (click)="modal.close('enviar')">Enviar</button>
+        </div>
+    </ng-template>
 </div>

@@ -15,6 +15,7 @@ import { UsuariosCardComponent } from "./usuarios-card/usuarios-card.component";
 import { RouterModule } from "@angular/router";
 import { UsuariosNavbarComponent } from "./usuarios-navbar/usuarios-navbar.component";
 import { NoticiasModule } from "../noticias/noticias.module";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { NoticiasModule } from "../noticias/noticias.module";
   imports: [
     CommonModule,
     UsuariosRoutingModule,
+    FormsModule,
     FeatherIconModule,
     NgbAccordionModule,
     NgbDropdownModule,

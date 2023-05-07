@@ -18,8 +18,12 @@
 
     <ul class="sidebar-nav metismenu" id="sidebar-menu" #sidebarMenu>
 
-      <ng-container *ngIf="(usuario$ | async) as usuario">
-        <div *ngIf="!foldedMenu" class="d-flex flex-column align-items-center border-bottom pb-3">
+      <div *ngIf="usuario && !foldedMenu">
+        <ng-container *ngTemplateOutlet="perfilUsuarioTemplate"></ng-container>
+      </div>
+
+      <ng-template #perfilUsuarioTemplate>
+        <div class="d-flex flex-column align-items-center border-bottom pb-3">
           <div class="mb-3">
             <img [src]="imageUtils.getImagenUsuario(usuario.perfil!)" [alt]="usuario.perfil!.nombre"
               [title]="usuario.perfil!.nombre" class="wd-60 ht-60 rounded-circle">
@@ -29,7 +33,7 @@
             <p class="tx-12 text-muted">{{ usuario!.email }}</p>
           </div>
         </div>
-      </ng-container>
+      </ng-template>
 
       <ng-container *ngFor="let item of menuItems">
         <li class="nav-item nav-category" *ngIf="item.isTitle">{{ item.label }}</li>

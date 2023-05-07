@@ -1,5 +1,5 @@
 export enum Estado {
-  Value0 = 0,
-  Value1 = 1,
-  Value2 = 2,
+  pendiente = "pendiente",
+  aceptado = "aceptado",
+  borrado = "borrado",
 }

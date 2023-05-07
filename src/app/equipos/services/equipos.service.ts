@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { Equipo } from "../interfaces/equipo.interface";
+import { Equipo, EquipoRequest } from "../interfaces/equipo.interface";
 
 @Injectable({
   providedIn: "root",
@@ -19,17 +19,14 @@ export class EquiposService {
       .pipe(map((response) => response));
   }
 
-  // putProfile(name: string, email: string): Observable<void> {
-  //   return this.http.put<void>(`${this.usuariosURL}/me`, { name, email });
-  // }
+  postEquipo(equipoRequest: EquipoRequest): Observable<EquipoRequest> {
+    return this.http
+      .post<EquipoRequest>(`${this.equiposURL}`, { equipoRequest })
+      .pipe(map((response) => response));
+  }
 
-  // putPhoto(avatar: string): Observable<string> {
-  //   return this.http
-  //     .put<string>(`${this.usuariosURL}/me/photo`, { avatar })
-  //     .pipe(map((response) => response));
-  // }
-
-  // putPassword(password: string): Observable<void> {
-  //   return this.http.put<void>(`${this.usuariosURL}/me/password`, password);
-  // }
+  deleteEquipo(id?: number): Observable<void> {
+    return this.http
+      .delete<void>(`${this.equiposURL}/${id}`);
+  }
 }
