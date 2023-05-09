@@ -5,7 +5,6 @@ import { UsuarioResolver } from "./resolvers/usuario.resolver";
 import { UsuariosDetailComponent } from "./usuarios-detail/usuarios-detail.component";
 import { UsuariosFormComponent } from "./usuarios-form/usuarios-form.component";
 import { UsuariosListComponent } from "./usuarios-list/usuarios-list.component";
-import { UsuariosNavbarComponent } from "./usuarios-navbar/usuarios-navbar.component";
 
 const routes: Routes = [
   {

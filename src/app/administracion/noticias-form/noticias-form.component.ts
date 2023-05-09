@@ -175,6 +175,5 @@ export class NoticiasFormComponent implements OnInit {
   resetDropzone1Uploads(): void {
     this.drpzone?.directiveRef?.reset()
     this.drpzone?.directiveRef?.dropzone();
-   
   }
 }

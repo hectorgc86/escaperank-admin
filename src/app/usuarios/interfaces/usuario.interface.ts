@@ -23,8 +23,11 @@ export interface UsuarioRequest {
   nombre?: string | null;
   telefono?: string | null;
   nacido?: string | null;
+  avatar?: string | null;
+  avatarBase64?: string | null;
 }
 
 export interface Amigo extends Usuario {
   estado?: Estado;
+  amigosComun?: number;
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, map } from "rxjs";
-import { Usuario } from "../interfaces/usuario.interface";
+import { Usuario, UsuarioRequest } from '../interfaces/usuario.interface';
 import { Noticia } from "src/app/noticias/interfaces/noticia.interface";
 import { Equipo } from "src/app/equipos/interfaces/equipo.interface";
 
@@ -18,6 +18,15 @@ export class UsuariosService {
   getUsuario(id?: number): Observable<Usuario> {
     return this.http
       .get<Usuario>(`${this.usuariosURL}/${id}`)
+      .pipe(map((response) => response));
+  }
+
+  putUsuario(id?: number, usuarioModificado?: UsuarioRequest): Observable<UsuarioRequest> {
+    return this.http
+      .put<Usuario>(
+        `${this.usuariosURL}/${id}`,
+        usuarioModificado
+      )
       .pipe(map((response) => response));
   }
 

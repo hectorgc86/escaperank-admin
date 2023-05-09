@@ -7,7 +7,7 @@ export const MENU: MenuItem[] = [
   },
   {
     label: "Administración",
-    icon: "pie-chart",
+    icon: "bar-chart-2",
     subItems: [
       {
         label: "Estadísticas",
@@ -49,7 +49,7 @@ export const MENU: MenuItem[] = [
   },
   {
     label: "Partidas",
-    icon: "upload",
+    icon: "flag",
     subItems: [
       {
         label: "Listado",

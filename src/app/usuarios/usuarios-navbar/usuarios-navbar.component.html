@@ -12,7 +12,7 @@
                     <span class="h4 ms-3 text-dark">{{usuario.perfil!.nombre}}</span>
                 </div>
                 <div *ngIf="modo === 'perfil'" class="d-none d-md-block">
-                    <button class="btn btn-primary btn-icon-text">
+                    <button class="btn btn-primary btn-icon-text" [routerLink]="['/usuarios', 'editar']">
                         <i class="feather icon-edit btn-icon-prepend"></i> Editar perfil
                     </button>
                 </div>
@@ -35,7 +35,7 @@
                     </a>
                 </li>
                 <li class="ms-3 ps-3 border-start d-flex align-items-center" [routerLink]="['/equipos']">
-                    <i class="feather icon-users me-1 icon-md" [routerLinkActive]="['text-primary']"
+                    <i class="feather icon-flag me-1 icon-md" [routerLinkActive]="['text-primary']"
                         [routerLinkActiveOptions]="{ exact: true }"></i>
                     <a class="nav-link pt-1px d-none d-md-block" [routerLinkActive]="['text-primary']"
                         [routerLinkActiveOptions]="{ exact: true }">Equipos</a>

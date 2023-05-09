@@ -65,7 +65,7 @@
                                         [title]="solicitud.perfil?.nombre">
                                     <div class="ms-2">
                                         <p>{{solicitud.perfil?.nombre}}</p>
-                                        <p class="tx-11 text-muted">X amigos en común</p>
+                                        <p class="tx-11 text-muted">{{solicitud.amigosComun}} amigos en común</p>
                                     </div>
                                 </div>
                                 <button class="btn btn-icon" (click)="aceptarSolicitudAmistad(solicitud.id!)"><i

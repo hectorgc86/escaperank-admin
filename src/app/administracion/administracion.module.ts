@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EstadisticasMainComponent } from './estadisticas-main/estadisticas-main.component';
 import { Routes, RouterModule } from '@angular/router';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FeatherIconModule } from 'src/app/core/feather-icon/feather-icon.module';
 import { NgbDropdownModule, NgbDatepickerModule, NgbDateParserFormatter, NgbModule, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 
