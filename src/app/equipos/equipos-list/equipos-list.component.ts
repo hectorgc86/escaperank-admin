@@ -38,9 +38,11 @@ export class EquiposListComponent implements OnInit {
   ngOnInit(): void {
     this.checkEliminar = false;
     this.usuario = JSON.parse(localStorage.getItem("usuario")!);
+
     this.usuariosService
       .getEquiposUsuario(this.usuario.id)
       .subscribe((equipos) => (this.equipos = equipos));
+
     this.usuariosService
       .getAmigosUsuario(this.usuario.id)
       .subscribe(

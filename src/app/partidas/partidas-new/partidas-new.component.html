@@ -1,6 +1,65 @@
-<button class="btn btn-primary" (click)="openModal()">Leer QR</button>
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Nueva Partida</h4>
+        <p class=“text-muted”>Da de alta una nueva partida y valídala con el QR proporcionado por el gamemaster</p>
+      </div>
+    </div>
+  </div>
+</div>
 
-<ng-template #myModal let-modal>
+<div class="row">
+  <div class="grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="mb-3">
+          <label class="form-label">Equipo</label>
+            <ng-select [items]="equipos" [searchable]="false" bindLabel="nombre" [(ngModel)]="equipoSeleccionado"
+            placeholder="Seleccione nombre de equipo que ha jugado la partida">
+          </ng-select>
+
+        </div>
+        <div class="row">
+          <div class="col mb-3">
+            <label class="form-label">Fecha</label>
+            <input type="date" class="form-control" [max]="fechaMaxima" [(ngModel)]="fechaPartida">
+          </div>
+          <div class="col mb-3">
+            <label class="form-label">Hora</label>
+            <input type="time" class="form-control" [(ngModel)]="horaPartida">
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Duración Partida</label>
+          <div class="row">
+            <div class="col">
+              <label class="form-label">{{ minutosPartida | number }} minutos</label>
+              <input type="range" class="form-range" min="0" max="180" step="1" [(ngModel)]="minutosPartida">
+            </div>
+            <div class="col">
+              <label class="form-label">{{ segundosPartida | number }} segundos</label>
+              <input type="range" class="form-range" min="0" max="59" step="1" [(ngModel)]="segundosPartida">
+            </div>
+          </div>
+        </div>
+        <div class="row text-center" *ngIf="resultadoValidacionQR">
+          <div class="results">
+            <div>
+              <strong>Tu partida ha sido correctamente validada</strong>
+            </div>
+          </div>
+          </div>
+        <div class="row mt-4">
+          <button class="btn btn-primary mb-3" [disabled]="!camposCompletos" (click)="validar()">Validar partida</button>
+          <button class="btn btn-primary" [disabled]="!resultadoValidacionQR" (click)="guardar()">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #modalQR let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Leer QR</h4>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
@@ -17,9 +76,10 @@
           </select>
         </div>
       </header>
-      <zxing-scanner [torch]="torchEnabled" [device]="deviceCurrent" (deviceChange)="onDeviceChange($event)" (scanSuccess)="onCodeResult($event)"
-        [formats]="formatsEnabled" [tryHarder]="tryHarder" (permissionResponse)="onHasPermission($event)"
-        (camerasFound)="onCamerasFound($event)" (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
+      <zxing-scanner [torch]="torchEnabled" [device]="deviceCurrent" (deviceChange)="onDeviceChange($event)"
+        (scanSuccess)="onCodeResult($event)" [formats]="formatsEnabled" [tryHarder]="tryHarder"
+        (permissionResponse)="onHasPermission($event)" (camerasFound)="onCamerasFound($event)"
+        (torchCompatible)="onTorchCompatible($event)"></zxing-scanner>
     </div>
     <ng-container *ngIf="hasPermission === undefined">
       <h2>Esperando a los permisos.</h2>
@@ -28,32 +88,16 @@
       <h2>Has denegado los permisos de acceso a la cámara. No podemos escanear el QR 😪</h2>
     </ng-container>
     <ng-container *ngIf="hasDevices === undefined">
-      <h2>No se ha encontrado ninguna cámara.</h2> 
+      <h2>No se ha encontrado ninguna cámara.</h2>
       <blockquote>
         Puede ser debido a la falta de permisos.
       </blockquote>
-      </ng-container> 
-      <ng-container *ngIf="hasDevices === false">
-
-<h2>No se ha encontrado ninguna Cámara</h2>
-
-</ng-container>
+    </ng-container>
+    <ng-container *ngIf="hasDevices === false">
+      <h2>No se ha encontrado ninguna Cámara</h2>
+    </ng-container>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Cerrar</button>
   </div>
 </ng-template>
-<div class="row">
-<div class="results">
-  <div>
-    <small>Result</small>
-    <strong >{{ qrResultString }}</strong>
-  </div>
-</div>
-</div>
-
-    
-  
-  
-  
-  
