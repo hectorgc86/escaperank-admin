@@ -13,8 +13,8 @@
     .page-content {
       flex-grow: 1;
       padding: 25px;
-      margin-top: 0px;
-      @media (max-width: 767px) {
+      margin-top: $navbar-height;
+      @media(max-width: 767px) {
         padding: 25px 15px;
       }
     }
