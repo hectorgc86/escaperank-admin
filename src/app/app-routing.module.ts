@@ -4,12 +4,15 @@ import { BaseComponent } from "./views/layout/base/base.component";
 import { ErrorPageComponent } from "./views/pages/error-page/error-page.component";
 import { LoginActivateGuard } from "./auth/guards/login-activate.guard";
 import { LogoutActivateGuard } from "./auth/guards/logout-activate.guard";
-
 const routes: Routes = [
   {
     path: "auth",
     loadChildren: () => import("./auth/auth.module").then((m) => m.AuthModule),
     canActivate: [LogoutActivateGuard],
+  },
+  {
+    path: "web",
+    loadChildren: () => import("./web/web.module").then((m) => m.WebModule),
   },
   {
     path: "",
@@ -64,6 +67,7 @@ const routes: Routes = [
         loadChildren: () =>
           import("./views/pages/apps/apps.module").then((m) => m.AppsModule),
       },
+      
       {
         path: "ui-components",
         loadChildren: () =>
@@ -118,7 +122,7 @@ const routes: Routes = [
             (m) => m.GeneralModule
           ),
       },
-      { path: "", redirectTo: "dashboard", pathMatch: "full" },
+      { path: "", redirectTo: "/web", pathMatch: "full" },
       // { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
     ],
   },
@@ -139,7 +143,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: "top" })],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: "top" }),],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
