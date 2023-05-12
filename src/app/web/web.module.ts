@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WebMainComponent } from './web-main/web-main.component';
-import { BlogComponent } from './blog/blog.component';
 import { ContactComponent } from './contact/contact.component';
 import { FeaturesComponent } from './features/features.component';
 import { FooterComponent } from './footer/footer.component';
@@ -17,12 +16,12 @@ import { PropietariosComponent } from './propietarios/propietarios.component';
 @NgModule({
   declarations: [
     WebMainComponent,
-    ServicesComponent, PropietariosComponent,PricingComponent, FeaturesComponent, TeamComponent, BlogComponent, ContactComponent, ScrollspyDirective, FooterComponent
+    ServicesComponent, PropietariosComponent,PricingComponent, FeaturesComponent, TeamComponent, ContactComponent, ScrollspyDirective, FooterComponent
   ],
   imports: [
     CommonModule, ScrollToModule.forRoot(),
     NgbModalModule,WebRoutingModule
   ],
-  exports: [ServicesComponent, PropietariosComponent,PricingComponent, FeaturesComponent, TeamComponent, BlogComponent, ContactComponent, ScrollspyDirective, FooterComponent]
+  exports: [ServicesComponent, PropietariosComponent,PricingComponent, FeaturesComponent, TeamComponent, ContactComponent, ScrollspyDirective, FooterComponent]
 })
 export class WebModule { }
