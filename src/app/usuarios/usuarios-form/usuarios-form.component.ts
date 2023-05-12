@@ -1,11 +1,11 @@
 import { Component, ViewChild } from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
 import { NgbDateParserFormatter, NgbDateStruct } from "@ng-bootstrap/ng-bootstrap";
 import { DropzoneConfigInterface, DropzoneDirective, DropzoneComponent } from "ngx-dropzone-wrapper";
 import Swal from "sweetalert2";
 import { Usuario, UsuarioRequest } from "../interfaces/usuario.interface";
 import { UsuariosService } from '../services/usuarios.service';
+import { ImageUtils } from "src/app/utils/image-utils";
 
 @Component({
   selector: "app-usuarios-form",
@@ -24,11 +24,14 @@ export class UsuariosFormComponent {
     errorReset: null,
     cancelReset: null
   };
+  imageUtils = ImageUtils;
+
   usuarioForm: FormGroup;
   usuarioId?: number;
   formBuilder: any;
   avatar: any;
   avatarName: string;
+  usuario: Usuario;
 
   constructor(
     private usuariosService: UsuariosService,
@@ -40,26 +43,27 @@ export class UsuariosFormComponent {
   @ViewChild('dz') drpzone?: DropzoneComponent;
 
   ngOnInit(): void {
-    let usuario = JSON.parse(localStorage.getItem("usuario")!) as Usuario;
+    this.usuario = JSON.parse(localStorage.getItem("usuario")!) as Usuario;
 
-    if (usuario != null && usuario.id != null) {
-      this.usuarioId = usuario.id;
+    if (this.usuario != null && this.usuario.id != null) {
+      this.usuarioId = this.usuario.id;
     }
 
-    let fechaNacimientoStruct = this.ngbParser.parse(usuario.perfil?.nacido!);
+
+    let fechaNacimientoStruct = this.ngbParser.parse(this.usuario.perfil?.nacido!);
     let fechaNacimiento: NgbDateStruct | null= fechaNacimientoStruct ? { year: fechaNacimientoStruct.year, month: fechaNacimientoStruct.month, day: fechaNacimientoStruct.day } : null;
 
-    let partesNombre = usuario.perfil?.nombre ? usuario.perfil?.nombre!.split(" ") : [,];
+    let partesNombre = this.usuario.perfil?.nombre ? this.usuario.perfil?.nombre!.split(" ") : [,];
 
     this.usuarioForm = this.fb.group({
-      nick: [usuario.nick, Validators.required],
+      nick: [this.usuario.nick, Validators.required],
       contrasenya: ["", Validators.required],
       nombre: [partesNombre[0], Validators.required],
       apellidos: [partesNombre[1], Validators.required],
-      email: [usuario.email, [Validators.required, Validators.email]],
-      telefono: [usuario.perfil?.telefono, [Validators.required, Validators.max]],
+      email: [this.usuario.email, [Validators.required, Validators.email]],
+      telefono: [this.usuario.perfil?.telefono, [Validators.required, Validators.max]],
       nacido: [fechaNacimiento, Validators.required],
-      avatar: [usuario.perfil?.avatar, Validators.required],
+      avatar: [this.usuario.perfil?.avatar, Validators.required],
     });
 
   }
