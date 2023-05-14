@@ -30,9 +30,7 @@ export class AuthService {
   isLogged(): Observable<boolean> {
     const token = localStorage.getItem("tokenAcceso");
 
-    if (this.logged) {
-      return of(true);
-    } else if (!token) {
+    if (!token) {
       return of(false);
     } else {
       return this.http.get<void>(`${this.authURL}/validar`).pipe(
