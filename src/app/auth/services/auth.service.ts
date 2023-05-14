@@ -38,7 +38,7 @@ export class AuthService {
           this.setLogged(true);
           return true;
         }),
-        catchError((error: HttpErrorResponse) => {
+        catchError(() => {
           this.resetearLocalStorage();
           return of(false);
         })
