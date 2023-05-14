@@ -60,17 +60,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     this.foldedMenu = false;
 
     this.usuario = JSON.parse(localStorage.getItem("usuario")!);
-
-    /**
-     * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)
-     */
-    const desktopMedium = window.matchMedia(
-      "(min-width:992px) and (max-width: 1199px)"
-    );
-    desktopMedium.addEventListener("change", () => {
-      this.iconSidebar;
-    });
-    this.iconSidebar(desktopMedium);
   }
 
   ngAfterViewInit() {
@@ -86,22 +75,46 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   toggleSidebar(e: Event) {
     this.sidebarToggler.nativeElement.classList.toggle("active");
     this.sidebarToggler.nativeElement.classList.toggle("not-active");
-
+    
     if (window.matchMedia("(min-width: 992px)").matches) {
       e.preventDefault();
       this.document.body.classList.toggle("sidebar-folded");
 
-      if (this.foldedMenu) {
-        this.foldedMenu = false;
-      } else {
-        this.foldedMenu = true;
-      }
     } else if (window.matchMedia("(max-width: 991px)").matches) {
       e.preventDefault();
       this.document.body.classList.toggle("sidebar-open");
     }
+
+    if (this.document.body.classList.contains('sidebar-folded')) {
+      this.foldedMenu = true;
+    } else {
+      this.foldedMenu = false;
+    }
+
   }
 
+  
+    /**
+     * Open sidebar when hover (in folded folded state)
+     */
+    operSidebarFolded() {
+      if (this.document.body.classList.contains('sidebar-folded')){
+        this.foldedMenu = false;
+        this.document.body.classList.add("open-sidebar-folded");
+      }
+    }
+  
+  
+    /**
+     * Fold sidebar after mouse leave (in folded state)
+     */
+    closeSidebarFolded() {
+      if (this.document.body.classList.contains('sidebar-folded')){
+        this.foldedMenu = true;
+        this.document.body.classList.remove("open-sidebar-folded");
+      }
+    }
+    
   /**
    * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)
    */
@@ -118,8 +131,22 @@ export class SidebarComponent implements OnInit, AfterViewInit {
    * @param item menuItem
    */
   hasItems(item: MenuItem) {
-    return item.subItems !== undefined ? item.subItems.length > 0 : false;
-  }
+
+    if(item.subItems !== undefined){
+ 
+     for(let i in item.subItems){
+       const enlace = item.subItems[i].link as unknown as string;
+       if(enlace.includes("/usuarios/:id")){
+        item.subItems[i].link = enlace.replace(":id", this.usuario.id !== undefined ? String(this.usuario.id) : "");
+      }
+     }
+     return item.subItems.length > 0;
+    }else{
+     return false;
+    }
+ 
+   }
+ 
 
   /**
    * Reset the menus then hilight current active menu item

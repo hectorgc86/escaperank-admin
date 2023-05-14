@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { EventEmitter, Injectable } from "@angular/core";
-import { catchError, map, Observable, of } from "rxjs";
+import { catchError, map, Observable, of, switchMap } from "rxjs";
 import { MD5 } from "crypto-js";
 import { Login, LoginRequest } from "../interfaces/login.interface";
 import { RegistroRequest } from "../interfaces/registro.interface";
@@ -52,7 +52,7 @@ export class AuthService {
     loginRequest.contrasenya = this.calcularMD5(loginRequest.contrasenya!);
 
     return this.http.post<Login>(`${this.authURL}/login`, loginRequest).pipe(
-      map((resp) => {
+      switchMap((resp) => {
         localStorage.setItem("usuarioId", resp.usuarioId!);
         localStorage.setItem("rol", resp.rol!);
 
@@ -62,14 +62,16 @@ export class AuthService {
         localStorage.setItem("tokenAcceso", resp.tokenAcceso!);
         this.setLogged(true);
 
-        this.usuariosService
-          .getUsuario(parseInt(resp.usuarioId!))
-          .subscribe((usuario) =>
-            localStorage.setItem("usuario", JSON.stringify(usuario))
-          );
+        return this.usuariosService.getUsuario(parseInt(resp.usuarioId!)).pipe(
+          map((usuario) => {
+            localStorage.setItem("usuario", JSON.stringify(usuario));
+            return;
+          })
+        );
       })
     );
   }
+
 
   logout(): void {
     this.resetearLocalStorage();
