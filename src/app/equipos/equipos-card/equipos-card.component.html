@@ -6,7 +6,7 @@
         <div class="col-7 text-end">
             <ng-container *ngFor="let usuario of equipo.usuarios">
                 <img class="img-sm rounded-circle" style="margin-right: 4px; margin-top: 3px;"
-                    [src]="imageUtils.getImagenUsuario(usuario.perfil!)" alt="Avatar" [title]="usuario.perfil?.nombre">
+                    [src]="imageUtils.getImagenUsuario(usuario.perfil!)" alt="Avatar" [title]="usuario!.nick">
             </ng-container>
         </div>
         <div class="row mt-3 ps-2 pe-2" *ngIf="checkEliminar">

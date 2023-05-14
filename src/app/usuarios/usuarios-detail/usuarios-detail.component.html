@@ -35,13 +35,11 @@
     <!-- left wrapper end -->
     <!-- middle wrapper start -->
     <div class="col-md-8 col-xl-6 middle-wrapper">
-        <div class="card rounded mb-3">
-            <div class="card-body">
-                <div class="d-flex align-items-center">
-                    <h6 class="card-title m-auto">Partidas</h6>
+            <div>
+                <div class="d-flex align-items-center mb-4">
+                    <h5 class="card-title m-auto">Partidas</h5>
                 </div>
             </div>
-        </div>
         <div class="row">
             <app-noticias-card [noticia]="noticia" *ngFor="let noticia of noticias"></app-noticias-card>
         </div>
@@ -64,8 +62,9 @@
                                         [src]="imageUtils.getImagenUsuario(solicitud.perfil!)" alt="Avatar"
                                         [title]="solicitud.perfil?.nombre">
                                     <div class="ms-2">
-                                        <p>{{solicitud.perfil?.nombre}}</p>
-                                        <p class="tx-11 text-muted">{{solicitud.amigosComun}} amigos en común</p>
+                                        <p>{{solicitud!.nick}}</p>
+                                        <p class="tx-11 text-muted italic-text">{{ solicitud.perfil!.nombre }}</p>
+                                        <p class="tx-10 text-muted">{{solicitud.amigosComun}} amigos en común</p>
                                     </div>
                                 </div>
                                 <button class="btn btn-icon" (click)="aceptarSolicitudAmistad(solicitud.id!)"><i
@@ -93,12 +92,12 @@
                         <h6 class="card-title">Amigos</h6>
                         <div class="row ms-0 me-0">
                             <ng-container *ngFor="let amigo of amigos;">
-                                <a class="col-md-4 ps-1 pe-1">
+                                <div class="col-md-4 ps-1 pe-1">
                                     <figure class="mb-2">
                                         <img class="img-fluid rounded"
-                                            [src]="imageUtils.getImagenUsuario(amigo.perfil!)" alt="Avatar">
+                                            [src]="imageUtils.getImagenUsuario(amigo.perfil!)" alt="Avatar" [title]="amigo.nick">
                                     </figure>
-                                </a>
+                                </div>
                             </ng-container>
                         </div>
                     </div>

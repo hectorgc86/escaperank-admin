@@ -9,7 +9,11 @@
                 <div>
                     <img [src]="imageUtils.getImagenUsuario(usuario.perfil!)" [alt]="usuario.perfil!.nombre"
                         [title]="usuario.perfil!.nombre" class="wd-80 ht-80 rounded-circle">
-                    <span class="h4 ms-3 text-dark">{{usuario.perfil!.nombre}}</span>
+                    <div class="d-inline-block">
+                        <span class="h4 ms-3 text-dark">{{usuario!.nick}}</span>
+                        <p class="tx-12 ms-3 text-muted italic-text">{{ usuario.perfil!.nombre }}</p>
+                    </div>
+
                 </div>
                 <div *ngIf="modo === 'perfil'" class="d-none d-md-block">
                     <button class="btn btn-primary btn-icon-text" [routerLink]="['/usuarios', 'editar']">
@@ -21,24 +25,27 @@
         <div class="d-flex justify-content-center p-3 rounded-bottom">
             <ul class="d-flex align-items-center m-0 p-0">
                 <li class="d-flex align-items-center" [routerLink]="['/usuarios', usuario.id]">
-                    <i class="feather icon-columns me-1 icon-md" [routerLinkActive]="['text-primary']"
-                        [routerLinkActiveOptions]="{ exact: true }"></i>
-                    <a class="d-flex nav-link pt-1px d-none d-md-block" [routerLinkActive]="['text-primary']"
-                        [routerLinkActiveOptions]="{ exact: true }">Perfil</a>
+                    <a class="d-flex nav-link d-none d-md-block" [routerLinkActive]="['text-primary']"
+                        [routerLinkActiveOptions]="{ exact: true }">
+                        <i class="feather icon-columns me-1 icon-md" [routerLinkActive]="['text-primary']"
+                            [routerLinkActiveOptions]="{ exact: true }"></i>
+                        <span class="pt-1px"> Perfil</span></a>
                 </li>
                 <li class="ms-3 ps-3 border-start d-flex align-items-center"
                     [routerLink]="['/usuarios', usuario.id, 'amigos']">
-                    <i class="feather icon-users me-1 icon-md" [routerLinkActive]="['text-primary']"
-                        [routerLinkActiveOptions]="{ exact: true }"></i>
                     <a class="nav-link pt-1px d-none d-md-block" [routerLinkActive]="['text-primary']"
-                        [routerLinkActiveOptions]="{ exact: true }">Amigos
+                        [routerLinkActiveOptions]="{ exact: true }">
+                        <i class="feather icon-users me-1 icon-md" [routerLinkActive]="['text-primary']"
+                            [routerLinkActiveOptions]="{ exact: true }"></i>
+                            <span class="pt-1px"> Amigos</span>
                     </a>
                 </li>
                 <li class="ms-3 ps-3 border-start d-flex align-items-center" [routerLink]="['/equipos']">
-                    <i class="feather icon-flag me-1 icon-md" [routerLinkActive]="['text-primary']"
-                        [routerLinkActiveOptions]="{ exact: true }"></i>
                     <a class="nav-link pt-1px d-none d-md-block" [routerLinkActive]="['text-primary']"
-                        [routerLinkActiveOptions]="{ exact: true }">Equipos</a>
+                        [routerLinkActiveOptions]="{ exact: true }">
+                        <i class="feather icon-flag me-1 icon-md" [routerLinkActive]="['text-primary']"
+                            [routerLinkActiveOptions]="{ exact: true }"></i>
+                            <span class="pt-1px"> Equipos</span></a>
                 </li>
             </ul>
         </div>

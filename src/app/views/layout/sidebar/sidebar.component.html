@@ -29,7 +29,8 @@
               [title]="usuario.perfil!.nombre" class="wd-60 ht-60 rounded-circle">
           </div>
           <div class="text-center">
-            <p class="tx-16 fw-bolder">{{ usuario.perfil!.nombre }}</p>
+            <p class="tx-16 fw-bolder">{{ usuario!.nick }}</p>
+            <p class="tx-10 text-muted italic-text">{{ usuario.perfil!.nombre }}</p>
             <p class="tx-12 text-muted">{{ usuario!.email }}</p>
           </div>
         </div>

@@ -50,11 +50,17 @@ export class EstadisticasMainComponent implements OnInit {
   tiempos: Tiempos[];
   rankings: Ranking[];
   partidasMes: PartidasMes[];
+
+  isLoading: boolean;
+
   constructor(
     private calendar: NgbCalendar,
-    private estadisticasService: EstadisticasService
+    private estadisticasService: EstadisticasService,
   ) {}
   ngOnInit(): void {
+
+    this.isLoading = true;
+
     this.estadisticasService
       .getEstadisticasCompanyia(localStorage.getItem("companyiaId")!)
       .subscribe((estadisticas) => {
@@ -66,6 +72,7 @@ export class EstadisticasMainComponent implements OnInit {
           estadisticas.numPartidas,
           estadisticas.partidasMes
         );
+        this.isLoading = false;
       });
 
     this.currentDate = this.calendar.getToday();
