@@ -13,3 +13,64 @@
     box-shadow: none !important;
     transition: width 0.1s ease, left 0.1s ease;
   }
+
+  @media (min-width: 200px) and (max-width: 1024px) {
+
+    .navbar {
+        background: #272a33 !important ;
+      }
+    .navbar-custom {
+      
+      margin-top: 0px;
+      padding: 10px 0px !important;
+      box-shadow: 0 10px 33px rgba(0, 0, 0, 0.1);
+      color: #ffffff !important;
+      background: #272a33;
+      padding: 20px 0px;
+      width: 100%;
+      border-radius: 0px;
+      z-index: 999;
+      margin-bottom: 0px;
+      -webkit-transition: all 0.5s ease-in-out;
+      -moz-transition: all 0.5s ease-in-out;
+      -o-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out;
+    }
+    .navbar-custom .navbar-nav {
+      margin-left: 0px;
+      background-color: #272a33 !important;
+    }
+    .navbar-custom .navbar-nav li.active {
+      border-color: transparent;
+    }
+    .navbar-custom .navbar-nav li a {
+      transition: all 0.4s;
+      margin-left: 7px;
+      color: rgba(255, 255, 255, 0.6) !important;
+    }
+    .navbar-custom > .container {
+      width: 100%;
+      padding-left: 10px;
+      padding: 0;
+    }
+    .navbar-white .navbar-toggler {
+      color: #272a33 !important;
+    }
+
+    #botonLogin{
+        margin-bottom: 5px;
+    }
+    .navbar-button {
+      margin-top: 15px;
+      margin-left: 0px;
+    }
+    .navbar-custom .navbar-nav li.active a,
+  .navbar-custom .navbar-nav li a:hover,
+  .navbar-custom .navbar-nav li a:active {
+      color: #ffffff !important;
+      background-color: #272a33 !important;
+
+    }
+
+
+}

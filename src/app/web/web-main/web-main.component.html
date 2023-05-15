@@ -15,6 +15,9 @@
          <li class="nav-item" [ngClass]="{'active':currentSection === 'services'}">
            <a [ngxScrollTo]="'#services'" href="javascript: void(0);" class="nav-link">Qué es ScapeRank</a>
          </li>
+         <li class="nav-item" [ngClass]="{'active':currentSection === 'salas'}">
+          <a  href="/salas;" class="nav-link">Buscar Salas</a>
+        </li>
          <li class="nav-item" [ngClass]="{'active':currentSection === 'team'}">
            <a [ngxScrollTo]="'#team'" href="javascript: void(0);" class="nav-link">El Equipo</a>
          </li>
@@ -27,7 +30,7 @@
        </ul>
        <div class="nav-button ms-auto">
          <ul class="nav navbar-nav navbar-end">
-           <li>
+           <li id="botonLogin">
             <a href="/auth/login"><button type="button" class="btn btn-primary navbar-btn btn-rounded waves-effect waves-light" >Pruébalo Gratis</button></a>
            </li>
          </ul>
