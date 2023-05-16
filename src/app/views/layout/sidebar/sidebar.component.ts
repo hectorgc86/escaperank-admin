@@ -11,6 +11,9 @@ import { DOCUMENT } from "@angular/common";
 import MetisMenu from "metismenujs";
 
 import { MENU } from "./menu";
+import { MENUUSER } from "./menuUser";
+import { MENUVISITOR } from "./menuVisitor";
+
 import { MenuItem } from "./menu.model";
 import { Router, NavigationEnd } from "@angular/router";
 import { ImageUtils } from "src/app/utils/image-utils";
@@ -30,6 +33,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
 
   usuario: Usuario;
   foldedMenu: boolean;
+  visitor: boolean;
   imageUtils = ImageUtils;
   refreshed: boolean;
 
@@ -56,7 +60,19 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.menuItems = MENU;
+    this.visitor= false;
+    if(localStorage.getItem("rol")=="SUPERADMIN"){
+      this.menuItems = MENU;
+      }
+    if(localStorage.getItem("rol")=="GAMEMASTER"){
+      this.menuItems = MENU;
+    }else if(localStorage.getItem("rol")=="USER"){
+      this.menuItems = MENUUSER;
+    }else{
+      this.menuItems = MENUVISITOR;
+      this.visitor= true;
+
+    }
     this.foldedMenu = false;
 
     this.usuario = JSON.parse(localStorage.getItem("usuario")!);
@@ -259,5 +275,8 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   logout() {
     this.authService.logout();
     location.assign("auth/login");
+  }
+  registro() {
+    location.assign("auth/registro");
   }
 }
