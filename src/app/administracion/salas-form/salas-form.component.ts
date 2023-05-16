@@ -13,6 +13,7 @@ import { SalasService } from '../services/salas.service';
 import { FormBuilder, FormControl, FormGroup, NgForm, NgModel, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
+import { ImageUtils } from "src/app/utils/image-utils";
 
 @Component({
   selector: 'app-salas-form',
@@ -30,10 +31,13 @@ export class SalasFormComponent implements OnInit {
   categorias: Categoria[] = [];
   selectedCategoria: any = null;
   sala:Sala;
-  imageName = '';
+  imageName:string|null|undefined='';
   imagen: any;
   salaForm: FormGroup;
  salaId?: string;
+ imageUtils = ImageUtils;
+ imageChanged=false;
+
 
 
   public config: DropzoneConfigInterface = {
@@ -103,7 +107,17 @@ export class SalasFormComponent implements OnInit {
   ngOnInit(): void {
     let getSala = <Sala>this.route.snapshot.data['sala'];
     if (getSala != null && getSala.id != null) {
+      this.isUpdating=true;
       this.salaId = getSala.id;
+      console.log(getSala);
+
+      this.salaForm.patchValue(getSala);
+
+      if (this.isUpdating){
+        this.imagen = this.imageUtils.getImagenSala(getSala,'estrechas');
+        this.imageName = getSala.imagenEstrecha;
+
+      }
     }
     this.dificultadesService.getDificultades().subscribe((dificultades)=>{this.dificultades = dificultades});
    this.tematicasService.getTematicas().subscribe((tematicas)=>{ this.tematicas = tematicas});
@@ -135,6 +149,7 @@ export class SalasFormComponent implements OnInit {
     reader.addEventListener('loadend', (e) => {
       this.imagen=e.target?.result;
       this.imageName = reader.result as string;
+      this.imageChanged=true;
     });
   }
 
@@ -187,9 +202,15 @@ export class SalasFormComponent implements OnInit {
       tematicas: this.salaForm.controls.tematicas.value,
       categorias:this.salaForm.controls.categorias.value,
       urlReserva:this.salaForm.controls.urlReserva.value,
-      imagenEstrecha: this.imagen,
       companyiaId: localStorage.getItem("companyiaId")
     };
+
+if (this.imageChanged){
+  salaCreada.imagenEstrecha= this.imagen;
+}else{
+  salaCreada.imagenEstrecha= undefined;
+}
+
     if (this.isUpdating) {
       return this.updateSala(salaCreada);
     } else {
@@ -203,9 +224,6 @@ export class SalasFormComponent implements OnInit {
       createdSala.id = this.salaId;
       this.salasService.updateSala(createdSala).subscribe({
         next: (sala) => {
-        //  this.showImage = false;
-        //  this.saved = true;
-       //   this.add.emit(event);
           location.assign('/administracion/salas');
           result = true;
           resolve(result);

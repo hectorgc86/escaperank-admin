@@ -12,7 +12,11 @@ export class NoticiasService {
   constructor(private readonly http: HttpClient) {
     this.noticiasURL = "noticias";
   }
-
+  getNoticia(id: number): Observable<Noticia> {
+    return this.http
+      .get<Noticia>(`this.noticiasURL/${id}`)
+      .pipe(map((response) => response));
+  }
   getNoticias(): Observable<Noticia[]> {
     return this.http
       .get<Noticia[]>(this.noticiasURL)

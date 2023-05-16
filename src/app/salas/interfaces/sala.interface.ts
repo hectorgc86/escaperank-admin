@@ -53,6 +53,7 @@ export interface Sala {
   publico?: Publico[] | null;
   tematicas?: Tematica[] | null;
   valoraciones?: Valoracion[] | null;
+  desactivada?:boolean;
 }
 
 

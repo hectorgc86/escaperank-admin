@@ -29,4 +29,15 @@ export class SalasService {
     .put<SalaResponse>(`${this.salasURL}/${sala.id}`, sala)
     .pipe(map((response: SalaResponse) => response.sala));
   }
+
+  cerrarSala(sala: Sala): Observable<Sala> {
+    return this.http
+    .put<SalaResponse>(`${this.salasURL}/${sala.id}/cerrar`, sala)
+    .pipe(map((response: SalaResponse) => response.sala));
+  }
+  abrirSala(sala: Sala): Observable<Sala> {
+    return this.http
+    .put<SalaResponse>(`${this.salasURL}/${sala.id}/abrir`, sala)
+    .pipe(map((response: SalaResponse) => response.sala));
+  }
 }

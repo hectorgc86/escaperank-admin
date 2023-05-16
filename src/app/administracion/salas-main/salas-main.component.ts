@@ -4,6 +4,7 @@ import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { Sala } from "src/app/salas/interfaces/sala.interface";
 import { ImageUtils } from "src/app/utils/image-utils";
 import { SalasService } from "../services/salas.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-salas-main",
@@ -36,6 +37,69 @@ export class SalasMainComponent implements OnInit {
     this.router.navigate(["administracion/salas/nueva"]);
   }
 
+  editarSala(sala: Sala) {
+    this.router.navigate(["administracion/salas/"+sala.id+"/edit/"]);
+  }
+
+  cerrarSala(sala: Sala) {
+
+    var promise = new Promise<boolean>((resolve, reject) => {
+      let result: boolean;
+      this.salasService.cerrarSala(sala).subscribe({
+        next: (sala) => {
+          location.assign('/administracion/salas');
+          result = true;
+          resolve(result);
+        },
+        error: (error: { message: any; }) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.message,
+          });
+          result = false;
+          resolve(result);
+        },
+        complete: () => {
+          console.log('Sala cerrada');
+          result = true;
+          resolve(result);
+        },
+      });
+    });
+    return promise;
+
+
+
+  }
+
+  abrirSala(sala: Sala) {
+    var promise = new Promise<boolean>((resolve, reject) => {
+      let result: boolean;
+      this.salasService.abrirSala(sala).subscribe({
+        next: (sala) => {
+          location.assign('/administracion/salas');
+          result = true;
+          resolve(result);
+        },
+        error: (error: { message: any; }) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.message,
+          });
+          result = false;
+          resolve(result);
+        },
+        complete: () => {
+          console.log('Sala abierta');
+          result = true;
+          resolve(result);
+        },
+      });
+    });
+    return promise;
+  }
   openModal(sala: Sala) {
     this.selectedSalaId = sala.id as string;
     this.selectedSalaNombre = sala.nombre as string;

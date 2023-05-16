@@ -29,7 +29,9 @@
                   <td>{{ sala.precioMinimo }}-{{ sala.precioMaximo }}</td>
                   <td><button class="btn btn-primary" (click)="openModal(sala)">QR Sala</button>
                   </td>
-                  <td></td>
+                  <td><button class="btn btn-primary" (click)="editarSala(sala)">Editar</button></td>
+                  <td><button *ngIf="!sala.desactivada" class="btn btn-primary" (click)="cerrarSala(sala)">Cerrar</button></td>
+                  <td><button *ngIf="sala.desactivada" class="btn btn-primary" (click)="abrirSala(sala)">Abrir</button></td>
                 </tr>
                 
               </tbody>

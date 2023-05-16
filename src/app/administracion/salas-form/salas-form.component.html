@@ -20,51 +20,51 @@
               </div>
             <div class="mb-3">
               <label for="inputNombre" class="form-label">Nombre</label>
-              <input class="form-control" type="text" placeholder="Nombre Sala" ngModel name="nombre" formControlName="nombre" required/>
+              <input class="form-control" type="text" placeholder="Nombre Sala" name="nombre"  formControlName="nombre" required/>
               <p class="text-danger mt-1" *ngIf="salaForm.get('nombre')?.errors?.required">required error</p>
             </div>
            
            
               <div class="mb-3">
                 <label for="exampleFormControlTextarea2" class="form-label">Descripción</label>
-                <textarea class="form-control" id="exampleFormControlTextarea2" ngModel name="descripcion"  rows="5" formControlName="descripcion" required></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea2"  name="descripcion"  rows="5" formControlName="descripcion" required></textarea>
                 <p class="text-danger mt-1" *ngIf="salaForm.get('descripcion')?.errors?.required">required error</p>
 
               </div>
               <div class="mb-3">
                 <label for="exampleInputUsername1" class="form-label">Duracion (minutos)</label>
-                <input class="form-control" type="text" placeholder="Duracion" ngModel name="duracion" formControlName="duracion" required digits/>
+                <input class="form-control" type="text" placeholder="Duracion"  name="duracion" formControlName="duracion" required digits/>
                 <p class="text-danger mt-1" *ngIf="salaForm.get('duracion')?.errors?.digits">Solo admite números</p>
                 <p class="text-danger mt-1" *ngIf="salaForm.get('duracion')?.errors?.required">required error</p>
 
               </div>
               <div class="mb-3">
                 <label for="inputEdad" class="form-label">Edad Mínima Recomendada</label>
-                <input class="form-control" type="text" placeholder="Edad Recomendada" ngModel name="edadPublico"  formControlName="edadPublico" required digits/>
+                <input class="form-control" type="text" placeholder="Edad Recomendada"  name="edadPublico"  formControlName="edadPublico" required digits/>
                 <p class="text-danger mt-1" *ngIf="salaForm.get('edadPublico')?.errors?.required">required error</p>
                 <p class="text-danger mt-1" *ngIf="salaForm.get('edadPublico')?.errors?.digits">Solo admite números</p>
               </div>
               <div class="mb-3">
                 <label for="inputNumMinJugadores" class="form-label">Nº Mínimo Jugadores</label>
-                <input class="form-control" type="text" placeholder="Nº Mínimo Jugadores" ngModel name="minimoJugadores"  formControlName="minimoJugadores" required digits/>
+                <input class="form-control" type="text" placeholder="Nº Mínimo Jugadores"  name="minimoJugadores"  formControlName="minimoJugadores" required digits/>
                 <p class="text-danger mt-1" *ngIf="salaForm.get('minimoJugadores')?.errors?.required">required error</p>
                 <p class="text-danger mt-1" *ngIf="salaForm.get('minimoJugadores')?.errors?.digits">Solo admite números</p>
               </div>
               <div class="mb-3">
                 <label for="inputNumMaxJugadores" class="form-label">Nº Máximo Jugadores</label>
-                <input class="form-control" type="text" placeholder="Nº Máximo Jugadores" ngModel name="numMaxJugadores"  formControlName="maximoJugadores" required digits/>
+                <input class="form-control" type="text" placeholder="Nº Máximo Jugadores"  name="numMaxJugadores"  formControlName="maximoJugadores" required digits/>
                 <p class="text-danger mt-1" *ngIf="salaForm.get('maximoJugadores')?.errors?.required">required error</p>
                 <p class="text-danger mt-1" *ngIf="salaForm.get('maximoJugadores')?.errors?.digits">Solo admite números</p>
               </div>
               <div class="mb-3">
                 <label for="inputPrecioMinimo" class="form-label">Precio Mínimo</label>
-                <input class="form-control" type="text" placeholder="Precio Mínimo" ngModel name="precioMinimo" formControlName="precioMinimo" required number/>
+                <input class="form-control" type="text" placeholder="Precio Mínimo"  name="precioMinimo" formControlName="precioMinimo" required number/>
                 <p class="text-danger mt-1" *ngIf="salaForm.get('precioMinimo')?.errors?.required">required error</p>
                 <p class="text-danger mt-1" *ngIf="salaForm.get('precioMinimo')?.errors?.number">Solo admite números</p>
               </div>
               <div class="mb-3">
                 <label for="inputPrecioMaximo" class="form-label">Precio Máximo</label>
-                <input class="form-control" type="text" placeholder="Precio Máximo" ngModel name="precioMaximo"  formControlName="precioMaximo" required number/>
+                <input class="form-control" type="text" placeholder="Precio Máximo"  name="precioMaximo"  formControlName="precioMaximo" required number/>
                 <p class="text-danger mt-1" *ngIf="salaForm.get('precioMaximo')?.errors?.required">required error</p>
                 <p class="text-danger mt-1" *ngIf="salaForm.get('precioMaximo')?.errors?.number">Solo admite números</p>
               </div>
@@ -75,8 +75,10 @@
               <ng-select [items]="dificultades"
               bindLabel="tipo"
               bindValue="id"
+              [multiple]=false
               [searchable]="false"
               formControlName="dificultad"
+              required
               >
             </ng-select>
 
@@ -125,11 +127,13 @@
 
               <div class="mb-3">
                 <label for="Enlace" class="form-label">Link Reserva</label>
-                <input class="form-control" type="text" placeholder="Enlace" ngModel name="urlReserva" formControlName="urlReserva"/>
+                <input class="form-control" type="text" placeholder="Enlace" 
+                 name="urlReserva" formControlName="urlReserva"/>
               </div>
 
             <div class="mb-3">
                 <label class="form-label">Imagen Estrecha</label>
+               
                 <dropzone
                 [config]="config"
                 [message]="'Click or drag images here to upload'"
@@ -139,7 +143,17 @@
                 (error)="onUploadError($event)"
                 (success)="onUploadSuccess($event)"
                 (removeFile)="onRemoveFile($event)"
-                #dz></dropzone>
+                #dz>
+                <div class="dz-message" style="text-align: center;">
+                  <img [src]="imagen" alt="Imagen" *ngIf="imagen" style="max-width: 100%; max-height: 200px;">
+                  <p *ngIf="!imagen">No se ha cargado ninguna imagen.</p>
+                </div>
+              
+              </dropzone>
+
+
+
+
                <button class="btn btn-secondary mt-2 d-block ms-auto" type="button" (click)="resetDropzone1Uploads()">Reset</button>
             </div>
     

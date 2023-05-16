@@ -18,6 +18,8 @@ import { DropzoneConfigInterface, DropzoneModule, DROPZONE_CONFIG } from 'ngx-dr
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NoticiasFormComponent } from './noticias-form/noticias-form.component';
 import { CustomAdapter, CustomNgbDateParserFormatter } from '../utils/date-parser-formatter';
+import { SalaResolver } from './resolvers/sala.resolver';
+import { NoticiaResolver } from './resolvers/noticia.resolver';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -40,12 +42,26 @@ const routes: Routes = [
     component: SalasFormComponent
   },
   {
+    path: 'salas/:id/edit',
+    component: SalasFormComponent,
+    resolve: {
+      sala: SalaResolver,
+    },
+  },
+  {
     path: 'noticias',
     component: NoticiasMainComponent
   },
   {
     path: 'noticias/nueva',
     component: NoticiasFormComponent
+  },
+  {
+    path: 'noticias/:id/edit',
+    component: NoticiasFormComponent,
+    resolve: {
+      noticia: NoticiaResolver,
+    },
   }
 ]
 @NgModule({
