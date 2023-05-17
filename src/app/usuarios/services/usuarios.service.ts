@@ -30,6 +30,12 @@ export class UsuariosService {
       .pipe(map((response) => response));
   }
 
+  deleteUsuario(id?: number): Observable<void> {
+    return this.http.delete<void>(
+      `${this.usuariosURL}/${id}`
+    );
+  }
+
   getAmigosUsuario(id?: number): Observable<Usuario[]> {
     return this.http
       .get<Usuario[]>(`${this.usuariosURL}/${id}/amigos`)

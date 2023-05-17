@@ -91,7 +91,30 @@
                 </div>
             </div>
         </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary me-2">Enviar</button>
+            <button class="btn btn-secondary" [routerLink]="['/usuarios', usuarioId]">Cancelar</button>
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-danger" (click)="openBajaModal(bajaModal)">
+                <span class="mdi mdi-account-off"></span>
+                Darse de baja
+            </button>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary me-2">Enviar</button>
-    <button class="btn btn-secondary" [routerLink]="['/usuarios', usuarioId]">Cancelar</button>
 </form>
+
+<!-- Modal -->
+<ng-template #bajaModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Baja de usuario</h5>
+        <button type="button" class="btn-close" (click)="modal.close()" aria-label="Cerrar"></button>
+    </div>
+    <div class="modal-body">
+        <p>¿Desea darse de baja de EscapeRank?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('')">Volver</button>
+        <button type="button" class="btn btn-primary" (click)="modal.close('baja')">Quiero darme de baja</button>
+    </div>
+</ng-template>
