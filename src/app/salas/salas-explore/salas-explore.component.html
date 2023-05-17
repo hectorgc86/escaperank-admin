@@ -1,114 +1,124 @@
-<div class="align-self-center me-auto">
-    <strong class="text-uppercase opacity-60 font-12">Salas</strong>
-    <h3 class="mt-2 mb-3">Popular ahora</h3>
+<div *ngIf="isLoading" class="spinner-wrapper">
+    <div class="spinner">Cargando...</div>
 </div>
 
-<div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <owl-carousel-o [options]="basicExampleOptions">
-                <ng-template carouselSlide *ngFor="let sala of salas">
-                    <a [routerLink]="['/salas', sala.id]">
-                        <img [src]="imageUtils.getImagenSala(sala,'estrechas')" [alt]="sala.nombre"
-                            [title]="sala.nombre" class="rounded">
-                        <h5 class="mt-2 text-dark font-weight-bold">{{sala.nombre}}</h5>
-                        <p class="mt-1 text-primary">{{sala.companyia?.ciudad?.nombre}}</p>
-                    </a>
-                </ng-template>
-            </owl-carousel-o>
+<div *ngIf="!isLoading">
+    <div class="align-self-center me-auto">
+        <strong class="text-uppercase opacity-60 font-12">Salas</strong>
+        <h3 class="mt-2 mb-3">Popular ahora</h3>
+    </div>
+
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <owl-carousel-o [options]="basicExampleOptions">
+                    <ng-template carouselSlide *ngFor="let sala of salas">
+                        <a [routerLink]="['/salas', sala.id]">
+                            <img [src]="imageUtils.getImagenSala(sala,'estrechas')" [alt]="sala.nombre"
+                                [title]="sala.nombre" class="rounded">
+                            <h5 class="mt-2 text-dark font-weight-bold">{{sala.nombre}}</h5>
+                            <p class="mt-1 text-primary">{{sala.companyia?.ciudad?.nombre}}</p>
+                        </a>
+                    </ng-template>
+                </owl-carousel-o>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="d-flex px-3 mb-2">
-    <div class="align-self-center">
-        <h4 class="mb-3">Categoría</h4>
-    </div>
-</div>
-
-<div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <owl-carousel-o [options]="basicExampleOptions">
-                <ng-template carouselSlide *ngFor="let categoria of categorias">
-                    <a [routerLink]="['/salas/buscar']" [queryParams]="{ grupo: 'Categoría', tipo: categoria.tipo}">
-                        <i [class]="categoria.icono" [style.color]="categoria.colorIcono" style="font-size: 60px;"></i>
-                        <h5 class="mt-2">{{categoria.tipo}}</h5>
-                        <p class="mt-1 text-primary">{{categoria.numeroSalas}} salas</p>
-                    </a>
-                </ng-template>
-            </owl-carousel-o>
+    <div class="d-flex px-3 mb-2">
+        <div class="align-self-center">
+            <h4 class="mb-3">Categoría</h4>
         </div>
     </div>
-</div>
 
-<div class="d-flex px-3 mb-2">
-    <div class="align-self-center">
-        <h4 class="mb-3">Temática</h4>
-    </div>
-</div>
-
-<div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <owl-carousel-o [options]="basicExampleOptions">
-                <ng-template carouselSlide *ngFor="let tematica of tematicas">
-                    <a [routerLink]="['/salas/buscar']" [queryParams]="{ grupo: 'Temática', tipo: tematica.tipo }">
-                        <i [class]="tematica.icono" [style.color]="tematica.colorIcono" style="font-size: 60px;"></i>
-                        <h5 class="mt-2">{{tematica.tipo}}</h5>
-                        <p class="mt-1 text-primary">{{tematica.numeroSalas}} salas</p>
-                    </a>
-                </ng-template>
-            </owl-carousel-o>
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <owl-carousel-o [options]="basicExampleOptions">
+                    <ng-template carouselSlide *ngFor="let categoria of categorias">
+                        <a [routerLink]="['/salas/buscar']" [queryParams]="{ grupo: 'Categoría', tipo: categoria.tipo}">
+                            <i [class]="categoria.icono" [style.color]="categoria.colorIcono"
+                                style="font-size: 60px;"></i>
+                            <h5 class="mt-2">{{categoria.tipo}}</h5>
+                            <p class="mt-1 text-primary">{{categoria.numeroSalas}} salas</p>
+                        </a>
+                    </ng-template>
+                </owl-carousel-o>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="d-flex px-3 mb-2">
-    <div class="align-self-center">
-        <h4 class="mb-3">Público</h4>
-    </div>
-</div>
-
-<div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <owl-carousel-o [options]="basicExampleOptions">
-                <ng-template carouselSlide *ngFor="let publico of publicos">
-                    <a [routerLink]="['/salas/buscar']" [queryParams]="{ grupo: 'Público', tipo: publico.tipo }">
-                        <i [class]="publico.icono" [style.color]="publico.colorIcono" style="font-size: 60px;"></i>
-                        <h5 class="mt-2">{{publico.tipo}}</h5>
-                        <p class="mt-1 text-primary">{{publico.numeroSalas}} salas</p>
-                    </a>
-                </ng-template>
-            </owl-carousel-o>
+    <div class="d-flex px-3 mb-2">
+        <div class="align-self-center">
+            <h4 class="mb-3">Temática</h4>
         </div>
     </div>
-</div>
 
-<div class="d-flex px-3">
-    <div class="align-self-center">
-        <h4 class="mb-3">Dificultad</h4>
-    </div>
-</div>
-
-<div class="col-md-12 grid-margin stretch-card">
-    <div class="card">
-        <div class="card-body">
-            <owl-carousel-o [options]="basicExampleOptions">
-                <ng-template carouselSlide *ngFor="let dificultad of dificultades">
-                    <a [routerLink]="['/salas/buscar']" [queryParams]="{ grupo: 'Dificultad', tipo: dificultad.tipo }">
-                        <i [class]="dificultad.icono" [style.color]="dificultad.colorIcono"
-                            style="font-size: 60px;"></i>
-                        <h5 class="mt-2">{{dificultad.tipo}}</h5>
-                        <p class="mt-1 text-primary">{{dificultad.numeroSalas}} salas</p>
-                    </a>
-                </ng-template>
-            </owl-carousel-o>
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <owl-carousel-o [options]="basicExampleOptions">
+                    <ng-template carouselSlide *ngFor="let tematica of tematicas">
+                        <a [routerLink]="['/salas/buscar']" [queryParams]="{ grupo: 'Temática', tipo: tematica.tipo }">
+                            <i [class]="tematica.icono" [style.color]="tematica.colorIcono"
+                                style="font-size: 60px;"></i>
+                            <h5 class="mt-2">{{tematica.tipo}}</h5>
+                            <p class="mt-1 text-primary">{{tematica.numeroSalas}} salas</p>
+                        </a>
+                    </ng-template>
+                </owl-carousel-o>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="card-body">
-    <button [routerLink]="['/salas/buscar']" class="btn btn-primary btn-block" style="width:100%">Mostrar todas</button>
+    <div class="d-flex px-3 mb-2">
+        <div class="align-self-center">
+            <h4 class="mb-3">Público</h4>
+        </div>
+    </div>
+
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <owl-carousel-o [options]="basicExampleOptions">
+                    <ng-template carouselSlide *ngFor="let publico of publicos">
+                        <a [routerLink]="['/salas/buscar']" [queryParams]="{ grupo: 'Público', tipo: publico.tipo }">
+                            <i [class]="publico.icono" [style.color]="publico.colorIcono" style="font-size: 60px;"></i>
+                            <h5 class="mt-2">{{publico.tipo}}</h5>
+                            <p class="mt-1 text-primary">{{publico.numeroSalas}} salas</p>
+                        </a>
+                    </ng-template>
+                </owl-carousel-o>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex px-3">
+        <div class="align-self-center">
+            <h4 class="mb-3">Dificultad</h4>
+        </div>
+    </div>
+
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <owl-carousel-o [options]="basicExampleOptions">
+                    <ng-template carouselSlide *ngFor="let dificultad of dificultades">
+                        <a [routerLink]="['/salas/buscar']"
+                            [queryParams]="{ grupo: 'Dificultad', tipo: dificultad.tipo }">
+                            <i [class]="dificultad.icono" [style.color]="dificultad.colorIcono"
+                                style="font-size: 60px;"></i>
+                            <h5 class="mt-2">{{dificultad.tipo}}</h5>
+                            <p class="mt-1 text-primary">{{dificultad.numeroSalas}} salas</p>
+                        </a>
+                    </ng-template>
+                </owl-carousel-o>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <button [routerLink]="['/salas/buscar']" class="btn btn-primary btn-block" style="width:100%">Mostrar
+            todas</button>
+    </div>
 </div>

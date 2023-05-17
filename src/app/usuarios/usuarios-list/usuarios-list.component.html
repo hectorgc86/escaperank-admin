@@ -1,39 +1,43 @@
-<div class="row">
-    <app-usuarios-navbar [usuario]="usuario" [modo]="'amigos'"></app-usuarios-navbar>
+<div *ngIf="isLoading" class="spinner-wrapper">
+    <div class="spinner">Cargando...</div>
 </div>
 
-<div class=" m-auto">
-    <div class="mb-4 text-end">
-        <button class="btn btn-primary btn-icon-text me-2" (click)="openBasicModal(peticionModal)">
-            <i class="feather icon-user btn-icon-prepend"></i> Agregar
-        </button>
-        <button class="btn btn-danger btn-icon-text" (click)="modoEliminar()">
-            <i class="mdi mdi-delete"></i>
-        </button>
-    </div>
+<div *ngIf="!isLoading">
     <div class="row">
-        <div class="col-md-3" *ngFor="let amigo of amigos">
-            <app-usuarios-card class="card-item" [usuario]="amigo" [checkEliminar]="checkEliminar"></app-usuarios-card>
-        </div>
+        <app-usuarios-navbar [usuario]="usuario" [modo]="'amigos'"></app-usuarios-navbar>
     </div>
 
-    <!-- Modal -->
-    <ng-template #peticionModal let-modal>
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Enviar solicitud amistad</h5>
-            <button type="button" class="btn-close" (click)="modal.close()"
-                aria-label="Cerrar"></button>
+    <div class=" m-auto">
+        <div class="mb-4 text-end">
+            <button class="btn btn-primary btn-icon-text me-2" (click)="openBasicModal(peticionModal)">
+                <i class="feather icon-user btn-icon-prepend"></i> Agregar
+            </button>
+            <button class="btn btn-danger btn-icon-text" (click)="modoEliminar()">
+                <i class="mdi mdi-delete"></i>
+            </button>
         </div>
-        <div class="modal-body">
-            <p>Introduzca el correo electrónico de la persona que desea añadir a su lista de amigos:</p>
-            <input type="text" class="form-control mt-2" id="emailAmigo"
-            placeholder="Correo electrónico"
-            [(ngModel)]="emailAmigo" name="emailAmigo">
+        <div class="row">
+            <div class="col-md-3" *ngFor="let amigo of amigos">
+                <app-usuarios-card class="card-item" [usuario]="amigo"
+                    [checkEliminar]="checkEliminar"></app-usuarios-card>
+            </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="modal.close('')">Volver</button>
-            <button type="button" class="btn btn-primary"
-                (click)="modal.close('enviar')">Enviar</button>
-        </div>
-    </ng-template>
+
+        <!-- Modal -->
+        <ng-template #peticionModal let-modal>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Enviar solicitud amistad</h5>
+                <button type="button" class="btn-close" (click)="modal.close()" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <p>Introduzca el correo electrónico de la persona que desea añadir a su lista de amigos:</p>
+                <input type="text" class="form-control mt-2" id="emailAmigo" placeholder="Correo electrónico"
+                    [(ngModel)]="emailAmigo" name="emailAmigo">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="modal.close('')">Volver</button>
+                <button type="button" class="btn btn-primary" (click)="modal.close('enviar')">Enviar</button>
+            </div>
+        </ng-template>
+    </div>
 </div>

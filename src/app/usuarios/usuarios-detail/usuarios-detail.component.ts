@@ -5,6 +5,7 @@ import { Amigo, Usuario } from "../interfaces/usuario.interface";
 import { Noticia } from "src/app/noticias/interfaces/noticia.interface";
 import { UsuariosService } from "../services/usuarios.service";
 import { Estado } from "../interfaces/estado.interface";
+import { forkJoin } from "rxjs";
 
 @Component({
   selector: "app-usuarios-detail",
@@ -19,27 +20,36 @@ export class UsuariosDetailComponent implements OnInit {
   amigos: Amigo[];
   edad: string;
 
+  isLoading: boolean;
+
   constructor(
     private route: ActivatedRoute,
-    private usuariosService: UsuariosService,
+    private usuariosService: UsuariosService
   ) {
     this.amigosPendientes = [];
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
+
     this.usuario = this.route.snapshot.data["usuario"];
     this.calcularEdad(this.usuario.perfil!.nacido);
-    this.usuariosService
-      .getPublicacionesUsuario(this.usuario.id)
-      .subscribe((noticias) => (this.noticias = noticias));
-    this.usuariosService
-      .getAmigosUsuario(this.usuario.id)
-      .subscribe((amigos: Amigo[]) => {
-        this.amigosPendientes = amigos.filter(
-          (amigoPendiente) => amigoPendiente.estado == Estado.pendiente
-        );
-        this.amigos = amigos.filter((amigo) => amigo.estado == Estado.aceptado);
-      });
+
+    const publicaciones$ = this.usuariosService.getPublicacionesUsuario(
+      this.usuario.id
+    );
+    const amigos$ = this.usuariosService.getAmigosUsuario(this.usuario.id);
+
+    forkJoin([publicaciones$, amigos$]).subscribe(([noticias, amigos]) => {
+      this.noticias = noticias;
+      this.amigosPendientes = amigos.filter(
+        (amigoPendiente: Amigo) => amigoPendiente.estado == Estado.pendiente
+      );
+      this.amigos = amigos.filter(
+        (amigo: Amigo) => amigo.estado == Estado.aceptado
+      );
+      this.isLoading = false;
+    });
   }
 
   calcularEdad(fechaNacimiento: string | null | undefined) {

@@ -1,26 +1,32 @@
-<div class="col-lg-12 grid-margin stretch-card">
-  <div class="card" scrollTracker (scrollingFinished)="onScrollingFinished()">
-    <div class="card-body">
-      <div class="d-flex justify-content-between mb-3">
-        <h4 class="card-title">Salas</h4>
-      </div>
-      <form class="search-form">
-        <div class="input-group">
-          <div class="input-group-text">
-            <i class="feather icon-search"></i>
+<div *ngIf="isLoading" class="spinner-wrapper">
+  <div class="spinner">Cargando...</div>
+</div>
+
+<div *ngIf="!isLoading">
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card" scrollTracker (scrollingFinished)="onScrollingFinished()">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mb-3">
+          <h4 class="card-title">Salas</h4>
+        </div>
+        <form class="search-form">
+          <div class="input-group">
+            <div class="input-group-text">
+              <i class="feather icon-search"></i>
+            </div>
+            <input #termino type="text" class="form-control" id="navbarForm" (keyup)="buscar(termino.value)"
+              placeholder="Buscar aquí...">
           </div>
-          <input #termino type="text" class="form-control" id="navbarForm" (keyup)="buscar(termino.value)"
-            placeholder="Buscar aquí...">
-        </div>
-      </form>
-      <ng-container *ngIf="salas && salas.length > 0; else noSalas">
-        <div class="mt-3" *ngFor="let sala of salas">
-          <app-salas-card [sala]="sala"></app-salas-card>
-        </div>
-      </ng-container>
-      <ng-template #noSalas>
-        <p class="mt-3">No se han encontrado salas que coincidan con el texto introducido.</p>
-      </ng-template>
+        </form>
+        <ng-container *ngIf="salas && salas.length > 0; else noSalas">
+          <div class="mt-3" *ngFor="let sala of salas">
+            <app-salas-card [sala]="sala"></app-salas-card>
+          </div>
+        </ng-container>
+        <ng-template #noSalas>
+          <p class="mt-3">No se han encontrado salas que coincidan con el texto introducido.</p>
+        </ng-template>
+      </div>
     </div>
   </div>
 </div>

@@ -16,35 +16,37 @@ export class UsuariosListComponent implements OnInit {
   checkEliminar: boolean;
   emailAmigo = "";
 
+  isLoading: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private usuariosService: UsuariosService,
-    private modalService: NgbModal,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
+
     this.checkEliminar = false;
     this.usuario = this.route.snapshot.data["usuario"];
     this.usuariosService
       .getAmigosUsuario(this.usuario.id)
-      .subscribe(
-        (amigos: Amigo[]) =>
-          (this.amigos = amigos.filter(
-            (amigo) => amigo.estado == Estado.aceptado
-          ))
-      );
+      .subscribe((amigos: Amigo[]) => {
+        this.amigos = amigos.filter((amigo) => amigo.estado == Estado.aceptado);
+        this.isLoading = false;
+      });
   }
 
   openBasicModal(content: TemplateRef<any>) {
     this.modalService
       .open(content, {})
       .result.then((result) => {
-        if(this.emailAmigo == null || this.emailAmigo == ""){
-          console.log("No se ha informado de un email")
-        }else{
+        if (this.emailAmigo == null || this.emailAmigo == "") {
+          console.log("No se ha informado de un email");
+        } else {
           this.usuariosService
-          .postAmistad(this.usuario.id, this.emailAmigo)
-          .subscribe(() => location.reload());
+            .postAmistad(this.usuario.id, this.emailAmigo)
+            .subscribe(() => location.reload());
         }
       })
       .catch((res) => {});

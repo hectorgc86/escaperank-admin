@@ -11,6 +11,7 @@ import { TematicasService } from "../services/tematicas.service";
 import { Dificultad } from "../interfaces/dificultad.interface";
 import { OwlOptions } from "ngx-owl-carousel-o";
 import { ImageUtils } from "src/app/utils/image-utils";
+import { forkJoin } from "rxjs";
 
 @Component({
   selector: "app-salas-explore",
@@ -24,6 +25,8 @@ export class SalasExploreComponent implements OnInit {
   publicos: Publico[];
   dificultades: Dificultad[];
   imageUtils = ImageUtils;
+
+  isLoading: boolean;
 
   basicExampleOptions: OwlOptions = {
     margin: 10,
@@ -56,20 +59,23 @@ export class SalasExploreComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.salasService
-      .getSalasPromocionadas()
-      .subscribe((salas) => (this.salas = salas));
-    this.categoriasService
-      .getCategorias()
-      .subscribe((categorias) => (this.categorias = categorias));
-    this.tematicasService
-      .getTematicas()
-      .subscribe((tematicas) => (this.tematicas = tematicas));
-    this.publicoService
-      .getPublico()
-      .subscribe((publico) => (this.publicos = publico));
-    this.dificultadesService
-      .getDificultades()
-      .subscribe((dificultades) => (this.dificultades = dificultades));
+    this.isLoading = true;
+
+    const salas$ = this.salasService.getSalasPromocionadas();
+    const categorias$ = this.categoriasService.getCategorias();
+    const tematicas$ = this.tematicasService.getTematicas();
+    const publicos$ = this.publicoService.getPublico();
+    const dificultades$ = this.dificultadesService.getDificultades();
+
+    forkJoin([salas$, categorias$, tematicas$, publicos$, dificultades$]).subscribe(
+      ([salas, categorias, tematicas, publicos, dificultades]) => {
+        this.salas = salas;
+        this.categorias = categorias;
+        this.tematicas = tematicas;
+        this.publicos = publicos;
+        this.dificultades = dificultades;
+        this.isLoading = false;
+      }
+    );
   }
 }

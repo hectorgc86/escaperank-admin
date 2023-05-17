@@ -8,12 +8,18 @@ import { ActivatedRoute, Router } from "@angular/router";
 })
 export class NoticiasMainComponent implements OnInit {
 
+  isLoading: boolean;
+
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
+
+    //TODO meter llamada para obtener todas las noticias de un GAMEMASTER y el isLoading = false cuando retorne el servicio;
+
+    this.isLoading = false;
   }
  nuevaNoticia() {
     this.router.navigate(["administracion/noticias/nueva"]);

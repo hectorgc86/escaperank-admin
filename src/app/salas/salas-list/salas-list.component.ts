@@ -20,6 +20,8 @@ export class SalasListComponent implements OnInit {
   limit: number;
   imageUtils = ImageUtils;
 
+  isLoading: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -27,6 +29,8 @@ export class SalasListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
+
     this.grupo = "";
     this.tipo = "";
     this.termino = "";
@@ -43,7 +47,10 @@ export class SalasListComponent implements OnInit {
 
     this.salasService
       .getSalas(this.grupo, this.tipo, this.offset, this.limit, this.termino)
-      .subscribe((salas) => (this.salas = salas));
+      .subscribe((salas) => {
+        this.salas = salas;
+        this.isLoading = false;
+      });
   }
 
   nuevaSala() {

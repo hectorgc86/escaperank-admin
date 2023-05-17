@@ -6,6 +6,7 @@ import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Estado } from "src/app/usuarios/interfaces/estado.interface";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { EquiposService } from "../services/equipos.service";
+import { forkJoin } from "rxjs";
 
 @Component({
   selector: "app-equipos-list",
@@ -20,6 +21,8 @@ export class EquiposListComponent implements OnInit {
 
   nombreEquipo: string;
   checkEliminar: boolean;
+
+  isLoading: boolean;
 
   constructor(
     private usuariosService: UsuariosService,
@@ -36,21 +39,21 @@ export class EquiposListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
+
     this.checkEliminar = false;
     this.usuario = JSON.parse(localStorage.getItem("usuario")!);
 
-    this.usuariosService
-      .getEquiposUsuario(this.usuario.id)
-      .subscribe((equipos) => (this.equipos = equipos));
+    const equipos$ = this.usuariosService.getEquiposUsuario(this.usuario.id);
+    const amigos$ = this.usuariosService.getAmigosUsuario(this.usuario.id);
 
-    this.usuariosService
-      .getAmigosUsuario(this.usuario.id)
-      .subscribe(
-        (amigos: Amigo[]) =>
-          (this.amigos = amigos.filter(
-            (amigo) => amigo.estado == Estado.aceptado
-          ))
+    forkJoin([equipos$, amigos$]).subscribe(([equipos, amigos]) => {
+      this.equipos = equipos;
+      this.amigos = amigos.filter(
+        (amigo: Amigo) => amigo.estado == Estado.aceptado
       );
+      this.isLoading = false;
+    });
   }
 
   openBasicModal(content: TemplateRef<any>) {

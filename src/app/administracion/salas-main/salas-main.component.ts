@@ -19,18 +19,23 @@ export class SalasMainComponent implements OnInit {
   salas: Sala[];
   modalRef: NgbModalRef;
 
+  isLoading: boolean;
+
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private salasService: SalasService,
     private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
+
+    this.isLoading = true;
+
     this.salasService
       .getSalasCompanyia(localStorage.getItem("companyiaId")!)
       .subscribe((salas) => {
         this.salas = salas;
+        this.isLoading = false;
       });
   }
   nuevaSala() {
