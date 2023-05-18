@@ -12,12 +12,52 @@
             <i class="feather icon-plus btn-icon-prepend"></i>
             Nueva Noticia
           </button>
-        </div>
 
-        <ng-template #noNoticias>
-          <p class="mt-3">No se han encontrado noticias que coincidan con el texto introducido.</p>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Imagen</th>
+                <th>Titular</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let noticia of noticias">
+                <td class="py-1">
+                  <img [src]="imageUtils.getImagenNoticia(noticia,true)" alt="image">
+                </td>
+                <td>{{ noticia.titular }}</td>
+                <td><button class="btn btn-primary" (click)="editarNoticia(noticia)">Editar</button></td>
+                <td><button  class="btn btn-primary" (click)="openModal(noticia)">Eliminar</button></td>
+                
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <ng-template #noSalas>
+          <p class="mt-3">No se han encontrado noticias.</p>
         </ng-template>
       </div>
     </div>
   </div>
-</div>
+
+   <!-- Modal -->
+   <ng-template #myModal let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eliminar noticia</h5>
+        <button type="button" class="btn-close" (click)="modal.close()"
+            aria-label="Cerrar"></button>
+    </div>
+    <div class="modal-body">
+        <p>¿Desea eliminar la noticia {{selectedNoticiaId}}?</p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="modal.close('')">Volver</button>
+        <button type="button" class="btn btn-primary"
+            (click)="eliminarNoticia()">Eliminar</button>
+    </div>
+</ng-template>

@@ -7,6 +7,7 @@ import { Noticia } from 'src/app/noticias/interfaces/noticia.interface';
 import Swal from 'sweetalert2';
 import { NoticiasService } from '../services/noticias.service';
 import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { ImageUtils } from 'src/app/utils/image-utils';
 @Component({
   selector: 'app-noticias-form',
   templateUrl: './noticias-form.component.html',
@@ -26,8 +27,10 @@ export class NoticiasFormComponent implements OnInit {
   @ViewChild(DropzoneDirective, { static: false }) directiveRef?: DropzoneDirective;
   formBuilder: any;
   imagen: any;
-  imageName: string;
+  imageName:string|null|undefined='';
   isUpdating: any;
+  imageUtils = ImageUtils;
+  imageChanged: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,7 +43,7 @@ export class NoticiasFormComponent implements OnInit {
       fecha: ['', Validators.required],
       textoCorto: ['', Validators.required],
       textoLargo: ['', Validators.required],
-      enlace: ['']
+      link: ['']
     });
   }
 
@@ -49,7 +52,18 @@ export class NoticiasFormComponent implements OnInit {
   ngOnInit(): void {
     let getNoticia = <Noticia>this.route.snapshot.data['noticia'];
     if (getNoticia != null && getNoticia.id != null) {
+      this.isUpdating=true;
       this.noticiaId = getNoticia.id;
+      console.log(getNoticia);
+
+      this.noticiaForm.patchValue(getNoticia);
+
+      if (this.isUpdating){
+        this.imagen = this.imageUtils.getImagenNoticia(getNoticia,true);
+        this.imageName = getNoticia.imagen;
+
+      }
+
     }
   }
   onUploadError(event: any): void {
@@ -76,12 +90,19 @@ export class NoticiasFormComponent implements OnInit {
       fecha: this.noticiaForm.controls.fecha.value,
       textoCorto: this.noticiaForm.controls.textoCorto.value,
       textoLargo: this.noticiaForm.controls.textoLargo.value,
-      link:this.noticiaForm.controls.enlace.value,
+      link:this.noticiaForm.controls.link.value,
       imagen: this.imageName,
       imagenBase64: this.imagen,
       companyiaId: localStorage.getItem("companyiaId"),
       promocionada: this.noticiaForm.controls.promocionada.value
     };
+
+    if (this.imageChanged){
+      noticiaCreada.imagenBase64= this.imagen;
+    }else{
+      noticiaCreada.imagenBase64= undefined;
+    }
+
     if (this.isUpdating) {
       return this.updateNoticia(noticiaCreada);
     } else {
@@ -124,10 +145,7 @@ export class NoticiasFormComponent implements OnInit {
       noticiaCreada.id = this.noticiaId;
       this.noticiasService.updateNoticia(noticiaCreada).subscribe({
         next: (noticia) => {
-        //  this.showImage = false;
-        //  this.saved = true;
-       //   this.add.emit(event);
-          location.assign('/administracion/salas');
+          location.assign('/administracion/noticias');
           result = true;
           resolve(result);
         },
@@ -164,6 +182,8 @@ export class NoticiasFormComponent implements OnInit {
     reader.addEventListener('loadend', (e) => {
       this.imagen=e.target?.result;
       this.imageName = reader.result as string;
+      this.imageChanged=true;
+
     });
   }
 

@@ -23,4 +23,15 @@ export class NoticiasService {
     .pipe(map((response: NoticiaResponse) => response.noticia));
   }
 
+  deleteNoticia(id?: number): Observable<void> {
+    return this.http
+      .delete<void>(`${this.noticiasURL}/${id}`);
+  }
+
+  
+  getNoticiasCompanyia(idCompanyia: string): Observable<Noticia[]> {
+    return this.http.get<Noticia[]>(`${this.noticiasURL}/companyia/${idCompanyia}`)
+    .pipe(map((response) => response));;
+
+  }
 }

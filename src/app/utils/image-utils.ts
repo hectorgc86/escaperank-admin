@@ -6,12 +6,14 @@ import { Perfil } from "../usuarios/interfaces/perfil.interface";
 export class ImageUtils {
   private static defaultImage = "/default.png";
 
-  static getImagenNoticia(noticia: Noticia): string {
+  static getImagenNoticia(noticia: Noticia,companyia:boolean=false): string {
     let sufijo = "";
     let urlNoticia = `${environment.storageUrl}`;
 
     if (noticia.imagen !== null) {
       sufijo = noticia.promocionada ? "/companyias/" : "/partidas/";
+      if (companyia)
+        sufijo="/noticias/";
       urlNoticia += sufijo + noticia.imagen;
     } else {
       urlNoticia += this.defaultImage;

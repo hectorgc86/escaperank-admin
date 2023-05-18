@@ -22,14 +22,14 @@
               </div>
             <div class="mb-3">
               <label for="exampleInputUsername1" class="form-label">Titular</label>
-              <input class="form-control" type="text" placeholder="Titular" ngModel name="titular" formControlName="titular" required/>
+              <input class="form-control" type="text" placeholder="Titular"  name="titular" formControlName="titular" required/>
               <p class="text-danger mt-1" *ngIf="noticiaForm.get('titular')?.errors?.required">Debes introducir un titular</p>
             </div>
             <div class="mb-3">
                 <label for="exampleInputUsername1" class="form-label">Fecha</label>
                 <div class="input-group">
                     <input class="form-control" placeholder="yyyy-mm-dd"
-                        name="dp" ngModel name="fecha" ngbDatepicker #d="ngbDatepicker" formControlName="fecha" required/>
+                        name="dp"  name="fecha" ngbDatepicker #d="ngbDatepicker" formControlName="fecha" required/>
                     <button class="input-group-text" type="button" (click)="d.toggle()">
                       <i class="feather icon-calendar icon-md text-muted"></i>
                     </button>
@@ -50,7 +50,7 @@
 
               <div class="mb-3">
                 <label for="Enlace" class="form-label">Enlace</label>
-                <input class="form-control" type="text" placeholder="Enlace" ngModel name="enlace" formControlName="enlace"/>
+                <input class="form-control" type="text" placeholder="Enlace"  name="link" formControlName="link"/>
               </div>
 
               <div class="mb-3">
@@ -64,7 +64,17 @@
                 (error)="onUploadError($event)"
                 (success)="onUploadSuccess($event)"
                 (removeFile)="onRemoveFile($event)"
-                #dz></dropzone>
+                #dz>
+                <div class="dz-message" style="text-align: center;">
+                  <img [src]="imagen" alt="Imagen" *ngIf="imagen" style="max-width: 100%; max-height: 200px;">
+                  <p *ngIf="!imagen">No se ha cargado ninguna imagen.</p>
+                </div>
+              
+              </dropzone>
+
+
+
+
                <button class="btn btn-secondary mt-2 d-block ms-auto" type="button" (click)="resetDropzone1Uploads()">Reset</button>
             </div>
           </div>

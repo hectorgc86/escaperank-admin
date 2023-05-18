@@ -14,7 +14,7 @@ export class NoticiasService {
   }
   getNoticia(id: number): Observable<Noticia> {
     return this.http
-      .get<Noticia>(`this.noticiasURL/${id}`)
+      .get<Noticia>(`${this.noticiasURL}/${id}`)
       .pipe(map((response) => response));
   }
   getNoticias(): Observable<Noticia[]> {

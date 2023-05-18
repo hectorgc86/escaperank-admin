@@ -73,9 +73,6 @@ export class SalasMainComponent implements OnInit {
       });
     });
     return promise;
-
-
-
   }
 
   abrirSala(sala: Sala) {
@@ -108,7 +105,6 @@ export class SalasMainComponent implements OnInit {
   openModal(sala: Sala) {
     this.selectedSalaId = sala.id as string;
     this.selectedSalaNombre = sala.nombre as string;
-
     this.modalRef = this.modalService.open(this.myModal);
   }
 

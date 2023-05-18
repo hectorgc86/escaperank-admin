@@ -38,8 +38,6 @@ export class SalasFormComponent implements OnInit {
  imageUtils = ImageUtils;
  imageChanged=false;
 
-
-
   public config: DropzoneConfigInterface = {
     clickable: true,
     maxFiles: 1,
@@ -109,7 +107,6 @@ export class SalasFormComponent implements OnInit {
     if (getSala != null && getSala.id != null) {
       this.isUpdating=true;
       this.salaId = getSala.id;
-      console.log(getSala);
 
       this.salaForm.patchValue(getSala);
 
