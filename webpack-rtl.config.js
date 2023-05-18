@@ -32,7 +32,10 @@ const mainConfig = function() {
       // output path based on the entries' filename
       filename: "[name].js"
     },
-    resolve: { extensions: [".scss"] },
+    resolve: { extensions: [".scss"], 
+    fallback: {
+      stream: false
+    } },
     plugins: [
       // webpack log message
       new WebpackMessages({

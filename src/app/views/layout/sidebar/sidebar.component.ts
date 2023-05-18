@@ -19,6 +19,7 @@ import { Router, NavigationEnd } from "@angular/router";
 import { ImageUtils } from "src/app/utils/image-utils";
 import { Usuario } from "src/app/usuarios/interfaces/usuario.interface";
 import { AuthService } from "src/app/auth/services/auth.service";
+import { MENUADMIN } from "./menuAdmin";
 
 @Component({
   selector: "app-sidebar",
@@ -58,13 +59,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
       }
     });
   }
-
   ngOnInit(): void {
     this.visitor= false;
     if(localStorage.getItem("rol")=="SUPERADMIN"){
-      this.menuItems = MENU;
-      }
-    if(localStorage.getItem("rol")=="GAMEMASTER"){
+      this.menuItems = MENUADMIN;
+      }else if(localStorage.getItem("rol")=="GAMEMASTER"){
       this.menuItems = MENU;
     }else if(localStorage.getItem("rol")=="USER"){
       this.menuItems = MENUUSER;

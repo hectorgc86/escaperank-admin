@@ -11,7 +11,7 @@ export class ImageUtils {
     let urlNoticia = `${environment.storageUrl}`;
 
     if (noticia.imagen !== null) {
-      sufijo = noticia.promocionada ? "/companyias/" : "/partidas/";
+      sufijo = noticia.promocionada ? "/noticias/" : "/partidas/";
       if (companyia)
         sufijo="/noticias/";
       urlNoticia += sufijo + noticia.imagen;

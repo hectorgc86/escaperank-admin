@@ -20,6 +20,7 @@ import { NoticiasFormComponent } from './noticias-form/noticias-form.component';
 import { CustomAdapter, CustomNgbDateParserFormatter } from '../utils/date-parser-formatter';
 import { SalaResolver } from './resolvers/sala.resolver';
 import { NoticiaResolver } from './resolvers/noticia.resolver';
+import { CompanyiasMainComponent } from './companyias-main/companyias-main.component';
 
 const DEFAULT_DROPZONE_CONFIG: DropzoneConfigInterface = {
   // Change this to your upload POST address:
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'salas',
     component: SalasMainComponent
+  },
+  {
+    path: 'companyias',
+    component: CompanyiasMainComponent
   },
   {
     path: 'salas/nueva',
@@ -71,7 +76,8 @@ const routes: Routes = [
     SalasMainComponent,
     NoticiasMainComponent,
     NoticiasFormComponent,
-    SalasFormComponent
+    SalasFormComponent,
+    CompanyiasMainComponent
   ],
   imports: [
     CommonModule,
