@@ -10,21 +10,9 @@ export const MENUADMIN: MenuItem[] = [
     icon: "bar-chart-2",
     subItems: [
       {
-        label: "Estadísticas",
-        link: "/administracion/estadisticas",
-      },
-      {
         label: "Compañías",
         link: "/administracion/companyias",
-      },
-      {
-        label: "Salas",
-        link: "/administracion/salas",
-      },
-      {
-        label: "Noticias",
-        link: "/administracion/noticias",
-      },
+      },   
     ],
   },
   {
