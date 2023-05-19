@@ -28,9 +28,7 @@
                   <td>{{ companyia.telefono }}</td>
                   <td>{{ companyia.web }}</td>
                   <td><button class="btn btn-primary" (click)="openModalValidar(companyia)">Validar</button></td>
-                  <td><button class="btn btn-primary" (click)="openModalRechazar(companyia)">Rechazar</button>
-
-                  </td>
+                  <td><button class="btn btn-primary" (click)="openModalRechazar(companyia)">Rechazar</button></td>
                 </tr>
 
               </tbody>
@@ -43,6 +41,69 @@
       </div>
     </div>
   </div>
+
+
+  <div class="col-lg-12 grid-margin stretch-card">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-between mb-3">
+          <h4 class="card-title">Buscar Compañías</h4>
+        </div>
+      
+          <form class="search-form">
+            <div class="input-group">
+              <div class="input-group-text">
+                <i class="feather icon-search"></i>
+              </div>
+              <input #termino type="text" class="form-control" id="navbarForm" (keyup)="buscar(termino.value)"
+                placeholder="Buscar aquí...">
+            </div>
+          </form>
+          <ng-container *ngIf="companyiasBusqueda && companyiasBusqueda.length > 0; else noCompanyiasBusqueda">
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Teléfono</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let companyia of companyiasBusqueda">
+
+                  <td><a href={{companyia.web}} target="_blank"> {{companyia.nombre }}</a></td>
+                  <td>{{ companyia.telefono }}</td>
+                  <td *ngIf="companyia.desactivada"><button class="btn btn-primary" (click)="openModalActivar(companyia)">Activar</button>  </td>
+                  <td *ngIf="!companyia.desactivada"><button class="btn btn-primary" (click)="openModalDesactivar(companyia)">Desactivar</button>  </td>
+                  <td *ngIf="!companyia.validada"><button class="btn btn-primary" (click)="openModalValidar(companyia)">Validar</button></td>
+                  <td *ngIf="companyia.validada"><button class="btn btn-primary" (click)="openModalRechazar(companyia)">Rechazar</button></td>
+                
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </ng-container>
+        <ng-template #noCompanyiasBusqueda>
+          <p class="mt-3">No se han encontrado compañías que coincidan con el texto introducido.</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+
+
+  
+
+
+
+
+
+
+
+
 
   <ng-template #myModalValidar let-modal>
     <div class="modal-header">
@@ -72,5 +133,33 @@
     </div>
   </ng-template>
 
+
+  <ng-template #myModalActivar let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Activar compañía</h5>
+      <button type="button" class="btn-close" (click)="modal.close()" aria-label="Cerrar"></button>
+    </div>
+    <div class="modal-body">
+      <p>¿Desea activar la companyia {{selectedCompanyiaId}}?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('')">Volver</button>
+      <button type="button" class="btn btn-primary" (click)="activarCompanyia()">Activar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #myModalDesactivar let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Desactivar compañía</h5>
+      <button type="button" class="btn-close" (click)="modal.close()" aria-label="Cerrar"></button>
+    </div>
+    <div class="modal-body">
+      <p>¿Desea desactivar la companyia {{selectedCompanyiaId}}?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('')">Volver</button>
+      <button type="button" class="btn btn-primary" (click)="desactivarCompanyia()">Desactivar</button>
+    </div>
+  </ng-template>
 
 </div>

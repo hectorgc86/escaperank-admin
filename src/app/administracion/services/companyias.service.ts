@@ -14,7 +14,23 @@ export class CompanyiasService {
     this.companyiasURL = "companyias";
    }
 
-   
+
+   getCompanyias(
+    termino: string | null
+  ): Observable<Companyia[]> {
+    if (termino != null) {
+      termino = `&busqueda=${termino}`;
+    } else {
+      termino = "";
+    }
+
+    return this.http
+      .get<Companyia[]>(
+        `${this.companyiasURL}/buscar/?${termino}`
+      )
+      .pipe(map((response) => response));
+  }
+
 getCompanyiasAValidar(): Observable<Companyia[]> {
   return this.http.get<Companyia[]>(`${this.companyiasURL}/nuevas`)
   .pipe(map((response) => response));;
