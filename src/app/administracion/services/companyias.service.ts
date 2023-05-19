@@ -6,6 +6,7 @@ import { Companyia, CompanyiaResponse } from 'src/app/salas/interfaces/companyia
   providedIn: 'root'
 })
 
+
 export class CompanyiasService {
   private companyiasURL: string;
 
@@ -13,6 +14,7 @@ export class CompanyiasService {
     this.companyiasURL = "companyias";
    }
 
+   
 getCompanyiasAValidar(): Observable<Companyia[]> {
   return this.http.get<Companyia[]>(`${this.companyiasURL}/nuevas`)
   .pipe(map((response) => response));;
