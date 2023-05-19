@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModalRef, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from 'express';
-import { Noticia } from 'src/app/noticias/interfaces/noticia.interface';
+import { Router } from "@angular/router";
 import { ImageUtils } from 'src/app/utils/image-utils';
-import { NoticiasService } from '../services/noticias.service';
 import { Companyia } from 'src/app/salas/interfaces/companyia.interface';
 import { CompanyiasService } from '../services/companyias.service';
 import Swal from 'sweetalert2';

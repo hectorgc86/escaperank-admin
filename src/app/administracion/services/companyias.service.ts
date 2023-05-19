@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable, map } from "rxjs";
 import { Companyia, CompanyiaResponse } from 'src/app/salas/interfaces/companyia.interface';
-import { Observable, map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
 export class CompanyiasService {
   private companyiasURL: string;
 
   constructor(private readonly http: HttpClient) {
     this.companyiasURL = "companyias";
-
    }
 
 getCompanyiasAValidar(): Observable<Companyia[]> {
