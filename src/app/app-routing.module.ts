@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
+import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
 import { BaseComponent } from "./views/layout/base/base.component";
 import { ErrorPageComponent } from "./views/pages/error-page/error-page.component";
 import { LoginActivateGuard } from "./auth/guards/login-activate.guard";
@@ -143,7 +143,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: "top" }),],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: "top",preloadingStrategy: PreloadAllModules }),],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

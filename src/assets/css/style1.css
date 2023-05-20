@@ -59,7 +59,7 @@ p {
 }
 
 .bg-overlay {
-  background: linear-gradient(to right, #512da8, #711e72);
+  background:linear-gradient(to right, #1f0432, #975219);
   opacity: 0.9;
   position: absolute;
   height: 100%;
@@ -1094,7 +1094,7 @@ iframe {
 }
 
 .bg-home {
-  background: url("../images/bg-home.jpg");
+  background: url("../images/fondo.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -1376,37 +1376,44 @@ iframe {
   padding: 15px;
 }
 .services-box i {
+  padding: 5px;
   font-size: 32px;
   height: 68px;
   width: 68px;
-  background-color: #ffffff;
+  background-color: #282a3300;
+  color:#4341cc;
   border-radius: 50%;
   box-shadow: 0 0 1.25rem rgba(108, 118, 134, 0.1) !important;
   line-height: 68px;
   margin-bottom: 15px;
 }
 .services-box:hover i {
-  color: #ffffff !important;
+  color: #ffffff!important;
+  background-color:#4341cc!important;
+
   transition: all 0.3s ease-in-out;
 }
 
 .bg-web-desc {
-  background: url("../images/img-1.jpg");
+  background: url("../images/fondo.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
 
 .bg-get-start {
-  background: url("../images/img-2.jpg");
+  background: url("../images/fondo.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
 }
 
 .process-box i {
+  padding: 5px;
   font-size: 48px;
   line-height: 72px;
+  background-color: #282a3300;
+  color:#4341cc;
 }
 .process-box .process-left-icon {
   content: "";
