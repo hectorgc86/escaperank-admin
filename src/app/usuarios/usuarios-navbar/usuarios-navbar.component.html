@@ -1,17 +1,16 @@
 <div class="col-12 grid-margin">
     <div class="card">
         <div class="position-relative">
-            <figure class="overflow-hidden mb-0 d-flex justify-content-center">
-                <img src="https://via.placeholder.com/1148x272" class="rounded-top" alt="profile cover">
+            <figure >
+                <div  style="background-image:'url(/assets/images/fondo.png)';height:272px" ></div>
             </figure>
-            <div
-                class="d-flex justify-content-between align-items-center position-absolute top-90 w-100 px-2 px-md-4 mt-n4">
-                <div>
+            <div class="d-flex justify-content-between align-items-center position-absolute top-90 w-100 px-2 px-md-4 mt-n4">
+                <div style="margin-top: 4px;">
                     <img [src]="imageUtils.getImagenUsuario(usuario.perfil!)" [alt]="usuario.perfil!.nombre"
                         [title]="usuario.perfil!.nombre" class="wd-80 ht-80 rounded-circle">
                     <div class="d-inline-block">
-                        <span class="h4 ms-3 text-dark">{{usuario!.nick}}</span>
-                        <p class="tx-12 ms-3 text-muted italic-text">{{ usuario.perfil!.nombre }}</p>
+                        <span class="h4 ms-3 text-light">{{usuario!.nick}}</span>
+                        <p class="tx-12 ms-3 text-muted italic-text" style="margin-top: 5px">{{ usuario.perfil!.nombre }}</p>
                     </div>
 
                 </div>
@@ -24,25 +23,24 @@
         </div>
         <div class="d-flex justify-content-center p-3 rounded-bottom">
             <ul class="d-flex align-items-center m-0 p-0">
-                <li class="d-flex align-items-center" [routerLink]="['/usuarios', usuario.id]">
-                    <a class="d-flex nav-link d-none d-md-block" [routerLinkActive]="['text-primary']"
-                        [routerLinkActiveOptions]="{ exact: true }">
+                <li class="d-flex align-items-center" >
+                    <a class="d-flex nav-link d-none d-md-block" [routerLink]="['/usuarios', usuario.id]" [routerLinkActive]="['text-primary']"
+                    [routerLinkActiveOptions]="{ exact: true }" style="z-index: 9999;">
                         <i class="feather icon-columns me-1 icon-md" [routerLinkActive]="['text-primary']"
                             [routerLinkActiveOptions]="{ exact: true }"></i>
                         <span class="pt-1px"> Perfil</span></a>
                 </li>
-                <li class="ms-3 ps-3 border-start d-flex align-items-center"
-                    [routerLink]="['/usuarios', usuario.id, 'amigos']">
-                    <a class="nav-link d-none d-md-block" [routerLinkActive]="['text-primary']"
-                        [routerLinkActiveOptions]="{ exact: true }">
-                        <i class="feather icon-users me-1 icon-md" [routerLinkActive]="['text-primary']"
-                            [routerLinkActiveOptions]="{ exact: true }"></i>
-                            <span class="pt-1px"> Amigos</span>
+                <li class="ms-3 ps-3 border-start d-flex align-items-center" style=" cursor: pointer;">
+                    <a class="nav-link d-none d-md-block" [routerLink]="['/usuarios', usuario.id, 'amigos']"
+                        [routerLinkActive]="['text-primary']" [routerLinkActiveOptions]="{ exact: true }" style="z-index: 9999;">
+                        <i class="feather icon-users me-1 icon-md"></i>
+                        <span class="pt-1px">Amigos</span>
                     </a>
                 </li>
-                <li class="ms-3 ps-3 border-start d-flex align-items-center" [routerLink]="['/equipos']">
-                    <a class="nav-link d-none d-md-block" [routerLinkActive]="['text-primary']"
-                        [routerLinkActiveOptions]="{ exact: true }">
+                
+                <li class="ms-3 ps-3 border-start d-flex align-items-center" >
+                    <a class="nav-link d-none d-md-block" style="z-index: 9999;" [routerLink]="['/equipos']" [routerLinkActive]="['text-primary']"
+                    [routerLinkActiveOptions]="{ exact: true }">
                         <i class="feather icon-flag me-1 icon-md" [routerLinkActive]="['text-primary']"
                             [routerLinkActiveOptions]="{ exact: true }"></i>
                             <span class="pt-1px"> Equipos</span></a>
