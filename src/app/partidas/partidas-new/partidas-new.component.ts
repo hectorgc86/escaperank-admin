@@ -2,10 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { BarcodeFormat } from "@zxing/library";
 import { BehaviorSubject } from "rxjs";
 import Swal from "sweetalert2";
-import {
-  NgbModal,
-  NgbModalRef,
-} from "@ng-bootstrap/ng-bootstrap";
+import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { PartidasService } from "../services/partidas.service";
 import { Equipo } from "src/app/equipos/interfaces/equipo.interface";
 import { UsuariosService } from "src/app/usuarios/services/usuarios.service";
@@ -18,6 +15,7 @@ import { Usuario } from "src/app/usuarios/interfaces/usuario.interface";
 })
 export class PartidasNewComponent implements OnInit {
   @ViewChild("modalQR") modalQR: any;
+  @ViewChild("modalFoto") modalFoto: any;
 
   availableDevices: MediaDeviceInfo[];
   deviceCurrent: MediaDeviceInfo;
@@ -84,14 +82,60 @@ export class PartidasNewComponent implements OnInit {
       });
   }
 
+  hacerFoto(event: Event) {
+    this.modalRef = this.modalService.open(this.modalFoto);
+    this.startCamara(event);
+  }
+
+  startCamara(event: Event) {
+    const video = document.getElementById("videoElement") as HTMLVideoElement;
+    const canvas = document.getElementById(
+      "canvasElement"
+    ) as HTMLCanvasElement;
+    const captureButton = document.getElementById(
+      "captureButton"
+    ) as HTMLButtonElement;
+    
+    if(this.hasDevices){
+      this.onDeviceSelectChange(event);
+    }
+
+    navigator.mediaDevices
+      .getUserMedia({ video: true })
+      .then((stream) => {
+        if(this.deviceSelected !== undefined){
+          video.srcObject = stream;
+        }
+      })
+      .catch((error) => {
+        console.error("Error al acceder a la cámara:", error);
+      });
+
+    // Capturar foto cuando se hace clic en el botón
+    captureButton.addEventListener("click", () => {
+      const context = canvas.getContext("2d");
+      context!.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // Obtener la foto como base64
+      const photoData = canvas.toDataURL("image/jpeg");
+      console.log("Foto capturada:", photoData);
+
+      // Agrega tu código para guardar la foto aquí
+    });
+  }
+
   validar() {
     this.modalRef = this.modalService.open(this.modalQR);
   }
 
-  guardar() {}
-
   camposCompletos(): boolean {
-    return !!this.equipoSeleccionado && !!this.fechaPartida && !!this.horaPartida && !!this.minutosPartida && !!this.segundosPartida;
+    return (
+      !!this.equipoSeleccionado &&
+      !!this.fechaPartida &&
+      !!this.horaPartida &&
+      !!this.minutosPartida &&
+      !!this.segundosPartida
+    );
   }
 
   clearResult(): void {
