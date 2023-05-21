@@ -39,7 +39,7 @@
                         <a [routerLink]="['/salas/buscar']" [queryParams]="{ grupo: 'Categoría', tipo: categoria.tipo}">
                             <i [class]="categoria.icono" [style.color]="categoria.colorIcono"
                                 style="font-size: 60px;"></i>
-                            <h5 class="mt-2">{{categoria.tipo}}</h5>
+                            <h5 class="mt-2 text-dark">{{categoria.tipo}}</h5>
                             <p class="mt-1 text-primary">{{categoria.numeroSalas}} salas</p>
                         </a>
                     </ng-template>
@@ -62,7 +62,7 @@
                         <a [routerLink]="['/salas/buscar']" [queryParams]="{ grupo: 'Temática', tipo: tematica.tipo }">
                             <i [class]="tematica.icono" [style.color]="tematica.colorIcono"
                                 style="font-size: 60px;"></i>
-                            <h5 class="mt-2">{{tematica.tipo}}</h5>
+                            <h5 class="mt-2 text-dark">{{tematica.tipo}}</h5>
                             <p class="mt-1 text-primary">{{tematica.numeroSalas}} salas</p>
                         </a>
                     </ng-template>
@@ -84,7 +84,7 @@
                     <ng-template carouselSlide *ngFor="let publico of publicos">
                         <a [routerLink]="['/salas/buscar']" [queryParams]="{ grupo: 'Público', tipo: publico.tipo }">
                             <i [class]="publico.icono" [style.color]="publico.colorIcono" style="font-size: 60px;"></i>
-                            <h5 class="mt-2">{{publico.tipo}}</h5>
+                            <h5 class="mt-2 text-dark">{{publico.tipo}}</h5>
                             <p class="mt-1 text-primary">{{publico.numeroSalas}} salas</p>
                         </a>
                     </ng-template>
@@ -108,7 +108,7 @@
                             [queryParams]="{ grupo: 'Dificultad', tipo: dificultad.tipo }">
                             <i [class]="dificultad.icono" [style.color]="dificultad.colorIcono"
                                 style="font-size: 60px;"></i>
-                            <h5 class="mt-2">{{dificultad.tipo}}</h5>
+                            <h5 class="mt-2 text-dark">{{dificultad.tipo}}</h5>
                             <p class="mt-1 text-primary">{{dificultad.numeroSalas}} salas</p>
                         </a>
                     </ng-template>

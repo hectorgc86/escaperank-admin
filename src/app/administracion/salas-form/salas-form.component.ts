@@ -150,8 +150,6 @@ export class SalasFormComponent implements OnInit {
     });
   }
 
-
-
   onUploadError(event: any): void {
     console.log('onUploadError:', event);
   }
@@ -181,6 +179,7 @@ export class SalasFormComponent implements OnInit {
       });
       return false;
     }
+
 
     let result: boolean;
     //event with newEvent data to store in events[]

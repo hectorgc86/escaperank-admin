@@ -77,18 +77,4 @@ export class UsuariosService {
       `${this.usuariosURL}/${id}/amigos/${idAmigo}`
     );
   }
-
-  // putProfile(name: string, email: string): Observable<void> {
-  //   return this.http.put<void>(`${this.usuariosURL}/me`, { name, email });
-  // }
-
-  // putPhoto(avatar: string): Observable<string> {
-  //   return this.http
-  //     .put<string>(`${this.usuariosURL}/me/photo`, { avatar })
-  //     .pipe(map((response) => response));
-  // }
-
-  // putPassword(password: string): Observable<void> {
-  //   return this.http.put<void>(`${this.usuariosURL}/me/password`, password);
-  // }
 }

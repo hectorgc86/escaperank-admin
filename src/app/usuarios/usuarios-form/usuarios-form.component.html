@@ -10,7 +10,9 @@
 </div>
 
 <form [formGroup]="usuarioForm" (ngSubmit)="actualizarUsuario()" novalidate>
+
     <div class="row">
+
         <div class="grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
@@ -64,45 +66,42 @@
                     <div class="mb-3">
                         <label class="form-label">Contraseña</label>
                         <input class="form-control" type="password" placeholder="Contraseña" name="contrasenya"
-                            formControlName="contrasenya" required />
+                            formControlName="contrasenya" />
                         <p class="text-danger mt-1" *ngIf="usuarioForm.get('contrasenya')?.errors?.required">Debes
                             introducir un contraseña</p>
                     </div>
 
-
                     <div class="mb-3">
                         <label class="form-label">Avatar</label>
-
-                        <div class="row">
-                            <div class="col-4">
-                                <figure class="mb-2">
-                                    <img class="img-fluid rounded" [src]="imageUtils.getImagenUsuario(usuario.perfil!)"
-                                        alt="Avatar">
-                                </figure>
-                                <dropzone [config]="config" [message]="'Pulsa o arrastra una imagen'"
-                                    (addedFile)="onAddedFile($event)" (error)="onUploadError($event)"
-                                    (success)="onUploadSuccess($event)" #dz></dropzone>
-                                <button class="btn btn-secondary mt-2 m-auto w-100" type="button"
-                                    (click)="resetDropzone1Uploads()">Limpiar</button>
+                        <dropzone [config]="config" [message]="'Pulsa o arrastra una imagen'"
+                            (addedFile)="onAddedFile($event)" #dz>
+                            <div class="dz-message" style="text-align: center;">
+                                <img [src]="avatar" alt="Imagen" *ngIf="avatar"
+                                    style="max-width: 100%; max-height: 200px;">
+                                <p *ngIf="!avatar">No se ha cargado ninguna imagen.</p>
                             </div>
-                        </div>
+                        </dropzone>
+                        <button type="button" class="btn btn-secondary mt-2 m-auto w-100"
+                            (click)="resetDropzone1Uploads()">Limpiar</button>
                     </div>
-
                 </div>
             </div>
         </div>
         <div class="col">
             <button type="submit" class="btn btn-primary me-2">Enviar</button>
-            <button class="btn btn-secondary" [routerLink]="['/usuarios', usuarioId]">Cancelar</button>
+            <button type="button" class="btn btn-secondary" [routerLink]="['/usuarios', usuarioId]">Cancelar</button>
         </div>
+
         <div class="col-auto">
-            <button class="btn btn-danger" (click)="openBajaModal(bajaModal)">
+            <button type="button" class="btn btn-danger" (click)="openBajaModal(bajaModal)">
                 <span class="mdi mdi-account-off"></span>
                 Darse de baja
             </button>
         </div>
     </div>
+
 </form>
+
 
 <!-- Modal -->
 <ng-template #bajaModal let-modal>
