@@ -30,7 +30,7 @@ export const MENUUSER: MenuItem[] = [
     ],
   },
   {
-    label: "Nueva Partida",
+    label: "Nueva partida",
     icon: "flag",
     link: "/partidas/nueva",
   },
@@ -38,6 +38,5 @@ export const MENUUSER: MenuItem[] = [
     label: "Perfil",
     icon: "user",
     link: "/usuarios/:id",
-   
-  },
+  }
 ];

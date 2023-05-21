@@ -41,7 +41,7 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     router: Router,
-    public authService: AuthService,
+    public authService: AuthService
   ) {
     this.refreshed = false;
     router.events.forEach((event) => {
@@ -60,17 +60,16 @@ export class SidebarComponent implements OnInit, AfterViewInit {
     });
   }
   ngOnInit(): void {
-    this.visitor= false;
-    if(localStorage.getItem("rol")=="SUPERADMIN"){
+    this.visitor = false;
+    if (localStorage.getItem("rol") == "SUPERADMIN") {
       this.menuItems = MENUADMIN;
-      }else if(localStorage.getItem("rol")=="GAMEMASTER"){
+    } else if (localStorage.getItem("rol") == "GAMEMASTER") {
       this.menuItems = MENU;
-    }else if(localStorage.getItem("rol")=="USER"){
+    } else if (localStorage.getItem("rol") == "USER") {
       this.menuItems = MENUUSER;
-    }else{
+    } else {
       this.menuItems = MENUVISITOR;
-      this.visitor= true;
-
+      this.visitor = true;
     }
     this.foldedMenu = false;
 
@@ -90,46 +89,42 @@ export class SidebarComponent implements OnInit, AfterViewInit {
   toggleSidebar(e: Event) {
     this.sidebarToggler.nativeElement.classList.toggle("active");
     this.sidebarToggler.nativeElement.classList.toggle("not-active");
-    
+
     if (window.matchMedia("(min-width: 992px)").matches) {
       e.preventDefault();
       this.document.body.classList.toggle("sidebar-folded");
-
     } else if (window.matchMedia("(max-width: 991px)").matches) {
       e.preventDefault();
       this.document.body.classList.toggle("sidebar-open");
     }
 
-    if (this.document.body.classList.contains('sidebar-folded')) {
+    if (this.document.body.classList.contains("sidebar-folded")) {
       this.foldedMenu = true;
     } else {
       this.foldedMenu = false;
     }
-
   }
 
-  
-    /**
-     * Open sidebar when hover (in folded folded state)
-     */
-    operSidebarFolded() {
-      if (this.document.body.classList.contains('sidebar-folded')){
-        this.foldedMenu = false;
-        this.document.body.classList.add("open-sidebar-folded");
-      }
+  /**
+   * Open sidebar when hover (in folded folded state)
+   */
+  operSidebarFolded() {
+    if (this.document.body.classList.contains("sidebar-folded")) {
+      this.foldedMenu = false;
+      this.document.body.classList.add("open-sidebar-folded");
     }
-  
-  
-    /**
-     * Fold sidebar after mouse leave (in folded state)
-     */
-    closeSidebarFolded() {
-      if (this.document.body.classList.contains('sidebar-folded')){
-        this.foldedMenu = true;
-        this.document.body.classList.remove("open-sidebar-folded");
-      }
+  }
+
+  /**
+   * Fold sidebar after mouse leave (in folded state)
+   */
+  closeSidebarFolded() {
+    if (this.document.body.classList.contains("sidebar-folded")) {
+      this.foldedMenu = true;
+      this.document.body.classList.remove("open-sidebar-folded");
     }
-    
+  }
+
   /**
    * Sidebar-folded on desktop (min-width:992px and max-width: 1199px)
    */
@@ -146,22 +141,11 @@ export class SidebarComponent implements OnInit, AfterViewInit {
    * @param item menuItem
    */
   hasItems(item: MenuItem) {
-
-    if(item.subItems !== undefined){
- 
-     for(let i in item.subItems){
-       const enlace = item.subItems[i].link as unknown as string;
-       if(enlace.includes("/usuarios/:id")){
-        item.subItems[i].link = enlace.replace(":id", this.usuario.id !== undefined ? String(this.usuario.id) : "");
-      }
-     }
-     return item.subItems.length > 0;
-    }else{
-     return false;
+    if (item.link !== undefined && item.link.includes("/usuarios/:id")) {
+      item.link = item.link.replace(":id", this.usuario.id !== undefined ? String(this.usuario.id) : "");
     }
- 
-   }
- 
+    return item.subItems !== undefined && item.subItems.length > 0;
+  }
 
   /**
    * Reset the menus then hilight current active menu item

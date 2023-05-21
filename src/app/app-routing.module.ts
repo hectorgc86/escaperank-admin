@@ -67,7 +67,6 @@ const routes: Routes = [
         loadChildren: () =>
           import("./views/pages/apps/apps.module").then((m) => m.AppsModule),
       },
-      
       {
         path: "ui-components",
         loadChildren: () =>

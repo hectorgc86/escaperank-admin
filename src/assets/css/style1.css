@@ -957,7 +957,6 @@ iframe {
   line-height: 26px;
   color: rgba(255, 255, 255, 0.6);
   font-size: 15px;
-  text-transform: capitalize;
   transition: all 0.5s;
   background-color: transparent !important;
   padding: 15px 0;
