@@ -6,12 +6,13 @@ import { FeaturesComponent } from './features/features.component';
 import { FooterComponent } from './footer/footer.component';
 import { PricingComponent } from './pricing/pricing.component';
 import { ScrollspyDirective } from './scrollspy.directive';
-import { ServicesComponent } from './services/services.component';
+import { ServicesComponent } from './web-services/services.component';
 import { TeamComponent } from './team/team.component';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { WebRoutingModule } from "./web-routing.module";
 import { PropietariosComponent } from './propietarios/propietarios.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,7 @@ import { PropietariosComponent } from './propietarios/propietarios.component';
   ],
   imports: [
     CommonModule, ScrollToModule.forRoot(),
-    NgbModalModule,WebRoutingModule
+    NgbModalModule,WebRoutingModule,FormsModule
   ],
   exports: [ServicesComponent, PropietariosComponent,PricingComponent, FeaturesComponent, TeamComponent, ContactComponent, ScrollspyDirective, FooterComponent]
 })
