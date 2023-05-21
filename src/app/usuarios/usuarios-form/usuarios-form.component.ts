@@ -138,7 +138,7 @@ export class UsuariosFormComponent {
         .subscribe({
           next: (usuarioModificado: Usuario) => {
             localStorage.setItem("usuario", JSON.stringify(usuarioModificado))
-            location.assign(`/usuarios/${this.usuario.id}`);
+            location.assign(`/usuarios/perfil`);
             result = true;
             resolve(result);
           },
