@@ -12,16 +12,30 @@ import { textChangeRangeIsUnchanged } from 'typescript';
  * Contact-component
  */
 export class ContactComponent implements OnInit {
-  recipient: string;
-  subject: string;
-  message: string;
-  name: string;
+  recipient: string ="";
+  subject: string ="";
+  message: string ="";
+  name: string ="";
   constructor(private webService: WebService) { }
 
   ngOnInit(): void {
   }
 
   sendEmail() {
+
+    if (this.message==""|| this.name=="" || this.subject==""|| this.recipient==""){
+      var promise = new Promise<boolean>((resolve, reject) => {
+        let result: boolean;
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text:"Debes rellenar todos los campos.",
+      });
+      result = false;
+      resolve(result);
+    });
+    }else{
+
 
     const mensaje = "Nombre: "+this.name+"<br>Correo Electrónico: "+this.recipient+"<br>Asunto: "+this.subject +"<br>Mensaje: "+this.message;
 
@@ -63,19 +77,11 @@ export class ContactComponent implements OnInit {
         },
       });
     });
-    return promise;
+   
 
 
-
-
-    this.webService.sendEmail(emailData).subscribe(
-      response => {
-        console.log('Email sent successfully!');
-      },
-      error => {
-        console.error('Error sending email:', error);
-      }
-    );
+  }
+  return promise;
   }
 
 
