@@ -141,9 +141,6 @@ export class SidebarComponent implements OnInit, AfterViewInit {
    * @param item menuItem
    */
   hasItems(item: MenuItem) {
-    if (item.link !== undefined && item.link.includes("/usuarios/:id")) {
-      item.link = item.link.replace(":id", this.usuario.id !== undefined ? String(this.usuario.id) : "");
-    }
     return item.subItems !== undefined && item.subItems.length > 0;
   }
 

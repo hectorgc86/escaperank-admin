@@ -47,6 +47,7 @@ export const MENUADMIN: MenuItem[] = [
   {
     label: "Perfil",
     icon: "user",
-    link: "/usuarios/:id",
+    link: "/usuarios/perfil",
+   
   },
 ];

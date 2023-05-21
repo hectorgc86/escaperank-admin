@@ -16,7 +16,7 @@ const routes: Routes = [
     },
   },
   {
-    path: ":id",
+    path: "perfil",
     component: UsuariosDetailComponent,
     canActivate: [LoginActivateGuard],
     resolve: {
@@ -24,7 +24,7 @@ const routes: Routes = [
     },
   },
   {
-    path: ":id/amigos",
+    path: "amigos",
     component: UsuariosListComponent,
     canActivate: [LoginActivateGuard],
     resolve: {
