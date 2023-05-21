@@ -3,10 +3,9 @@
         <div class="card">
             <div class="row">
                 <div class="col-md-3 pe-md-0">
-                    <div class="auth-side-wrapper"
-                    [ngStyle]="{ 'background-image': 'url(/assets/images/fondo.png)' }">
-                    <div class="bg-overlay"></div>
-                </div>
+                    <div class="auth-side-wrapper" [ngStyle]="{ 'background-image': 'url(/assets/images/fondo.png)' }">
+                        <div class="bg-overlay"></div>
+                    </div>
                 </div>
                 <div class="col-md-9 ps-md-0">
                     <div class="auth-form-wrapper px-4 py-5">
@@ -26,11 +25,13 @@
                                             <div class="col-sm-7">
                                                 <input type="text" class="form-control" id="nombre"
                                                     formControlName="nombre"
-                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.nombre.errors}"
+                                                    [ngClass]="{'is-invalid': form1.nombre.touched && form1.nombre.errors}"
                                                     placeholder="Introduzca nombre">
-                                                <div *ngIf="isForm1Submitted && form1.nombre.errors?.required"
-                                                    class="invalid-feedback">
+                                                <div *ngIf="form1.nombre.errors?.required" class="invalid-feedback">
                                                     Requerido
+                                                </div>
+                                                <div *ngIf="form1.nombre.errors?.maxlength" class="invalid-feedback">
+                                                    Máximo de caracteres superado
                                                 </div>
                                             </div>
                                         </div>
@@ -39,11 +40,13 @@
                                             <div class="col-sm-7">
                                                 <input type="text" class="form-control" id="apellidos"
                                                     formControlName="apellidos"
-                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.apellidos.errors}"
+                                                    [ngClass]="{'is-invalid': form1.apellidos.touched && form1.apellidos.errors}"
                                                     placeholder="Introduzca apellidos">
-                                                <div *ngIf="isForm1Submitted && form1.apellidos.errors?.required"
-                                                    class="invalid-feedback">
+                                                <div *ngIf="form1.apellidos.errors?.required" class="invalid-feedback">
                                                     Requerido
+                                                </div>
+                                                <div *ngIf="form1.apellidos.errors?.maxlength" class="invalid-feedback">
+                                                    Máximo de caracteres superado
                                                 </div>
                                             </div>
                                         </div>
@@ -51,11 +54,13 @@
                                             <label for="nick" class="col-sm-3 col-form-label">Nick</label>
                                             <div class="col-sm-7">
                                                 <input type="text" class="form-control" id="nick" formControlName="nick"
-                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.nick.errors}"
+                                                    [ngClass]="{'is-invalid': form1.nick.touched && form1.nick.errors}"
                                                     placeholder="Introduzca nombre de usuario">
-                                                <div *ngIf="isForm1Submitted && form1.nick.errors?.required"
-                                                    class="invalid-feedback">
+                                                <div *ngIf="form1.nick.errors?.required" class="invalid-feedback">
                                                     Requerido
+                                                </div>
+                                                <div *ngIf="form1.nick.errors?.maxlength" class="invalid-feedback">
+                                                    Máximo de caracteres superado para nick
                                                 </div>
                                             </div>
                                         </div>
@@ -64,11 +69,16 @@
                                             <div class="col-sm-7">
                                                 <input type="email" class="form-control" id="email"
                                                     formControlName="email"
-                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.email.errors}"
+                                                    [ngClass]="{'is-invalid': form1.email.touched && form1.email.errors}"
                                                     placeholder="Introduzca correo electrónico">
-                                                <div *ngIf="isForm1Submitted && form1.email.errors?.required"
-                                                    class="invalid-feedback">
+                                                <div *ngIf="form1.email.errors?.required" class="invalid-feedback">
                                                     Requerido
+                                                </div>
+                                                <div *ngIf="form1.email.errors?.maxlength" class="invalid-feedback">
+                                                    Máximo de caracteres superado
+                                                </div>
+                                                <div *ngIf="form1.email.errors?.email" class="invalid-feedback">
+                                                    Email con estructura no válida
                                                 </div>
                                             </div>
                                         </div>
@@ -77,15 +87,13 @@
                                             <div class="col-sm-7">
                                                 <input type="number" min="0" max="999999999" class="form-control"
                                                     id="telefono" formControlName="telefono"
-                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.telefono.errors}"
+                                                    [ngClass]="{'is-invalid': form1.telefono.touched && form1.telefono.errors}"
                                                     placeholder="Introduzca número de telefono">
-                                                <div *ngIf="isForm1Submitted && form1.telefono.errors?.required"
-                                                    class="invalid-feedback">
+                                                <div *ngIf="form1.telefono.errors?.required" class="invalid-feedback">
                                                     Requerido
                                                 </div>
-                                                <div *ngIf="isForm1Submitted && form1.telefono.errors?.max"
-                                                    class="invalid-feedback">
-                                                    Valor máximo superado
+                                                <div *ngIf="form1.telefono.errors?.max" class="invalid-feedback">
+                                                    Máximo de caracteres superado
                                                 </div>
                                             </div>
                                         </div>
@@ -94,9 +102,9 @@
                                             <div class="col-sm-7">
                                                 <input type="password" class="form-control" id="contrasenya"
                                                     formControlName="contrasenya"
-                                                    [ngClass]="{'is-invalid': isForm1Submitted && form1.contrasenya.errors}"
+                                                    [ngClass]="{'is-invalid': form1.contrasenya.touched && form1.contrasenya.errors}"
                                                     placeholder="Introduzca contraseña">
-                                                <div *ngIf="isForm1Submitted && form1.contrasenya.errors?.required"
+                                                <div *ngIf="form1.contrasenya.errors?.required"
                                                     class="invalid-feedback">
                                                     Requerido
                                                 </div>
@@ -135,11 +143,15 @@
                                                 <div class="col-sm-7">
                                                     <input type="text" class="form-control" id="companyia"
                                                         formControlName="companyia"
-                                                        [ngClass]="{'is-invalid': isForm2Submitted && form2.companyia.errors}"
+                                                        [ngClass]="{'is-invalid': form2.companyia.touched && form2.companyia.errors}"
                                                         placeholder="Introduzca nombre de compañía">
-                                                    <div *ngIf="isForm2Submitted && form2.companyia.errors?.required"
+                                                    <div *ngIf="form2.companyia.errors?.required"
                                                         class="invalid-feedback">
                                                         Requerido
+                                                    </div>
+                                                    <div *ngIf="form2.companyia.errors?.maxlength"
+                                                        class="invalid-feedback">
+                                                        Máximo de caracteres superado
                                                     </div>
                                                 </div>
                                             </div>
@@ -148,11 +160,13 @@
                                                 <div class="col-sm-7">
                                                     <input type="text" class="form-control" id="cif"
                                                         formControlName="cif"
-                                                        [ngClass]="{'is-invalid': isForm2Submitted && form2.cif.errors}"
+                                                        [ngClass]="{'is-invalid': form2.cif.touched && form2.cif.errors}"
                                                         placeholder="Introduzca CIF">
-                                                    <div *ngIf="isForm2Submitted && form2.cif.errors?.required"
-                                                        class="invalid-feedback">
+                                                    <div *ngIf="form2.cif.errors?.required" class="invalid-feedback">
                                                         Requerido
+                                                    </div>
+                                                    <div *ngIf="form2.cif.errors?.pattern" class="invalid-feedback">
+                                                        Cif con estructura no válida
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,12 +176,17 @@
                                                 <div class="col-sm-7">
                                                     <input type="email" class="form-control" id="emailCompanyia"
                                                         formControlName="emailCompanyia"
-                                                        [ngClass]="{'is-invalid': isForm2Submitted && form2.emailCompanyia.errors}"
+                                                        [ngClass]="{'is-invalid': form2.emailCompanyia.touched && form2.emailCompanyia.errors}"
                                                         placeholder="Introduzca correo electrónico compañia">
-                                                    <div *ngIf="isForm2Submitted && form2.emailCompanyia.errors?.required"
-                                                        class="invalid-feedback">
-                                                        Requerido
-                                                    </div>
+                                                        <div *ngIf="form2.emailCompanyia.errors?.required" class="invalid-feedback">
+                                                            Requerido
+                                                        </div>
+                                                        <div *ngIf="form2.emailCompanyia.errors?.maxlength" class="invalid-feedback">
+                                                            Máximo de caracteres superado
+                                                        </div>
+                                                        <div *ngIf="form2.emailCompanyia.errors?.email" class="invalid-feedback">
+                                                            Email con estructura no válida
+                                                        </div>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -176,16 +195,14 @@
                                                 <div class="col-sm-7">
                                                     <input type="number" min="0" max="999999999" class="form-control"
                                                         id="telefonoCompanyia" formControlName="telefonoCompanyia"
-                                                        [ngClass]="{'is-invalid': isForm2Submitted && form2.telefonoCompanyia.errors}"
+                                                        [ngClass]="{'is-invalid': form2.telefonoCompanyia.touched && form2.telefonoCompanyia.errors}"
                                                         placeholder="Introduzca número de telefono compañia">
-                                                    <div *ngIf="isForm2Submitted && form2.telefonoCompanyia.errors?.required"
-                                                        class="invalid-feedback">
-                                                        Requerido
-                                                    </div>
-                                                    <div *ngIf="isForm2Submitted && form2.telefonoCompanyia.errors?.max"
-                                                        class="invalid-feedback">
-                                                        Valor máximo superado
-                                                    </div>
+                                                        <div *ngIf="form2.telefonoCompanyia.errors?.required" class="invalid-feedback">
+                                                            Requerido
+                                                        </div>
+                                                        <div *ngIf="form2.telefonoCompanyia.errors?.max" class="invalid-feedback">
+                                                            Máximo de caracteres superado
+                                                        </div>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -193,12 +210,14 @@
                                                 <div class="col-sm-7">
                                                     <input type="text" class="form-control" id="web"
                                                         formControlName="web"
-                                                        [ngClass]="{'is-invalid': isForm2Submitted && form2.web.errors}"
+                                                        [ngClass]="{'is-invalid': form2.web.touched && form2.web.errors}"
                                                         placeholder="Introduzca sitio web">
-                                                    <div *ngIf="isForm2Submitted && form2.web.errors?.required"
-                                                        class="invalid-feedback">
-                                                        Requerido
-                                                    </div>
+                                                        <div *ngIf="form2.web.errors?.required" class="invalid-feedback">
+                                                            Requerido
+                                                        </div>
+                                                        <div *ngIf="form2.web.errors?.pattern" class="invalid-feedback">
+                                                            Sitio web con estructura no válida
+                                                        </div>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -206,7 +225,7 @@
                                                 <div class="col-sm-7">
                                                     <input type="text" class="form-control" formControlName="direccion"
                                                         [inputFormatter]="formatter"
-                                                        [ngClass]="{'is-invalid': isForm2Submitted && form2.direccion.errors}"
+                                                        [ngClass]="{'is-invalid': form2.direccion.touched && form2.direccion.errors}"
                                                         [(ngModel)]="direccion" placeholder="Introduzca dirección"
                                                         [ngbTypeahead]="buscar" [resultTemplate]="rt">
 
@@ -215,7 +234,7 @@
                                                             [term]="t"></ngb-highlight>
                                                     </ng-template>
 
-                                                    <div *ngIf="isForm2Submitted && form2.direccion.errors?.invalidFeature"
+                                                    <div *ngIf="form2.direccion.errors?.invalidFeature"
                                                         class="invalid-feedback">
                                                         Dirección no válida
                                                     </div>

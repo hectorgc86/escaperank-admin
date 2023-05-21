@@ -32,9 +32,6 @@ export class RegistroComponent implements OnInit {
   validationForm1: UntypedFormGroup;
   validationForm2: UntypedFormGroup;
 
-  isForm1Submitted: Boolean;
-  isForm2Submitted: Boolean;
-
   companyiaRegistro: CompanyiaRequest;
   usuarioRegistro: UsuarioRequest;
 
@@ -53,36 +50,25 @@ export class RegistroComponent implements OnInit {
 
   ngOnInit(): void {
     this.validationForm1 = this.formBuilder.group({
-      nombre: ["", Validators.required],
-      apellidos: ["", Validators.required],
-      nick: ["", Validators.required],
-      email: ["", [Validators.required, Validators.email]],
-      telefono: ["", [Validators.required, Validators.max]],
+      nombre: ["", [Validators.required, Validators.maxLength(20)]],
+      apellidos: ["", [Validators.required, Validators.maxLength(20)]],
+      nick: ["", [Validators.required, Validators.maxLength(20)]],
+      email: ["", [Validators.required, Validators.maxLength(45), Validators.email]],
+      telefono: ["", [Validators.required]],
       contrasenya: ["", Validators.required],
       checkCompanyia: [false],
     });
 
     this.validationForm2 = this.formBuilder.group({
-      companyia: ["", [Validators.required]],
-      cif: ["", Validators.required],
+      companyia: ["", [Validators.required, Validators.maxLength(45)]],
+      cif: ["", [Validators.required, Validators.pattern(/^[ABCDEFGHJKLMNPQRSUVWabcdefghjklmnpqrsuvw]\d{7}[\dA-J]$/)]],
       emailCompanyia: ["", [Validators.required, Validators.email]],
-      telefonoCompanyia: ["", [Validators.required, Validators.max]],
-      web: ["", Validators.required],
+      telefonoCompanyia: ["", [Validators.required]],
+      web: ["",  [Validators.required, Validators.pattern(/^(http|https):\/\/[\w\-]+(\.[\w\-]+)+[/#?]?.*$/)]],
       direccion: ["", [this.featureValidator]],
     });
 
-    this.isForm1Submitted = false;
-    this.isForm2Submitted = false;
-
     this.esCompanyia = false;
-  }
-
-  featureValidator(control: AbstractControl): { [key: string]: any } | null {
-    const feature = control.value as Feature;
-    if (!feature || typeof feature !== "object" || !feature.place_name) {
-      return { invalidFeature: true };
-    }
-    return null;
   }
 
   get form1() {
@@ -93,22 +79,36 @@ export class RegistroComponent implements OnInit {
     return this.validationForm2.controls;
   }
 
+  featureValidator(control: AbstractControl): { [key: string]: any } | null {
+    const feature = control.value as Feature;
+    if (!feature || typeof feature !== "object" || !feature.place_name) {
+      return { invalidFeature: true };
+    }
+    return null;
+  }
+
   form1Submit() {
     if (this.validationForm1.valid) {
       this.wizardForm.goToNextStep();
+    }else{
+      Object.values(this.validationForm1.controls).forEach((control) => {
+        control.markAsTouched();
+      });
     }
-    this.isForm1Submitted = true;
   }
 
   form2Submit() {
     if (this.validationForm2.valid) {
       this.registrar();
+    }else{
+      Object.values(this.validationForm2.controls).forEach((control) => {
+        control.markAsTouched();
+      });
     }
-    this.isForm2Submitted = true;
   }
 
   formularioCompleto() {
-    alert("Successfully Completed");
+    alert("Se ha registrado correctamente");
   }
 
   registrar() {
@@ -158,11 +158,11 @@ export class RegistroComponent implements OnInit {
 
     this.authService.registrar(registroRequest).subscribe({
       next: () => this.wizardForm.goToNextStep(),
-      error: () =>
+      error: (e: any) =>
         Swal.fire({
           icon: "error",
           title: "Error creando registro",
-          text: "Existen campos no admitidos en formulario",
+          text: e !== undefined ? e.error.text : "Existen campos no admitidos en formulario",
         }),
     });
   }

@@ -53,11 +53,15 @@ export class UsuariosDetailComponent implements OnInit {
   }
 
   calcularEdad(fechaNacimiento: string | null | undefined) {
-    const convertAge = new Date(fechaNacimiento!);
-    const timeDiff = Math.abs(Date.now() - convertAge.getTime());
-    this.edad = Math.floor(
-      timeDiff / (1000 * 3600 * 24) / 365
-    ) as unknown as string;
+    if(fechaNacimiento != null){
+      const convertAge = new Date(fechaNacimiento!);
+      const timeDiff = Math.abs(Date.now() - convertAge.getTime());
+      this.edad = Math.floor(
+        timeDiff / (1000 * 3600 * 24) / 365
+      ) as unknown as string;
+    }else{
+      this.edad = "Desconocida";
+    }
   }
 
   aceptarSolicitudAmistad(idAmigoPendiente: number) {

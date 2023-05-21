@@ -10,7 +10,6 @@ import { PartidasService } from "../services/partidas.service";
 import { Equipo } from "src/app/equipos/interfaces/equipo.interface";
 import { UsuariosService } from "src/app/usuarios/services/usuarios.service";
 import { Usuario } from "src/app/usuarios/interfaces/usuario.interface";
-import { Time } from "@angular/common";
 
 @Component({
   selector: "app-partidas-new",

@@ -70,7 +70,6 @@ export class AuthService {
     );
   }
 
-
   logout(): void {
     this.resetearLocalStorage();
     this.setLogged(false);
@@ -80,7 +79,7 @@ export class AuthService {
     registroRequest.usuario!.contrasenya = this.calcularMD5(
       registroRequest.usuario!.contrasenya!
     );
-    return this.http.post<void>(`${this.authURL}/registrar`, registroRequest);
+    return this.http.post<void>(`${this.authURL}/registro`, registroRequest);
   }
 
   private calcularMD5(contrasenya: string): string {
