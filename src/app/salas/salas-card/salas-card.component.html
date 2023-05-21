@@ -1,28 +1,29 @@
-<div class="row bg-white border rounded m-0">
-    <div class="col-md-3 p-0"><img class="img-sala img-fluid img-responsive rounded product-image"
-            [src]="imageUtils.getImagenSala(sala,'estrechas')"></div>
-    <div class="col-md-6 mt-1">
-        <h5>{{ sala.nombre }}</h5>
-        <div class="d-flex flex-row">
-            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                    class="fa fa-star"></i></div><span>{{sala.numeroResenyas}}</span>
+<a class="remove-bootstrap-styles" [routerLink]="['/salas', sala.id]">
+    <div class="row bg-white border rounded m-0">
+        <div class="col-md-3 p-0"><img class="img-sala img-fluid img-responsive rounded product-image"
+                [src]="imageUtils.getImagenSala(sala,'estrechas')"></div>
+        <div class="col-md-6 mt-2">
+            <h5>{{ sala.nombre }}</h5>
+            <div class="d-flex flex-row">
+            </div>
+            <div class="mt-1 mb-1 spec-1"><span>{{
+                    sala.companyia?.nombre }}</span><span class="dot"></span></div>
+            <div class="mt-1 mb-1 spec-1"><span class="text-primary">{{
+                    sala.companyia?.ciudad?.nombre
+                    }}<br></span><span class="dot"></span></div>
+            <h6 class="text-success"><i class="mdi mdi-account"></i>{{ sala.minimoJugadores}}</h6>
         </div>
-        <div class="mt-1 mb-1 spec-1"><span class="text-primary">{{
-                sala.companyia?.nombre }}</span><span class="dot"></span></div>
-        <div class="mt-1 mb-1 spec-1"><span>{{
-                sala.companyia?.ciudad?.nombre
-                }}<br></span><span class="dot"></span></div>
-        <h6 class="text-success"><i class="mdi mdi-account"></i>{{ sala.minimoJugadores}}</h6>
-        <p class="text-justify text-truncate para mb-0">{{sala.otrosDatos}}<br><br></p>
-    </div>
-    <div class="align-items-center align-content-center col-md-3 border-left mt-1">
-        <div class="d-flex flex-row align-items-center">
-            <h4 class="mr-1">{{ sala.precioMinimo }} -</h4>
-            <h4 class="strike-text">{{sala.precioMaximo}}</h4> €
-        </div>
-        <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button"
+        <div class="align-items-center align-content-center col-md-3 border-left mt-2">
+            <div class="d-flex flex-row align-items-center mb-2">
+                <h4 class="mr-1" *ngIf="sala.precioMinimo">{{ sala.precioMinimo }} -&nbsp;</h4>
+                <h4 class="strike-text" *ngIf="sala.precioMaximo">{{sala.precioMaximo}} €</h4>
+            </div>
+            <!-- <div class="d-flex flex-column mt-4 mb-2"><button class="btn btn-primary btn-sm" type="button"
                 [routerLink]="['/salas', sala.id]">Ver
-                detalle</button><button class="btn btn-outline-primary btn-sm mt-2" type="button">Añadir a
-                favoritos</button></div>
+                detalle</button>
+            <button class="btn btn-outline-primary btn-sm mt-2" type="button">Añadir a
+                favoritos</button>
+        </div> -->
+        </div>
     </div>
-</div>
+</a>

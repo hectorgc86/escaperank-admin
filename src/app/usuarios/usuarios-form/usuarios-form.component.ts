@@ -41,6 +41,8 @@ export class UsuariosFormComponent {
   avatar: any;
   avatarName: string;
   usuario: Usuario;
+  imageChanged: boolean;
+
 
   constructor(
     private modalService: NgbModal,
@@ -53,7 +55,10 @@ export class UsuariosFormComponent {
   @ViewChild("dz") drpzone?: DropzoneComponent;
 
   ngOnInit(): void {
+
     this.usuario = JSON.parse(localStorage.getItem("usuario")!) as Usuario;
+    this.avatar = this.imageUtils.getImagenUsuario(this.usuario.perfil!);
+    this.imageChanged = false;
 
     if (this.usuario != null && this.usuario.id != null) {
       this.usuarioId = this.usuario.id;
@@ -76,7 +81,7 @@ export class UsuariosFormComponent {
 
     this.usuarioForm = this.fb.group({
       nick: [this.usuario.nick, Validators.required],
-      contrasenya: ["", Validators.required],
+      contrasenya: [""],
       nombre: [partesNombre[0], Validators.required],
       apellidos: [partesNombre[1], Validators.required],
       email: [this.usuario.email, [Validators.required, Validators.email]],
@@ -88,15 +93,11 @@ export class UsuariosFormComponent {
       avatar: [this.usuario.perfil?.avatar, Validators.required],
     });
   }
-  onUploadError(event: any): void {
-    console.log("onUploadError:", event);
-  }
-
-  onUploadSuccess(event: any): void {
-    console.log("onUploadSuccess:", event);
-  }
 
   async actualizarUsuario(): Promise<boolean> {
+
+    let nacimiento = this.usuario.perfil?.nacido;
+
     if (!this.usuarioForm.valid) {
       Object.values(this.usuarioForm.controls).forEach((control) => {
         control.markAsTouched();
@@ -104,15 +105,25 @@ export class UsuariosFormComponent {
       return false;
     }
 
+    if(this.usuarioForm.controls.nacido.touched){
+      nacimiento = `${this.usuarioForm.controls.nacido.value.year}-${this.usuarioForm.controls.nacido.value.month}-${this.usuarioForm.controls.nacido.value.day}`
+    }
+
     let usuarioModificado: UsuarioRequest = {
-      nick: this.usuarioForm.controls.nombre.value,
-      email: this.usuarioForm.controls.apellidos.value,
-      contrasenya: this.usuarioForm.controls.nick.value,
+      nick: this.usuarioForm.controls.nick.value,
+      nombre: this.usuarioForm.controls.nombre.value + " " + this.usuarioForm.controls.apellidos.value,
+      contrasenya: this.usuarioForm.controls.contrasenya.value,
+      email: this.usuarioForm.controls.email.value,
       telefono: this.usuarioForm.controls.telefono.value,
-      nacido: this.usuarioForm.controls.nacimiento.value,
       avatar: this.avatarName,
-      avatarBase64: this.avatar,
+      nacido: nacimiento,
     };
+
+    if (this.imageChanged){
+      usuarioModificado.avatarBase64= this.avatar;
+    }else{
+      usuarioModificado.avatarBase64= undefined;
+    }
 
     return this.updateUsuario(usuarioModificado);
   }
@@ -123,18 +134,19 @@ export class UsuariosFormComponent {
     var promise = new Promise<boolean>((resolve) => {
       let result: boolean;
       this.usuariosService
-        .putUsuario(this.usuarioId, usuarioModificado)
+        .putUsuario(this.usuario.id, usuarioModificado)
         .subscribe({
-          next: () => {
-            location.assign("/usuario");
+          next: (usuarioModificado: Usuario) => {
+            localStorage.setItem("usuario", JSON.stringify(usuarioModificado))
+            location.assign(`/usuarios/${this.usuario.id}`);
             result = true;
             resolve(result);
           },
-          error: (error: { message: any }) => {
+          error: (res: any) => {
             Swal.fire({
               icon: "error",
-              title: "Oops...",
-              text: error.message,
+              title: "Ha ocurrido un error actualizando usuario",
+              text: res.error.error,
             });
             result = false;
             resolve(result);
@@ -155,6 +167,7 @@ export class UsuariosFormComponent {
     reader.addEventListener("loadend", (e) => {
       this.avatar = e.target?.result;
       this.avatarName = reader.result as string;
+      this.imageChanged=true;
     });
   }
 
