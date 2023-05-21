@@ -17,19 +17,19 @@
              <div class="row">
                <div class="col-lg-6">
                  <div class="form-group mt-2">
-                   <input name="name" id="name"  [(ngModel)]="name" type="text" class="form-control" placeholder="Tu Nombre*">
+                   <input name="name" id="name"  [(ngModel)]="name" type="text" class="form-control" placeholder="Tu Nombre*" required>
                  </div>
                </div>
                <div class="col-lg-6">
                  <div class="form-group mt-2">
-                   <input name="recipient" id="recipient" type="email"  [(ngModel)]="recipient"  class="form-control" placeholder="Tu Correo*">
+                   <input name="recipient" id="recipient" type="email"  [(ngModel)]="recipient"  class="form-control" placeholder="Tu Correo*" required>
                  </div>
                </div>
              </div>
              <div class="row">
                <div class="col-lg-12">
                  <div class="form-group mt-2">
-                   <input type="text" class="form-control" id="subject" name="subject" [(ngModel)]="subject" placeholder="Asunto" />
+                   <input type="text" class="form-control" id="subject" name="subject" [(ngModel)]="subject" placeholder="Asunto*" required />
                  </div>
                </div>
              </div>
@@ -37,7 +37,7 @@
                <div class="col-lg-12">
                  <div class="form-group mt-2">
                    <textarea name="message" id="message" rows="4" [(ngModel)]="message" class="form-control"
-                     placeholder="Your message..."></textarea>
+                     placeholder="Tu mensaje*" required></textarea>
                  </div>
                </div>
              </div>
