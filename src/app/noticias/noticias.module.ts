@@ -21,11 +21,7 @@ const routes: Routes = [
   {
     path: "",
     component: NoticiasListComponent,
-  },
-  {
-    path: ":id",
-    component: NoticiasDetailsComponent,
-  },
+  }
 ];
 
 @NgModule({

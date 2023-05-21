@@ -26,24 +26,18 @@
         </div>
         <div class="d-flex justify-content-center p-3 rounded-bottom">
             <ul class="d-flex align-items-center m-0 p-0">
-                <li class="d-flex align-items-center">
-                    <a class="d-flex nav-link d-none d-md-block" [routerLink]="['/usuarios', usuario.id]"
-                        [routerLinkActive]="['text-primary']" [routerLinkActiveOptions]="{ exact: true }"
-                        style="z-index: 9999;">
-                        <div class="d-flex align-items-center">
-                            <i class="feather icon-columns me-1 icon-md"></i>
-                            <span class="pt-1px">Perfil</span>
-                        </div>
-                    </a>
+                <li class="d-flex align-items-center" >
+                    <a class="d-flex nav-link d-none d-md-block" [routerLink]="['/usuarios/', 'perfil']" [routerLinkActive]="['text-primary']"
+                    [routerLinkActiveOptions]="{ exact: true }" style="z-index: 9999;">
+                        <i class="feather icon-columns me-1 icon-md" [routerLinkActive]="['text-primary']"
+                            [routerLinkActiveOptions]="{ exact: true }"></i>
+                        <span class="pt-1px"> Perfil</span></a>
                 </li>
-                <li class="ms-3 ps-3 border-start d-flex align-items-center" style="cursor: pointer;">
-                    <a class="nav-link d-none d-md-block" [routerLink]="['/usuarios', usuario.id, 'amigos']"
-                        [routerLinkActive]="['text-primary']" [routerLinkActiveOptions]="{ exact: true }"
-                        style="z-index: 9999;">
-                        <div class="d-flex align-items-center">
-                            <i class="feather icon-users me-1 icon-md"></i>
-                            <span class="pt-1px">Amigos</span>
-                        </div>
+                <li class="ms-3 ps-3 border-start d-flex align-items-center" style=" cursor: pointer;">
+                    <a class="nav-link d-none d-md-block" [routerLink]="['/usuarios/','amigos']"
+                        [routerLinkActive]="['text-primary']" [routerLinkActiveOptions]="{ exact: true }" style="z-index: 9999;">
+                        <i class="feather icon-users me-1 icon-md"></i>
+                        <span class="pt-1px">Amigos</span>
                     </a>
                 </li>
                 <li class="ms-3 ps-3 border-start d-flex align-items-center">

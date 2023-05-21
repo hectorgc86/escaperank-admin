@@ -55,6 +55,7 @@ export const MENU: MenuItem[] = [
   {
     label: "Perfil",
     icon: "user",
-    link: "/usuarios/:id",
+    link: "/usuarios/perfil",
+   
   },
 ];
