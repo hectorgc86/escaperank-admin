@@ -1,4 +1,4 @@
-import { Component, Output, OnInit, AfterViewInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Categoria } from "../interfaces/categoria.interface";
 import { Publico } from "../interfaces/publico.interface";
 import { Sala } from "../interfaces/sala.interface";

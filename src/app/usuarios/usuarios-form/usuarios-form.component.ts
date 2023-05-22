@@ -1,5 +1,10 @@
 import { Component, TemplateRef, ViewChild } from "@angular/core";
-import { FormGroup, FormBuilder, Validators } from "@angular/forms";
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  AbstractControl,
+} from "@angular/forms";
 import {
   NgbDateParserFormatter,
   NgbDateStruct,
@@ -43,7 +48,6 @@ export class UsuariosFormComponent {
   usuario: Usuario;
   imageChanged: boolean;
 
-
   constructor(
     private modalService: NgbModal,
     private usuariosService: UsuariosService,
@@ -55,7 +59,6 @@ export class UsuariosFormComponent {
   @ViewChild("dz") drpzone?: DropzoneComponent;
 
   ngOnInit(): void {
-
     this.usuario = JSON.parse(localStorage.getItem("usuario")!) as Usuario;
     this.avatar = this.imageUtils.getImagenUsuario(this.usuario.perfil!);
     this.imageChanged = false;
@@ -81,7 +84,6 @@ export class UsuariosFormComponent {
 
     this.usuarioForm = this.fb.group({
       nick: [this.usuario.nick, Validators.required],
-      contrasenya: [""],
       nombre: [partesNombre[0], Validators.required],
       apellidos: [partesNombre[1], Validators.required],
       email: [this.usuario.email, [Validators.required, Validators.email]],
@@ -90,40 +92,30 @@ export class UsuariosFormComponent {
         [Validators.required, Validators.max],
       ],
       nacido: [fechaNacimiento, Validators.required],
+      nuevaContrasenya: [""],
+      repetirContrasenya: [""],
       avatar: [this.usuario.perfil?.avatar, Validators.required],
-    });
+    },{ validator: this.passwordMatchValidator });
   }
 
   async actualizarUsuario(): Promise<boolean> {
-
-    let nacimiento = this.usuario.perfil?.nacido;
-
     if (!this.usuarioForm.valid) {
-      Object.values(this.usuarioForm.controls).forEach((control) => {
-        control.markAsTouched();
-      });
+      this.usuarioForm.markAllAsTouched();
       return false;
     }
 
-    if(this.usuarioForm.controls.nacido.touched){
-      nacimiento = `${this.usuarioForm.controls.nacido.value.year}-${this.usuarioForm.controls.nacido.value.month}-${this.usuarioForm.controls.nacido.value.day}`
-    }
-
-    let usuarioModificado: UsuarioRequest = {
+    const usuarioModificado: UsuarioRequest = {
       nick: this.usuarioForm.controls.nick.value,
-      nombre: this.usuarioForm.controls.nombre.value + " " + this.usuarioForm.controls.apellidos.value,
-      contrasenya: this.usuarioForm.controls.contrasenya.value,
+      nombre: `${this.usuarioForm.controls.nombre.value} ${this.usuarioForm.controls.apellidos.value}`,
+      contrasenya: this.usuarioForm.controls.repetirContrasenya.value,
       email: this.usuarioForm.controls.email.value,
       telefono: this.usuarioForm.controls.telefono.value,
       avatar: this.avatarName,
-      nacido: nacimiento,
+      nacido: this.usuarioForm.controls.nacido.touched
+        ? `${this.usuarioForm.controls.nacido.value.year}-${this.usuarioForm.controls.nacido.value.month}-${this.usuarioForm.controls.nacido.value.day}`
+        : this.usuario.perfil?.nacido,
+      avatarBase64: this.imageChanged ? this.avatar : undefined,
     };
-
-    if (this.imageChanged){
-      usuarioModificado.avatarBase64= this.avatar;
-    }else{
-      usuarioModificado.avatarBase64= undefined;
-    }
 
     return this.updateUsuario(usuarioModificado);
   }
@@ -137,7 +129,7 @@ export class UsuariosFormComponent {
         .putUsuario(this.usuario.id, usuarioModificado)
         .subscribe({
           next: (usuarioModificado: Usuario) => {
-            localStorage.setItem("usuario", JSON.stringify(usuarioModificado))
+            localStorage.setItem("usuario", JSON.stringify(usuarioModificado));
             location.assign(`/usuarios/perfil`);
             result = true;
             resolve(result);
@@ -167,7 +159,7 @@ export class UsuariosFormComponent {
     reader.addEventListener("loadend", (e) => {
       this.avatar = e.target?.result;
       this.avatarName = reader.result as string;
-      this.imageChanged=true;
+      this.imageChanged = true;
     });
   }
 
@@ -188,5 +180,16 @@ export class UsuariosFormComponent {
         }
       })
       .catch((res) => {});
+  }
+
+  passwordMatchValidator(control: AbstractControl) {
+    const nuevaContrasenya = control.get('nuevaContrasenya')!.value;
+    const repetirContrasenya = control.get('repetirContrasenya')!.value;
+
+    if (nuevaContrasenya !== repetirContrasenya) {
+      control.get('repetirContrasenya')!.setErrors({ passwordMismatch: true });
+    } else {
+      control.get('repetirContrasenya')!.setErrors(null);
+    }
   }
 }

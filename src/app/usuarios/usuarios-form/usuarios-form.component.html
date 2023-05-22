@@ -10,9 +10,7 @@
 </div>
 
 <form [formGroup]="usuarioForm" (ngSubmit)="actualizarUsuario()" novalidate>
-
     <div class="row">
-
         <div class="grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
@@ -64,13 +62,18 @@
                             una fecha de nacimiento</p>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Contraseña</label>
-                        <input class="form-control" type="password" placeholder="Contraseña" name="contrasenya"
-                            formControlName="contrasenya" />
-                        <p class="text-danger mt-1" *ngIf="usuarioForm.get('contrasenya')?.errors?.required">Debes
-                            introducir un contraseña</p>
+                        <label class="form-label">Nueva contraseña</label>
+                        <input class="form-control" type="password" placeholder="Introduzca nueva contraseña"
+                            name="nuevaContrasenya" formControlName="nuevaContrasenya" />
                     </div>
-
+                    <div class="mb-3">
+                        <label class="form-label">Repetir contraseña</label>
+                        <input class="form-control" type="password" placeholder="Repita la contraseña nueva"
+                            name="repetirContrasenya" formControlName="repetirContrasenya" />
+                        <p class="text-danger mt-1"
+                            *ngIf="usuarioForm.get('repetirContrasenya')?.errors?.passwordMismatch">
+                            Las contraseñas no coinciden</p>
+                    </div>
                     <div class="mb-3">
                         <label class="form-label">Avatar</label>
                         <dropzone [config]="config" [message]="'Pulsa o arrastra una imagen'"
@@ -99,7 +102,6 @@
             </button>
         </div>
     </div>
-
 </form>
 
 
