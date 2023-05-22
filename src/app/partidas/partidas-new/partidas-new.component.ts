@@ -1,12 +1,14 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
 import { BarcodeFormat } from "@zxing/library";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 import Swal from "sweetalert2";
 import { NgbModal, NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 import { PartidasService } from "../services/partidas.service";
 import { Equipo } from "src/app/equipos/interfaces/equipo.interface";
 import { UsuariosService } from "src/app/usuarios/services/usuarios.service";
 import { Usuario } from "src/app/usuarios/interfaces/usuario.interface";
+import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
+import { Partida } from "../interfaces/partida.interface";
 
 @Component({
   selector: "app-partidas-new",
@@ -16,7 +18,17 @@ import { Usuario } from "src/app/usuarios/interfaces/usuario.interface";
 export class PartidasNewComponent implements OnInit {
   @ViewChild("modalQR") modalQR: any;
   @ViewChild("modalFoto") modalFoto: any;
+  @Output() getPicture = new EventEmitter<WebcamImage>();
+  showWebcam = false;
+  isCameraExist = true;
+  errors: WebcamInitError[] = [];
 
+  // webcam snapshot trigger
+  private trigger: Subject<void> = new Subject<void>();
+  private nextWebcam: Subject<boolean | string> = new Subject<boolean | string>();
+  webcamImage: WebcamImage | undefined;
+  
+  
   availableDevices: MediaDeviceInfo[];
   deviceCurrent: MediaDeviceInfo;
   deviceSelected: string | null;
@@ -33,6 +45,7 @@ export class PartidasNewComponent implements OnInit {
   torchEnabled = false;
   torchAvailable$ = new BehaviorSubject<boolean>(false);
   tryHarder = true;
+  
 
   botonValidarActivado: boolean;
   botonGuardarActivado: boolean;
@@ -74,6 +87,12 @@ export class PartidasNewComponent implements OnInit {
       minute: "2-digit",
     });
 
+    WebcamUtil.getAvailableVideoInputs()
+    .then((mediaDevices: MediaDeviceInfo[]) => {
+      this.isCameraExist = mediaDevices && mediaDevices.length > 0;
+    });
+
+
     this.usuariosService
       .getEquiposUsuario(this.usuario.id)
       .subscribe((equipos) => {
@@ -83,45 +102,8 @@ export class PartidasNewComponent implements OnInit {
   }
 
   hacerFoto(event: Event) {
-    this.modalRef = this.modalService.open(this.modalFoto);
-    this.startCamara(event);
-  }
-
-  startCamara(event: Event) {
-    const video = document.getElementById("videoElement") as HTMLVideoElement;
-    const canvas = document.getElementById(
-      "canvasElement"
-    ) as HTMLCanvasElement;
-    const captureButton = document.getElementById(
-      "captureButton"
-    ) as HTMLButtonElement;
-    
-    if(this.hasDevices){
-      this.onDeviceSelectChange(event);
-    }
-
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then((stream) => {
-        if(this.deviceSelected !== undefined){
-          video.srcObject = stream;
-        }
-      })
-      .catch((error) => {
-        console.error("Error al acceder a la cámara:", error);
-      });
-
-    // Capturar foto cuando se hace clic en el botón
-    captureButton.addEventListener("click", () => {
-      const context = canvas.getContext("2d");
-      context!.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-      // Obtener la foto como base64
-      const photoData = canvas.toDataURL("image/jpeg");
-      console.log("Foto capturada:", photoData);
-
-      // Agrega tu código para guardar la foto aquí
-    });
+    this.showWebcam =true;
+    //this.modalRef = this.modalService.open(this.modalFoto);
   }
 
   validar() {
@@ -148,9 +130,51 @@ export class PartidasNewComponent implements OnInit {
 
   onCodeResult(resultString: string) {
     this.resultadoValidacionQR = resultString;
+    const partida: Partida={
+      fecha: this.fechaPartida,
+      minutos:this.minutosPartida,
+      segundos:this.segundosPartida,
+      imagen:this.webcamImage?.imageAsBase64,
+      salaId:this.resultadoValidacionQR,
+      equipoId:this.equipoSeleccionado.id
+    }
+    this.savePartida(partida);
     this.closeModal();
   }
 
+
+    savePartida(partidaCreada: Partida) {
+      var promise = new Promise<boolean>((resolve, reject) => {
+        let result: boolean;
+        this.partidasService.addPartida(partidaCreada).subscribe({
+          next: (sala) => {
+            location.assign('/administracion/companyias');
+           /* this.showImage = false;
+            this.saved = true;
+            this.add.emit(event);
+            location.assign('/events');
+            result = true;
+            resolve(result);*/
+          },
+          error: (error: { message: any; }) => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.message,
+            });
+            result = false;
+            resolve(result);
+          },
+          complete: () => {
+            console.log('Partida creada');
+            result = true;
+            resolve(result);
+          },
+        });
+      });
+      return promise;
+    }
+  
   onDeviceSelectChange(event: Event) {
     const selectedStr = (event.target as HTMLSelectElement).value || "";
     if (this.deviceSelected === selectedStr) {
@@ -209,5 +233,38 @@ export class PartidasNewComponent implements OnInit {
     if (this.modalRef) {
       this.modalRef.close();
     }
+  }
+
+
+  takeSnapshot(): void {
+    this.trigger.next();
+  }
+
+  onOffWebCame() {
+    this.showWebcam = !this.showWebcam;
+  }
+
+  handleInitError(error: WebcamInitError) {
+    this.errors.push(error);
+  }
+
+  changeWebCame(directionOrDeviceId: boolean | string) {
+    this.nextWebcam.next(directionOrDeviceId);
+  }
+
+  handleImage(webcamImage: WebcamImage) {
+    this.getPicture.emit(webcamImage);
+    this.webcamImage = webcamImage;
+    this.showWebcam =false;
+    //this.closeModal();
+
+  }
+
+  get triggerObservable(): Observable<void> {
+    return this.trigger.asObservable();
+  }
+
+  get nextWebcamObservable(): Observable<boolean | string> {
+    return this.nextWebcam.asObservable();
   }
 }

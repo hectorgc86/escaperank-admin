@@ -21,3 +21,7 @@ export interface PartidaRequest {
   sala?: Sala;
   equipo?: Equipo;
 }
+
+export interface PartidaResponse {
+  partida: Partida;
+}

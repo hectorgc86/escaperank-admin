@@ -50,10 +50,23 @@
             </div>
           </div>
           </div>
-        <div class="row mt-4">
-          <button class="btn btn-primary mb-3 text" (click)="hacerFoto($event)">Hacer foto <i class="mdi mdi-camera mdi-18px align-middle"></i></button>
-          <button class="btn btn-primary mb-3" [disabled]="!camposCompletos"  (click)="validar()">Validar partida</button>
+          <div class="webcam-image" *ngIf="webcamImage">
+            <img [src]="webcamImage.imageAsDataUrl" />
+          </div>
+        <div class="row" *ngIf="showWebcam">
+          <webcam [height]="500" [width]="700" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+          [switchCamera]="nextWebcamObservable"></webcam>
+          </div>
+          <div class="row" *ngIf="showWebcam"> 
+          <button class="btn btn-primary col-sm-4" (click)="takeSnapshot()">Hacer Foto</button>
+          <button class="btn btn-secondary col-sm-4" (click)="changeWebCame(true)">Cambiar Cámara</button>
+          <button class="btn btn-secondary col-sm-4" (click)="onOffWebCame()">Cancelar</button>
         </div>
+        <div class="row mt-4">
+        <button *ngIf="!showWebcam" class="btn btn-primary mb-3 text" (click)="hacerFoto($event)">Hacer foto <i class="mdi mdi-camera mdi-18px align-middle"></i></button>
+
+        <button class="btn btn-primary mb-3" [disabled]="!camposCompletos"  (click)="validar()">Validar partida</button>
+      </div>
       </div>
     </div>
   </div>
@@ -67,36 +80,29 @@
     </button>
   </div>
   <div class="modal-body">
-    <div class="scanner-shell" [hidden]="!hasDevices">
-      <header>
-        <div class="mb-3">
-          <select class="form-select" [value]="deviceSelected" (change)="onDeviceSelectChange($event)">
-            <option value="">No Device Selected</option>
-            <option *ngFor="let device of availableDevices" [value]="device.deviceId">{{device.label}}</option>
-          </select>
-        </div>
-      </header>
-      <zxing-scanner><video id="videoElement" autoplay></video>
-        <canvas id="canvasElement" style="display: none;"></canvas></zxing-scanner>
-    </div>
-    <ng-container *ngIf="hasPermission === undefined">
-      <h2>Esperando a los permisos.</h2>
-    </ng-container>
-    <ng-container *ngIf="hasPermission === false">
-      <h2>Has denegado los permisos de acceso a la cámara. No podemos hacer foto</h2>
-    </ng-container>
-    <ng-container *ngIf="hasDevices === undefined">
-      <h2>No se ha encontrado ninguna cámara.</h2>
-      <blockquote>
-        Puede ser debido a la falta de permisos.
-      </blockquote>
-    </ng-container>
-    <ng-container *ngIf="hasDevices === false">
-      <h2>No se ha encontrado ninguna Cámara</h2>
-    </ng-container>
+    <div *ngIf="isCameraExist; else noCameraExist">
+      <div style="text-align:center">
+          <div class="btn-group">
+            
+          </div> <br />
+          <webcam [height]="500" [width]="700" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+              *ngIf="showWebcam" [switchCamera]="nextWebcamObservable"></webcam>
+      </div>
+  
+      <div *ngIf="errors.length > 0">
+          <h4>Error Messages:</h4>
+          <ul *ngFor="let error of errors">
+              <li>{{ error | json }}</li>
+          </ul>
+      </div>
+  </div>
+  
+  <ng-template #noCameraExist>
+      Camera device not available
+  </ng-template>
   </div>
   <div class="modal-footer">
-    <button id="captureButton" class="btn btn-secondary" (click)="modal.close('Capture click')">Capturar</button>
+   
     <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Cerrar</button>
   </div>
 </ng-template>

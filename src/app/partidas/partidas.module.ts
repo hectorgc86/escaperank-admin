@@ -9,7 +9,7 @@ import { PartidasNewComponent } from "./partidas-new/partidas-new.component";
 import { ZXingScannerModule } from "@zxing/ngx-scanner";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgSelectModule } from "@ng-select/ng-select";
-
+import { WebcamModule } from 'ngx-webcam';
 @NgModule({
   declarations: [PartidasListComponent, PartidasNewComponent],
   imports: [
@@ -20,6 +20,7 @@ import { NgSelectModule } from "@ng-select/ng-select";
     FormsModule,
     NgSelectModule,
     ReactiveFormsModule,
+    WebcamModule
   ],
 })
 export class PartidasModule {}
