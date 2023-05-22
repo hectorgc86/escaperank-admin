@@ -51,19 +51,25 @@
           </div>
           </div>
           <div class="webcam-image" *ngIf="webcamImage">
-            <img [src]="webcamImage.imageAsDataUrl" />
+            <img width="35%" [src]="webcamImage.imageAsDataUrl" />
           </div>
         <div class="row" *ngIf="showWebcam">
-          <webcam [height]="500" [width]="700" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
-          [switchCamera]="nextWebcamObservable"></webcam>
+          <div #container class="fullscreen-container">
+            <div class="fullscreen-buttons">
+              <button class="btn btn-primary col-sm-4 fullscreen-button bottom-right" (click)="takeSnapshot()">Hacer Foto</button>
+              <button class="btn btn-secondary col-sm-4 fullscreen-button top-left" (click)="changeWebCame(true)">Cambiar Cámara</button>
+
+              <button class="btn btn-secondary col-sm-4 fullscreen-button bottom-left" (click)="onOffWebCame()">Cancelar</button>
+            </div>
+            <webcam #webcam class="fullscreen-webcam" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
+          [width]="width"
+          [height]="height"
+            [switchCamera]="nextWebcamObservable"></webcam>
           </div>
-          <div class="row" *ngIf="showWebcam"> 
-          <button class="btn btn-primary col-sm-4" (click)="takeSnapshot()">Hacer Foto</button>
-          <button class="btn btn-secondary col-sm-4" (click)="changeWebCame(true)">Cambiar Cámara</button>
-          <button class="btn btn-secondary col-sm-4" (click)="onOffWebCame()">Cancelar</button>
-        </div>
+   
+          </div>
         <div class="row mt-4">
-        <button *ngIf="!showWebcam" class="btn btn-primary mb-3 text" (click)="hacerFoto($event)">Hacer foto <i class="mdi mdi-camera mdi-18px align-middle"></i></button>
+        <button *ngIf="!showWebcam" class="btn btn-primary mb-3 text" (click)="toggleFullscreen()">Hacer foto <i class="mdi mdi-camera mdi-18px align-middle"></i></button>
 
         <button class="btn btn-primary mb-3" [disabled]="!camposCompletos"  (click)="validar()">Validar partida</button>
       </div>
@@ -72,40 +78,6 @@
   </div>
 </div>
 
-<ng-template #modalFoto let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Hacer foto</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div *ngIf="isCameraExist; else noCameraExist">
-      <div style="text-align:center">
-          <div class="btn-group">
-            
-          </div> <br />
-          <webcam [height]="500" [width]="700" [trigger]="triggerObservable" (imageCapture)="handleImage($event)"
-              *ngIf="showWebcam" [switchCamera]="nextWebcamObservable"></webcam>
-      </div>
-  
-      <div *ngIf="errors.length > 0">
-          <h4>Error Messages:</h4>
-          <ul *ngFor="let error of errors">
-              <li>{{ error | json }}</li>
-          </ul>
-      </div>
-  </div>
-  
-  <ng-template #noCameraExist>
-      Camera device not available
-  </ng-template>
-  </div>
-  <div class="modal-footer">
-   
-    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Cerrar</button>
-  </div>
-</ng-template>
 
 <ng-template #modalQR let-modal>
   <div class="modal-header">

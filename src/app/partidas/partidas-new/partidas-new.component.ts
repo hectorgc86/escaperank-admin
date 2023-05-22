@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
+import { Component, ElementRef, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { BarcodeFormat } from "@zxing/library";
 import { BehaviorSubject, Observable, Subject } from "rxjs";
 import Swal from "sweetalert2";
@@ -7,18 +7,25 @@ import { PartidasService } from "../services/partidas.service";
 import { Equipo } from "src/app/equipos/interfaces/equipo.interface";
 import { UsuariosService } from "src/app/usuarios/services/usuarios.service";
 import { Usuario } from "src/app/usuarios/interfaces/usuario.interface";
-import { WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
+import { WebcamComponent, WebcamImage, WebcamInitError, WebcamUtil } from 'ngx-webcam';
 import { Partida } from "../interfaces/partida.interface";
 
 @Component({
   selector: "app-partidas-new",
   templateUrl: "./partidas-new.component.html",
-  styleUrls: ["./partidas-new.component.scss"],
-})
+  styleUrls: ['./partidas-new.component.scss']
+    })
 export class PartidasNewComponent implements OnInit {
   @ViewChild("modalQR") modalQR: any;
-  @ViewChild("modalFoto") modalFoto: any;
   @Output() getPicture = new EventEmitter<WebcamImage>();
+  @ViewChild('webcam',{ static: false }) webcam: ElementRef;
+  @ViewChild('container') container: ElementRef;
+  @ViewChild(WebcamComponent) webcamComponent: WebcamComponent;
+
+   width: number;
+   height: number;
+
+  
   showWebcam = false;
   isCameraExist = true;
   errors: WebcamInitError[] = [];
@@ -66,10 +73,17 @@ export class PartidasNewComponent implements OnInit {
   ) {
     this.deviceSelected = null;
   }
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: Event) {
+    const win = !!event ? (event.target as Window) : window;
+    this.width = win.innerWidth;
+    this.height = win.innerHeight;
+  }
+
 
   ngOnInit(): void {
     this.usuario = JSON.parse(localStorage.getItem("usuario")!);
-
+    this.onResize();
     this.botonValidarActivado = false;
     this.botonGuardarActivado = false;
     this.minutosPartida = "60";
@@ -87,6 +101,12 @@ export class PartidasNewComponent implements OnInit {
       minute: "2-digit",
     });
 
+    if ('onorientationchange' in window) {
+      window.addEventListener('orientationchange', this.handleOrientationChange.bind(this));
+    }
+
+
+
     WebcamUtil.getAvailableVideoInputs()
     .then((mediaDevices: MediaDeviceInfo[]) => {
       this.isCameraExist = mediaDevices && mediaDevices.length > 0;
@@ -102,8 +122,8 @@ export class PartidasNewComponent implements OnInit {
   }
 
   hacerFoto(event: Event) {
-    this.showWebcam =true;
-    //this.modalRef = this.modalService.open(this.modalFoto);
+
+    this.toggleFullscreen();
   }
 
   validar() {
@@ -112,17 +132,15 @@ export class PartidasNewComponent implements OnInit {
 
   camposCompletos(): boolean {
     return (
-      !!this.equipoSeleccionado &&
-      !!this.fechaPartida &&
-      !!this.horaPartida &&
-      !!this.minutosPartida &&
-      !!this.segundosPartida
+      this.equipoSeleccionado!=null &&
+      this.fechaPartida!="" &&
+      this.horaPartida!="" &&
+      this.minutosPartida!="" &&
+      this.segundosPartida!=""
     );
   }
 
-  clearResult(): void {
-    this.resultadoValidacionQR = "";
-  }
+
   onCamerasFound(devices: MediaDeviceInfo[]): void {
     this.availableDevices = devices;
     this.hasDevices = Boolean(devices && devices.length);
@@ -148,7 +166,7 @@ export class PartidasNewComponent implements OnInit {
         let result: boolean;
         this.partidasService.addPartida(partidaCreada).subscribe({
           next: (sala) => {
-            location.assign('/administracion/companyias');
+            location.assign('/usuario/perfil');
            /* this.showImage = false;
             this.saved = true;
             this.add.emit(event);
@@ -193,6 +211,8 @@ export class PartidasNewComponent implements OnInit {
     }
   }
 
+
+
   onDeviceChange(device: MediaDeviceInfo) {
     const selectedStr = device?.deviceId || "";
     if (this.deviceSelected === selectedStr) {
@@ -206,28 +226,13 @@ export class PartidasNewComponent implements OnInit {
     this.hasPermission = has;
   }
 
-  openInfoDialog() {
-    Swal.fire({
-      title: "Información",
-      html: `Dispositivos: ${this.hasDevices ? "Sí" : "No"}<br>Permiso: ${
-        this.hasPermission ? "Concedido" : "Denegado"
-      }`,
-      icon: "info",
-      confirmButtonText: "Aceptar",
-    });
-  }
 
   onTorchCompatible(isCompatible: boolean): void {
     this.torchAvailable$.next(isCompatible || false);
   }
 
-  toggleTorch(): void {
-    this.torchEnabled = !this.torchEnabled;
-  }
+ 
 
-  toggleTryHarder(): void {
-    this.tryHarder = !this.tryHarder;
-  }
 
   closeModal() {
     if (this.modalRef) {
@@ -267,4 +272,46 @@ export class PartidasNewComponent implements OnInit {
   get nextWebcamObservable(): Observable<boolean | string> {
     return this.nextWebcam.asObservable();
   }
+
+
+
+  toggleFullscreen() {
+    this.showWebcam = true;
+    if (this.showWebcam) {
+      setTimeout(() => {
+        const containerElement = this.container.nativeElement;
+        const webcamElement = this.webcam.nativeElement;
+  
+        if (containerElement.requestFullscreen) {
+          containerElement.requestFullscreen();
+        } else if (containerElement.mozRequestFullScreen) {
+          containerElement.mozRequestFullScreen();
+        } else if (containerElement.webkitRequestFullscreen) {
+          containerElement.webkitRequestFullscreen();
+        } else if (containerElement.msRequestFullscreen) {
+          containerElement.msRequestFullscreen();
+        }
+  
+        // Asegúrate de que el elemento <webcam> ocupe todo el espacio disponible
+        if (webcamElement) {
+          webcamElement.style.width = '100%';
+          webcamElement.style.height = '100%';
+        }
+       
+      }, 0);
+  }
 }
+
+handleOrientationChange() {
+  console.log('Orientation change event triggered.');
+  const orientation = window.orientation || 0;
+  console.log('Current orientation:', orientation);
+  const webcamElement: HTMLVideoElement = this.webcam?.nativeElement;
+  if (webcamElement) {
+   // const orientation = window.orientation || 0;
+   // webcamElement.style.transform = `rotate(${orientation}deg)`;
+   
+  }
+}
+}
+
