@@ -13,7 +13,7 @@ import { SalasService } from '../services/salas.service';
 import { FormBuilder, FormControl, FormGroup, NgForm, NgModel, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ActivatedRoute } from '@angular/router';
-import { ImageUtils } from "src/app/utils/image-utils";
+import { ImageUtils } from "src/app/core/utils/image-utils";
 
 @Component({
   selector: 'app-salas-form',

@@ -10,7 +10,7 @@ import { SalasService } from "../services/salas.service";
 import { TematicasService } from "../services/tematicas.service";
 import { Dificultad } from "../interfaces/dificultad.interface";
 import { OwlOptions } from "ngx-owl-carousel-o";
-import { ImageUtils } from "src/app/utils/image-utils";
+import { ImageUtils } from "src/app/core/utils/image-utils";
 import { forkJoin } from "rxjs";
 
 @Component({

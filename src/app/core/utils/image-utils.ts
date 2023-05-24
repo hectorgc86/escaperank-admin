@@ -1,7 +1,7 @@
 import { environment } from "src/environments/environment";
-import { Noticia } from "../noticias/interfaces/noticia.interface";
-import { Sala } from "../salas/interfaces/salas_categorias.interface";
-import { Perfil } from "../usuarios/interfaces/perfil.interface";
+import { Noticia } from "../../noticias/interfaces/noticia.interface";
+import { Sala } from "../../salas/interfaces/salas_categorias.interface";
+import { Perfil } from "../../usuarios/interfaces/perfil.interface";
 
 export class ImageUtils {
   private static defaultImage = "/default.png";

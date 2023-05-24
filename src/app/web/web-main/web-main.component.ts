@@ -7,20 +7,14 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
   './web-main.component.scss'
 ]
 })
-export class WebMainComponent implements OnInit, AfterViewInit {
+export class WebMainComponent implements OnInit {
 
   constructor() { }
 
   currentSection = 'home';
-  isLoading: boolean;
 
   ngOnInit(): void {
     this.loadStyles('assets/css/style1.css');
-    this.isLoading = true;
-}
-
-ngAfterViewInit(): void {
-  this.isLoading = false;
 }
 
 private loadStyles(stylePath: string) {

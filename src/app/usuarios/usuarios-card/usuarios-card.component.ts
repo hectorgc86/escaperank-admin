@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, TemplateRef } from "@angular/core";
 import { Usuario } from "../interfaces/usuario.interface";
-import { ImageUtils } from "src/app/utils/image-utils";
+import { ImageUtils } from "src/app/core/utils/image-utils";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { UsuariosService } from "../services/usuarios.service";
 

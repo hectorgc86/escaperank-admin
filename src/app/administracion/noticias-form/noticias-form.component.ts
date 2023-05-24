@@ -6,8 +6,7 @@ import { DropzoneComponent, DropzoneConfigInterface, DropzoneDirective } from 'n
 import { Noticia } from 'src/app/noticias/interfaces/noticia.interface';
 import Swal from 'sweetalert2';
 import { NoticiasService } from '../services/noticias.service';
-import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
-import { ImageUtils } from 'src/app/utils/image-utils';
+import { ImageUtils } from 'src/app/core/utils/image-utils';
 @Component({
   selector: 'app-noticias-form',
   templateUrl: './noticias-form.component.html',

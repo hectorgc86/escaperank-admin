@@ -17,7 +17,7 @@ import { CustomFormsModule } from 'ngx-custom-validators';
 import { DropzoneConfigInterface, DropzoneModule, DROPZONE_CONFIG } from 'ngx-dropzone-wrapper';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NoticiasFormComponent } from './noticias-form/noticias-form.component';
-import { CustomAdapter, CustomNgbDateParserFormatter } from '../utils/date-parser-formatter';
+import { CustomAdapter, CustomNgbDateParserFormatter } from '../core/utils/date-parser-formatter';
 import { SalaResolver } from './resolvers/sala.resolver';
 import { NoticiaResolver } from './resolvers/noticia.resolver';
 import { CompanyiasMainComponent } from './companyias-main/companyias-main.component';
@@ -86,7 +86,7 @@ const routes: Routes = [
     NgbDropdownModule,
     NgbDatepickerModule,
     NgApexchartsModule,
-    QRCodeModule, 
+    QRCodeModule,
     NgbModule,
     ReactiveFormsModule,
     CustomFormsModule,

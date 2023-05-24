@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { ImageUtils } from "src/app/utils/image-utils";
+import { ImageUtils } from "src/app/core/utils/image-utils";
 import { Usuario } from "../interfaces/usuario.interface";
 
 @Component({
