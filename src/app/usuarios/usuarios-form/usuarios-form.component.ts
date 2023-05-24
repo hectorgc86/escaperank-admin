@@ -18,7 +18,7 @@ import {
 import Swal from "sweetalert2";
 import { Usuario, UsuarioRequest } from "../interfaces/usuario.interface";
 import { UsuariosService } from "../services/usuarios.service";
-import { ImageUtils } from "src/app/utils/image-utils";
+import { ImageUtils } from "src/app/core/utils/image-utils";
 import { AuthService } from "../../auth/services/auth.service";
 
 @Component({

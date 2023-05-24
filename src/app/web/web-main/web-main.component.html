@@ -1,78 +1,72 @@
-<div *ngIf="isLoading" class="spinner-wrapper">
-  <div class="spinner">Cargando...</div>
-</div>
-
-<div *ngIf="!isLoading">
-  <!-- STRAT NAVBAR -->
-  <nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky sticky-dark" (window:scroll)="windowScroll()"
-    id="navbar">
-    <div class="container">
-      <!-- LOGO -->
-      <a class="text-light nobleui-logo logo-light  d-block mb-2" [ngxScrollTo]="'#home'"
-        href="javascript: void(0);">Escape<span>Rank</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-        (click)="toggleMenu()" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="mdi mdi-menu"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav navbar-center" id="mySidenav">
-          <li class="nav-item" [ngClass]="{'active':currentSection === 'services'}">
-            <a [ngxScrollTo]="'#services'" href="javascript: void(0);" class="nav-link">Qué es EscapeRank</a>
-          </li>
-          <li class="nav-item" [ngClass]="{'active':currentSection === 'salas'}">
-            <a href="/salas" class="nav-link">Buscar salas</a>
-          </li>
-          <li class="nav-item" [ngClass]="{'active':currentSection === 'team'}">
-            <a [ngxScrollTo]="'#team'" href="javascript: void(0);" class="nav-link">El equipo</a>
-          </li>
-          <li class="nav-item" [ngClass]="{'active':currentSection === 'team'}">
-            <a [ngxScrollTo]="'#propietario'" href="javascript: void(0);" class="nav-link">¿Tienes una sala?</a>
-          </li>
-          <li class="nav-item" [ngClass]="{'active':currentSection === 'contact'}">
-            <a [ngxScrollTo]="'#contact'" href="javascript: void(0);" class="nav-link">Contacto</a>
+<!-- STRAT NAVBAR -->
+<nav class="navbar navbar-expand-lg fixed-top navbar-custom sticky sticky-dark" (window:scroll)="windowScroll()"
+  id="navbar">
+  <div class="container">
+    <!-- LOGO -->
+    <a class="text-light nobleui-logo logo-light  d-block mb-2" [ngxScrollTo]="'#home'"
+      href="javascript: void(0);">Escape<span>Rank</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+      (click)="toggleMenu()" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="mdi mdi-menu"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav navbar-center" id="mySidenav">
+        <li class="nav-item" [ngClass]="{'active':currentSection === 'services'}">
+          <a [ngxScrollTo]="'#services'" href="javascript: void(0);" class="nav-link">Qué es EscapeRank</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active':currentSection === 'salas'}">
+          <a href="/salas" class="nav-link">Buscar salas</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active':currentSection === 'team'}">
+          <a [ngxScrollTo]="'#team'" href="javascript: void(0);" class="nav-link">El equipo</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active':currentSection === 'team'}">
+          <a [ngxScrollTo]="'#propietario'" href="javascript: void(0);" class="nav-link">¿Tienes una sala?</a>
+        </li>
+        <li class="nav-item" [ngClass]="{'active':currentSection === 'contact'}">
+          <a [ngxScrollTo]="'#contact'" href="javascript: void(0);" class="nav-link">Contacto</a>
+        </li>
+      </ul>
+      <div class="nav-button ms-auto">
+        <ul class="nav navbar-nav navbar-end">
+          <li id="botonLogin">
+            <a href="/auth/login"><button type="button"
+                class="btn btn-primary navbar-btn btn-rounded waves-effect waves-light">Pruébalo gratis</button></a>
           </li>
         </ul>
-        <div class="nav-button ms-auto">
-          <ul class="nav navbar-nav navbar-end">
-            <li id="botonLogin">
-              <a href="/auth/login"><button type="button"
-                  class="btn btn-primary navbar-btn btn-rounded waves-effect waves-light">Pruébalo gratis</button></a>
-            </li>
-          </ul>
-        </div>
       </div>
     </div>
-  </nav>
-  <!-- END NAVBAR -->
-  <!--START HOME-->
-  <section class="home-padding-t-150 position-relative" id="home"
-    style="background-image: url('assets/images/fondo.png'); background-size:cover; background-position: center;">
-    <div class="bg-overlay"></div>
-    <div class="display-table">
-      <div class="home-cell-bottom">
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-8 offset-lg-2 text-white text-center">
-              <h1 class="home-title text-light nobleui-logo logo-light d-block mb-2">¡Bienvenido a
-                Escape<span>Rank</span>!</h1>
-              <p class="pt-3 home-desc">Descubre las mejores salas de escape, compite en el ranking y vive emocionantes
-                aventuras en EscapeRank</p>
-              <a href="/auth/login" class="btn btn-primary mt-4 mb-4">Regístrate</a>
-              <img src="assets/images/web/foto1.jpg" alt="" class="img-fluid center-block margin-t-20">
-            </div>
+  </div>
+</nav>
+<!-- END NAVBAR -->
+<!--START HOME-->
+<section class="home-padding-t-150 position-relative" id="home"
+  style="background-image: url('assets/images/fondo.png'); background-size:cover; background-position: center;">
+  <div class="bg-overlay"></div>
+  <div class="display-table">
+    <div class="home-cell-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2 text-white text-center">
+            <h1 class="home-title text-light nobleui-logo logo-light d-block mb-2">¡Bienvenido a
+              Escape<span>Rank</span>!</h1>
+            <p class="pt-3 home-desc">Descubre las mejores salas de escape, compite en el ranking y vive emocionantes
+              aventuras en EscapeRank</p>
+            <a href="/auth/login" class="btn btn-primary mt-4 mb-4">Regístrate</a>
+            <img src="assets/images/web/foto1.jpg" alt="" class="img-fluid center-block margin-t-20">
           </div>
         </div>
       </div>
     </div>
-  </section>
-  <!--END HOME-->
-  <div appScrollspy [spiedTags]="['SECTION']" (sectionChange)="onSectionChange($event)">
-    <app-services></app-services>
-    <app-features></app-features>
-    <app-team></app-team>
-    <app-propietarios></app-propietarios>
-    <app-contact></app-contact>
-    <app-footer></app-footer>
   </div>
+</section>
+<!--END HOME-->
+<div appScrollspy [spiedTags]="['SECTION']" (sectionChange)="onSectionChange($event)">
+  <app-services></app-services>
+  <app-features></app-features>
+  <app-team></app-team>
+  <app-propietarios></app-propietarios>
+  <app-contact></app-contact>
+  <app-footer></app-footer>
 </div>

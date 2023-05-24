@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, TemplateRef } from "@angular/core";
 import { Equipo } from "../interfaces/equipo.interface";
-import { ImageUtils } from "src/app/utils/image-utils";
+import { ImageUtils } from "src/app/core/utils/image-utils";
 import { EquiposService } from "../services/equipos.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 

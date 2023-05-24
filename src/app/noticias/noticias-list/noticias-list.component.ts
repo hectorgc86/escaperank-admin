@@ -3,7 +3,7 @@ import { Noticia } from "../interfaces/noticia.interface";
 import { NoticiasService } from "../services/noticia.service";
 import { Sala } from "src/app/salas/interfaces/sala.interface";
 import { SalasService } from "src/app/salas/services/salas.service";
-import { ImageUtils } from "src/app/utils/image-utils";
+import { ImageUtils } from "src/app/core/utils/image-utils";
 import { forkJoin } from "rxjs";
 
 @Component({

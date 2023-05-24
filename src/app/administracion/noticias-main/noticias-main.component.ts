@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NoticiasService } from '../services/noticias.service';
 import { Noticia } from 'src/app/noticias/interfaces/noticia.interface';
-import { ImageUtils } from "src/app/utils/image-utils";
+import { ImageUtils } from "src/app/core/utils/image-utils";
 import { NotFoundError } from 'rxjs';
 import Swal from 'sweetalert2';
 

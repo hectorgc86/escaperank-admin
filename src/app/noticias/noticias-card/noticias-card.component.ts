@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { Noticia } from "../interfaces/noticia.interface";
-import { ImageUtils } from "src/app/utils/image-utils";
+import { ImageUtils } from "src/app/core/utils/image-utils";
 
 @Component({
   selector: "app-noticias-card",

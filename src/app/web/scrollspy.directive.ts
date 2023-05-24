@@ -7,10 +7,11 @@ export class ScrollspyDirective {
 
   @Input() public spiedTags: string[] = [];
   @Output() public sectionChange = new EventEmitter<string>();
+
   private currentSection: string;
 
   // tslint:disable-next-line: variable-name
-  constructor(private _el: ElementRef, @Inject(DOCUMENT) private document: Document,) { }
+  constructor(private _el: ElementRef, @Inject(DOCUMENT) private document: Document) { }
 
   @HostListener('window:scroll', ['$event'])
   /**

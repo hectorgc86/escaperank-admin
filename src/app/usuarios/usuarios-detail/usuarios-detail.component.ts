@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { ImageUtils } from "src/app/utils/image-utils";
+import { ImageUtils } from "src/app/core/utils/image-utils";
 import { Amigo, Usuario } from "../interfaces/usuario.interface";
 import { Noticia } from "src/app/noticias/interfaces/noticia.interface";
 import { UsuariosService } from "../services/usuarios.service";

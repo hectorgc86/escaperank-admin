@@ -16,7 +16,7 @@ import { MENUVISITOR } from "./menuVisitor";
 
 import { MenuItem } from "./menu.model";
 import { Router, NavigationEnd } from "@angular/router";
-import { ImageUtils } from "src/app/utils/image-utils";
+import { ImageUtils } from "src/app/core/utils/image-utils";
 import { Usuario } from "src/app/usuarios/interfaces/usuario.interface";
 import { AuthService } from "src/app/auth/services/auth.service";
 import { MENUADMIN } from "./menuAdmin";
