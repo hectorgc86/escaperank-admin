@@ -16,6 +16,7 @@ export class SalasDetailsComponent implements OnInit {
   latitud: number;
   longitud: number;
   tamanyosTrofeo: string[];
+  logeado: boolean;
   imageUtils = ImageUtils;
 
   constructor(private route: ActivatedRoute) {
@@ -29,9 +30,14 @@ export class SalasDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.logeado = true;
     this.zoom = 17;
     this.sala = this.route.snapshot.data["sala"];
     this.ranking = this.route.snapshot.data["ranking"];
+
+    if(localStorage.getItem("rol") == null){
+      this.logeado = false;
+    }
 
     this.longitud = parseFloat(this.sala.companyia?.longitud || "0");
     this.latitud = parseFloat(this.sala.companyia?.latitud || "0");

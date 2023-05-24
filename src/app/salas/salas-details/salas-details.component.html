@@ -120,8 +120,12 @@
                             <div class="row justify-content-center">
                                 <div class="mt-2 text-center">
                                     <div>
-                                        <a class="btn btn-primary btn-lg"
-                                            [href]="sala.urlReserva">Reservar</a>
+                                        <ng-container *ngIf="logeado; else noLogeado">
+                                            <a class="btn btn-primary btn-lg" [href]="sala.urlReserva">Reservar</a>
+                                        </ng-container>
+                                        <ng-template #noLogeado>
+                                            ¡Regístrese para poder reservar en esta sala y obtener más ventajas!
+                                        </ng-template>
                                     </div>
                                 </div>
                             </div>
@@ -138,27 +142,33 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <ng-container
-                                *ngIf="ranking && ranking.tiempos && ranking.tiempos.length > 0; else noTiempos">
-                                <div id="content" *ngFor="let tiempo of ranking.tiempos; let i = index">
-                                    <ul class="timeline">
-                                        <li class="event" [attr.data-date]="tiempo.tiempo">
-                                            <div class="row">
-                                                <div class="col-3 m-auto">
-                                                    <i class="mdi mdi-trophy text-warning align-items-center"
-                                                        [ngClass]="tamanyosTrofeo[i]"></i>
+                            <ng-container *ngIf="logeado; else mensajeRegistro">
+                                <ng-container
+                                    *ngIf="ranking && ranking.tiempos && ranking.tiempos.length > 0; else noTiempos">
+                                    <div id="content" *ngFor="let tiempo of ranking.tiempos; let i = index">
+                                        <ul class="timeline">
+                                            <li class="event" [attr.data-date]="tiempo.tiempo">
+                                                <div class="row">
+                                                    <div class="col-3 m-auto">
+                                                        <i class="mdi mdi-trophy text-warning align-items-center"
+                                                            [ngClass]="tamanyosTrofeo[i]"></i>
+                                                    </div>
+                                                    <div class="col m-auto">
+                                                        <h3 class="title">{{tiempo.equipo}}</h3>
+                                                        <p>{{tiempo.fecha}}</p>
+                                                    </div>
                                                 </div>
-                                                <div class="col m-auto">
-                                                    <h3 class="title">{{tiempo.equipo}}</h3>
-                                                    <p>{{tiempo.fecha}}</p>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-container>
+                                <ng-template #noTiempos>
+                                    <p class="text-center">No hay partidas jugadas todavía.</p>
+                                </ng-template>
                             </ng-container>
-                            <ng-template #noTiempos>
-                                <p>No hay partidas jugadas todavía.</p>
+
+                            <ng-template #mensajeRegistro>
+                                <p class="text-center">¡Regístrese para participar en nuestro ranking y poder competir con otros equipos!</p>
                             </ng-template>
                         </div>
                     </div>

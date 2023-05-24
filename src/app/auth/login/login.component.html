@@ -3,14 +3,13 @@
         <div class="card">
             <div class="row">
                 <div class="col-md-4 pe-md-0">
-                    <div class="auth-side-wrapper"
-                        [ngStyle]="{ 'background-image': 'url(/assets/images/fondo.png)' }">
+                    <div class="auth-side-wrapper" [ngStyle]="{ 'background-image': 'url(/assets/images/fondo.png)' }">
                         <div class="bg-overlay"></div>
                     </div>
                 </div>
                 <div class="col-md-8 ps-md-0">
                     <div class="auth-form-wrapper px-4 py-5">
-                        <a routerLink="." class="nobleui-logo logo-light  d-block mb-2">Escape<span>Rank</span></a>
+                        <a routerLink="/" class="nobleui-logo logo-light  d-block mb-2">Escape<span>Rank</span></a>
                         <h5 class="text-muted fw-normal mb-4">El mayor ranking de escaperooms</h5>
                         <form class="forms-sample" (ngSubmit)="login()">
                             <div class="mb-3">
@@ -27,15 +26,15 @@
                             <div class="form-check mb-3">
                                 <input type="checkbox" class="form-check-input" id="checkRecordar"
                                     [(ngModel)]="checkRecordar" name="checkRecordar">
-                                <label class="form-check-label" for="checkRecordar">
-                                    Recuerdame
-                                </label>
+                                    <label class="form-check-label" for="checkRecordar">
+                                        Recordar
+                                    </label>
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-primary me-2 mb-2 mb-md-0">Entrar</button>
                             </div>
-                            <a routerLink="/auth/registro" class="d-block mt-3 text-muted">¿No tienes una cuenta?
-                                Regístrate</a>
+                            <span class="d-block mt-3 text-dark">¿No tienes una cuenta?
+                                <a routerLink="/auth/registro">Regístrate</a></span>
                         </form>
                     </div>
                 </div>
