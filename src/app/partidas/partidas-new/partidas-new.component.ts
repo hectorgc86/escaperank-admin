@@ -166,7 +166,7 @@ export class PartidasNewComponent implements OnInit {
         let result: boolean;
         this.partidasService.addPartida(partidaCreada).subscribe({
           next: (sala) => {
-            location.assign('/usuario/perfil');
+            location.assign('/noticias');
            /* this.showImage = false;
             this.saved = true;
             this.add.emit(event);
